@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
+import MainView from './components/MainView/main-view';
 
 class MyFlixApp extends React.Component {
   render() {
     return (
-      <div className="my-flix">
-        <div>Good Morning</div>
-      </div>
+        <MainView />
     );
   }
 }
