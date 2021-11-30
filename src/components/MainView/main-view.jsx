@@ -12,21 +12,27 @@ class MainView extends React.Component {
           _id: 1,
           Title: "M",
           Description: "A child murderer is loose in Berlin...",
-          ImagePath: "...",
+          Director: "Fritz Lang",
+          Genre: "Thriller",
+          ImagePath: "./img/M_poster.jpg",
         },
         {
           _id: 2,
           Title: "Duck Soup",
+          Director: "Leo McCarey",
           Description:
             "A case of mistaken identity leads Groucho to become the ruler of a small country...",
-          ImagePath: "...",
+          Genre: "Comedy",
+          ImagePath: "./img/duck-soup_poster.jpg",
         },
         {
           _id: 3,
           Title: "Freaks",
+          Director: "Tod Browning",          
           Description:
-            "A circus sideshow heir is tempted by a beatutiful trapeze artist, who is only after his fortuen...",
-          ImagePath: "...",
+            "A circus sideshow heir is tempted by a beatutiful trapeze artist, who is only after his fortune...",
+          Genre: "Thriller",
+          ImagePath: "./img/freaks_poster.jpg",
         },
       ],
     };
