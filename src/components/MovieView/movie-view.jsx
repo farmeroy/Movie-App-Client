@@ -12,6 +12,10 @@ class MovieView extends React.Component {
           <span className="label">Title:</span>
           <span className="value">{movie.Title}</span>
         </div>
+        <div className="movie-director">
+          <span className="label">Director:</span>
+          <span className="value">{movie.Director}</span>
+        </div>
         <div className="movie-description">
           <span className="label">Description:</span>
           <span className="value">{movie.Description}</span>
