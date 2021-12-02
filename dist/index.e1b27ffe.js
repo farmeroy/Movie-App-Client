@@ -24589,34 +24589,16 @@ class MovieView extends _reactDefault.default.Component {
             className: "movie-view",
             __source: {
                 fileName: "src/components/MovieView/movie-view.jsx",
-                lineNumber: 7,
+                lineNumber: 8,
                 columnNumber: 7
             },
             __self: this,
             children: [
-                /*#__PURE__*/ _jsxRuntime.jsx("div", {
-                    className: "movie-poster",
-                    __source: {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 8,
-                        columnNumber: 9
-                    },
-                    __self: this,
-                    children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
-                        src: movie.ImagePath,
-                        __source: {
-                            fileName: "src/components/MovieView/movie-view.jsx",
-                            lineNumber: 9,
-                            columnNumber: 11
-                        },
-                        __self: this
-                    })
-                }),
                 /*#__PURE__*/ _jsxRuntime.jsxs("div", {
                     className: "movie-title",
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 11,
+                        lineNumber: 12,
                         columnNumber: 9
                     },
                     __self: this,
@@ -24625,7 +24607,7 @@ class MovieView extends _reactDefault.default.Component {
                             className: "label",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 12,
+                                lineNumber: 13,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -24635,7 +24617,7 @@ class MovieView extends _reactDefault.default.Component {
                             className: "value",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 13,
+                                lineNumber: 14,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -24647,7 +24629,7 @@ class MovieView extends _reactDefault.default.Component {
                     className: "movie-director",
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 15,
+                        lineNumber: 16,
                         columnNumber: 9
                     },
                     __self: this,
@@ -24656,7 +24638,7 @@ class MovieView extends _reactDefault.default.Component {
                             className: "label",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 16,
+                                lineNumber: 17,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -24666,11 +24648,11 @@ class MovieView extends _reactDefault.default.Component {
                             className: "value",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 17,
+                                lineNumber: 18,
                                 columnNumber: 11
                             },
                             __self: this,
-                            children: movie.Director
+                            children: movie.Director.Name
                         })
                     ]
                 }),
@@ -24678,7 +24660,7 @@ class MovieView extends _reactDefault.default.Component {
                     className: "movie-description",
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 19,
+                        lineNumber: 20,
                         columnNumber: 9
                     },
                     __self: this,
@@ -24687,7 +24669,7 @@ class MovieView extends _reactDefault.default.Component {
                             className: "label",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 20,
+                                lineNumber: 21,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -24697,7 +24679,7 @@ class MovieView extends _reactDefault.default.Component {
                             className: "value",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 21,
+                                lineNumber: 22,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -24709,7 +24691,7 @@ class MovieView extends _reactDefault.default.Component {
                     onClick: onBackClick,
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 23,
+                        lineNumber: 24,
                         columnNumber: 9
                     },
                     __self: this,
