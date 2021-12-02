@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 import MovieCard from "../MovieCard/movie-card";
 import MovieView from "../MovieView/movie-view";
 
@@ -7,35 +9,20 @@ class MainView extends React.Component {
     super();
     this.state = {
       selectedMovie: null,
-      movies: [
-        {
-          _id: 1,
-          Title: "M",
-          Description: "A child murderer is loose in Berlin...",
-          Director: "Fritz Lang",
-          Genre: "Thriller",
-          ImagePath: "./img/M_poster.jpg",
-        },
-        {
-          _id: 2,
-          Title: "Duck Soup",
-          Director: "Leo McCarey",
-          Description:
-            "A case of mistaken identity leads Groucho to become the ruler of a small country...",
-          Genre: "Comedy",
-          ImagePath: "./img/duck-soup_poster.jpg",
-        },
-        {
-          _id: 3,
-          Title: "Freaks",
-          Director: "Tod Browning",          
-          Description:
-            "A circus sideshow heir is tempted by a beatutiful trapeze artist, who is only after his fortune...",
-          Genre: "Thriller",
-          ImagePath: "./img/freaks_poster.jpg",
-        },
-      ],
+      movies: [],
     };
+  }
+  componentDidMount() {
+    axios
+      .get("http://pre-code-flix.herokuapp.com/movies")
+      .then((response) => {
+        this.setState({
+          movies: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   setSelectedMovie(newSelectedMovie) {
@@ -46,7 +33,7 @@ class MainView extends React.Component {
     const { movies, selectedMovie } = this.state;
 
     if (!movies.length)
-      return <div className="main-view">The list is empty!</div>;
+      return <div className="main-view"></div>;
 
     return (
       <div className="main-view">
