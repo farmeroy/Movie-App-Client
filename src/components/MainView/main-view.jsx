@@ -13,7 +13,7 @@ class MainView extends React.Component {
       selectedMovie: null,
       movies: [],
       user: null,
-      registerUser: false
+      registerUser: false,
     };
   }
   componentDidMount() {
@@ -31,17 +31,15 @@ class MainView extends React.Component {
 
   onLoggedIn(user) {
     this.setState({
-      user
+      user,
     });
   }
 
   onRegisterUserHandler() {
     const showRegisterUser = !this.state.registerUser;
-
     this.setState({
-      registerUser: showRegisterUser 
+      registerUser: showRegisterUser,
     });
-    console.log(this.state.registerUser)
   }
 
   setSelectedMovie(newSelectedMovie) {
@@ -51,12 +49,17 @@ class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user, registerUser } = this.state;
 
-    if (!user && !registerUser) return <LoginView onLoggedIn={ (user) => this.onLoggedIn(user) } onRegisterUser={ () => this.onRegisterUserHandler() }/>;
+    if (!user && !registerUser)
+      return (
+        <LoginView
+          onLoggedIn={(user) => this.onLoggedIn(user)}
+          onRegisterUser={() => this.onRegisterUserHandler()}
+        />
+      );
 
     if (!user && registerUser) return <RegistrationView />;
 
-    if (!movies.length)
-      return <div className="main-view"></div>;
+    if (!movies.length) return <div className="main-view"></div>;
 
     return (
       <div className="main-view">
