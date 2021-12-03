@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function LoginView(props) {
   const [username, setUsername] = useState("");
@@ -36,6 +37,11 @@ function LoginView(props) {
       <button type="button" onClick={props.onRegisterUser}>Register New Account</button>
     </form>
   );
+}
+
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func,
+  onRegisterUser: PropTypes.func
 }
 
 export default LoginView;

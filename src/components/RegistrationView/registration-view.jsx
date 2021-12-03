@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function RegistrationView(props) {
   const [username, setUsername] = useState("");
@@ -47,5 +48,8 @@ function RegistrationView(props) {
   );
 }
 
+RegistrationView.propTypes = {
+  
+}
 export default RegistrationView;
 
