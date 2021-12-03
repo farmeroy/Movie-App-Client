@@ -33,6 +33,7 @@ function LoginView(props) {
       <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
+      <button type="button" onClick={props.onRegisterUser}>Register New Account</button>
     </form>
   );
 }
