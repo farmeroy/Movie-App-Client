@@ -7,10 +7,10 @@ class MovieView extends React.Component {
     const { movie, onBackClick } = this.props;
     return (
       <Row className="movie-view">
-        <Col md={6} className="movie-poster">
+        <Col sm={12} md={6} className="movie-poster">
           <Image src={movie.ImagePath} fluid/>
         </Col>
-        <Col sm={10} md={6} >
+        <Col sm={12} md={6} >
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item className="movie-title">
