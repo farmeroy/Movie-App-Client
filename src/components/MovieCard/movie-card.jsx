@@ -1,4 +1,5 @@
 import React from "react";
+import './movie-card.scss';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -8,10 +9,10 @@ class MovieCard extends React.Component {
     const { movieData, onMovieClick } = this.props;
 
     return (
-      <Card style={{ height: '600px', overflow: 'hidden' }}>
-        <Card.Img variant="top" src={movieData.ImagePath} />
+      <Card className='movie-card'>
+        <Card.Img variant="top" className="poster" src={movieData.ImagePath} />
         <Card.Body>
-          <Card.Title>{movieData.Title}</Card.Title>
+          <Card.Title className='limelight'>{movieData.Title}</Card.Title>
           <Card.Text>{movieData.Description}</Card.Text>
           <Button onClick={ () =>  onMovieClick(movieData)} variant="link">Open</Button>
           </Card.Body>
