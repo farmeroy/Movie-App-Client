@@ -4,8 +4,7 @@ import LoginView from "../LoginView/login-view";
 import MovieCard from "../MovieCard/movie-card";
 import MovieView from "../MovieView/movie-view";
 import RegistrationView from "../RegistrationView/registration-view";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Container, Row, Col, Navbar } from "react-bootstrap";
 
 class MainView extends React.Component {
   constructor() {
@@ -63,28 +62,36 @@ class MainView extends React.Component {
     if (!movies.length) return <div className="main-view"></div>;
 
     return (
-      <Row className="main-view justify-content-md-center">
-        {selectedMovie ? (
-          <Col md={8}>
-            <MovieView
-              movie={selectedMovie}
-              onBackClick={() => this.setSelectedMovie(null)}
-            />
-          </Col>
-        ) : (
-          movies.map((movie) => (
-            <Col md={3}>
-              <MovieCard
-                key={movie._id}
-                movieData={movie}
-                onMovieClick={(movie) => {
-                  this.setSelectedMovie(movie);
-                }}
+      <>
+        <Navbar bg="light" sticky="top">
+          <Container fluid>
+            <Navbar.Brand>Pre-Code Flix</Navbar.Brand>
+          </Container>
+        </Navbar>
+
+        <Row className="main-view justify-content-md-center">
+          {selectedMovie ? (
+            <Col md={8}>
+              <MovieView
+                movie={selectedMovie}
+                onBackClick={() => this.setSelectedMovie(null)}
               />
             </Col>
-          ))
-        )}
-      </Row>
+          ) : (
+            movies.map((movie) => (
+              <Col  sm={6} md={4} lg={3}>
+                <MovieCard
+                  key={movie._id}
+                  movieData={movie}
+                  onMovieClick={(movie) => {
+                    this.setSelectedMovie(movie);
+                  }}
+                />
+              </Col>
+            ))
+          )}
+        </Row>
+      </>
     );
   }
 }
