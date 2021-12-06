@@ -1,4 +1,5 @@
 import React from "react";
+import './main-view.scss';
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
 import MovieCard from "../MovieCard/movie-card";
@@ -63,15 +64,15 @@ class MainView extends React.Component {
 
     return (
       <>
-        <Navbar bg="light" sticky="top">
+        <Navbar bg="light" sticky="top" >
           <Container fluid>
-            <Navbar.Brand>Pre-Code Flix</Navbar.Brand>
+            <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
           </Container>
         </Navbar>
 
         <Row className="main-view justify-content-md-center">
           {selectedMovie ? (
-            <Col md={8}>
+            <Col lg={10}>
               <MovieView
                 movie={selectedMovie}
                 onBackClick={() => this.setSelectedMovie(null)}
@@ -79,7 +80,7 @@ class MainView extends React.Component {
             </Col>
           ) : (
             movies.map((movie) => (
-              <Col  sm={6} md={4} lg={3}>
+              <Col  sm={6} md={4} lg={3} className='movie-column'>
                 <MovieCard
                   key={movie._id}
                   movieData={movie}
