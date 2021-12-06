@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Form, Button } from "react-bootstrap";
 
 function RegistrationView(props) {
   const [username, setUsername] = useState("");
@@ -8,48 +9,43 @@ function RegistrationView(props) {
   const [birthday, setBirthday] = useState("");
 
   return (
-    <form>
-      <label>
-        Username:
-        <input
+    <Form>
+      <Form.Group controlId="formUserName">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
-          value={username}
           onChange={(event) => setUsername(event.target.value)}
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
           type="password"
-          value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+      </Form.Group>
+
+      <Form.Group controlId="formEmail">
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
+          type="text"
+          onchange={(event) => setEmail(event.target.value)}
         />
-      </label>
-      <label>
-        Birthday:
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="formBirthday">
+        <Form.Label>Birthday:</Form.Label>
+        <Form.Control
           type="date"
-          value={birthday}
           onChange={(event) => setBirthday(event.target.value)}
         />
-      </label>
-      <button type="submit" onClick={console.log('clicked')}>
-        Submit
-      </button>
-    </form>
+      </Form.Group>
+
+      <Button type="submit" onClick={() => console.log('clicked')}>Confirm</Button>
+    </Form>
   );
 }
 
-RegistrationView.propTypes = {
-  
-}
+RegistrationView.propTypes = {};
 export default RegistrationView;
-
