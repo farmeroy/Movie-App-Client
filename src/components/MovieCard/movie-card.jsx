@@ -8,7 +8,7 @@ class MovieCard extends React.Component {
     const { movieData, onMovieClick } = this.props;
 
     return (
-      <Card>
+      <Card style={{ height: '600px', overflow: 'hidden' }}>
         <Card.Img variant="top" src={movieData.ImagePath} />
         <Card.Body>
           <Card.Title>{movieData.Title}</Card.Title>
