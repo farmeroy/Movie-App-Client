@@ -34,35 +34,13 @@ function LoginView(props) {
       </Form.Group>
 
       <Button variant="primary" type="submit" onClick={handleSubmit}>
-        Submit
+        Login
+      </Button>
+      <Button variant="secondary" type="button" onClick={props.onRegisterUser}>
+        New Account
       </Button>
     </Form>
   );
-
-  // return (
-  //   <form>
-  //     <label>
-  //       Username:
-  //       <input
-  //         type="text"
-  //         value={username}
-  //         onChange={(event) => setUsername(event.target.value)}
-  //       />
-  //     </label>
-  //     <label>
-  //       Password:
-  //       <input
-  //         type="password"
-  //         value={password}
-  //         onChange={(event) => setPassword(event.target.value)}
-  //       />
-  //     </label>
-  //     <button type="submit" onClick={handleSubmit}>
-  //       Submit
-  //     </button>
-  //     <button type="button" onClick={props.onRegisterUser}>Register New Account</button>
-  //   </form>
-  // );
 }
 
 LoginView.propTypes = {
