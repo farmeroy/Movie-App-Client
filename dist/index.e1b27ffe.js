@@ -25836,6 +25836,7 @@ class MovieView extends _reactDefault.default.Component {
             __self: this,
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+                    sm: 12,
                     md: 6,
                     className: "movie-poster",
                     __source: {
@@ -25856,7 +25857,7 @@ class MovieView extends _reactDefault.default.Component {
                     })
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
-                    sm: 10,
+                    sm: 12,
                     md: 6,
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
