@@ -7,7 +7,6 @@ body {
   color: steelblue;
 }
 .movie-card {
-  height: 600px;
   overflow: hidden;
   color: white;
   text-align: center;
@@ -18,11 +17,43 @@ body {
   font-family: "Limelight", cursive;
   text-align: center;
 }
-.preCodeBrand {
+.movie-image {
+  height: 80vh important;
+  width: auto;
+}
+
+.movie-info {
+  background-color: #577bc1;
+  color: white;
+}
+
+.label {
   font-family: "Limelight", cursive;
 }
 
+.movie-view {
+  margin-top: 10px;
+  height: 80vh !important;
+}
+
+.back-btn {
+  background-color: #344cb7;
+  border: none;
+}
+.label {
+  color: white;
+}
+.preCodeBrand {
+  font-family: "Limelight", cursive;
+  color: #ebe645;
+}
+
 .movie-column {
-  padding: 2rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.my-navbar {
+  background-color: #000957;
 }
 /*# sourceMappingURL=index.1f6edfee.css.map */
