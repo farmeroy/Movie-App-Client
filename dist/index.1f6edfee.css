@@ -1,13 +1,21 @@
+.app-background,
+body {
+  background-color: #000957;
+}
+
 .my-flix {
   color: steelblue;
 }
 .movie-card {
   height: 600px;
   overflow: hidden;
+  color: white;
+  text-align: center;
+  background-color: #577bc1;
 }
 
 .limelight {
-  font-family: "Limelight", cursive !important;
+  font-family: "Limelight", cursive;
   text-align: center;
 }
 .preCodeBrand {

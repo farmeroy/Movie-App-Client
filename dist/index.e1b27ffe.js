@@ -957,6 +957,7 @@ var _containerDefault = parcelHelpers.interopDefault(_container);
 class MyFlixApp extends _reactDefault.default.Component {
     render() {
         return(/*#__PURE__*/ _jsxRuntime.jsx(_containerDefault.default, {
+            className: "app-background",
             __source: {
                 fileName: "src/index.jsx",
                 lineNumber: 10,
@@ -22777,9 +22778,13 @@ class MainView extends _reactDefault.default.Component {
         };
     }
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        });
         _axiosDefault.default.get("http://pre-code-flix.herokuapp.com/movies").then((response)=>{
             this.setState({
-                movies: response.data
+                movies: response.data,
+                isLoading: false
             });
         }).catch((error)=>{
             console.log(error);
@@ -22810,7 +22815,7 @@ class MainView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 55,
+                lineNumber: 59,
                 columnNumber: 9
             },
             __self: this
@@ -22818,7 +22823,7 @@ class MainView extends _reactDefault.default.Component {
         if (!user1 && registerUser) return(/*#__PURE__*/ _jsxRuntime.jsx(_registrationViewDefault.default, {
             __source: {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 61,
+                lineNumber: 65,
                 columnNumber: 39
             },
             __self: this
@@ -22827,7 +22832,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 63,
+                lineNumber: 67,
                 columnNumber: 32
             },
             __self: this
@@ -22839,7 +22844,7 @@ class MainView extends _reactDefault.default.Component {
                     sticky: "top",
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 71,
                         columnNumber: 9
                     },
                     __self: this,
@@ -22847,7 +22852,7 @@ class MainView extends _reactDefault.default.Component {
                         fluid: true,
                         __source: {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 68,
+                            lineNumber: 72,
                             columnNumber: 11
                         },
                         __self: this,
@@ -22855,7 +22860,7 @@ class MainView extends _reactDefault.default.Component {
                             className: "preCodeBrand",
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 69,
+                                lineNumber: 73,
                                 columnNumber: 13
                             },
                             __self: this,
@@ -22867,7 +22872,7 @@ class MainView extends _reactDefault.default.Component {
                     className: "main-view justify-content-md-center",
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 73,
+                        lineNumber: 76,
                         columnNumber: 9
                     },
                     __self: this,
@@ -22875,7 +22880,7 @@ class MainView extends _reactDefault.default.Component {
                         lg: 10,
                         __source: {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 75,
+                            lineNumber: 78,
                             columnNumber: 13
                         },
                         __self: this,
@@ -22885,7 +22890,7 @@ class MainView extends _reactDefault.default.Component {
                             ,
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 76,
+                                lineNumber: 79,
                                 columnNumber: 15
                             },
                             __self: this
@@ -22897,7 +22902,7 @@ class MainView extends _reactDefault.default.Component {
                             className: "movie-column",
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 83,
+                                lineNumber: 86,
                                 columnNumber: 15
                             },
                             __self: this,
@@ -22908,7 +22913,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 84,
+                                    lineNumber: 87,
                                     columnNumber: 17
                                 },
                                 __self: this
@@ -24505,13 +24510,24 @@ var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _card = require("react-bootstrap/Card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
 class MovieCard extends _reactDefault.default.Component {
+    // method to ensure consistent text length and card height
+    truncateText(text) {
+        if (!text) return '...';
+        if (text.length > 120) {
+            let newText = text.slice(0, 117);
+            newText += '...';
+            console.log(newText);
+            return newText;
+        }
+        return text;
+    }
     render() {
         const { movieData , onMovieClick  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
-            className: "movie-card",
+            bsPrefix: "movie-card",
             __source: {
                 fileName: "src/components/MovieCard/movie-card.jsx",
-                lineNumber: 12,
+                lineNumber: 30,
                 columnNumber: 7
             },
             __self: this,
@@ -24522,7 +24538,7 @@ class MovieCard extends _reactDefault.default.Component {
                     src: movieData.ImagePath,
                     __source: {
                         fileName: "src/components/MovieCard/movie-card.jsx",
-                        lineNumber: 13,
+                        lineNumber: 31,
                         columnNumber: 9
                     },
                     __self: this
@@ -24530,7 +24546,7 @@ class MovieCard extends _reactDefault.default.Component {
                 /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                     __source: {
                         fileName: "src/components/MovieCard/movie-card.jsx",
-                        lineNumber: 14,
+                        lineNumber: 32,
                         columnNumber: 9
                     },
                     __self: this,
@@ -24539,7 +24555,7 @@ class MovieCard extends _reactDefault.default.Component {
                             className: "limelight",
                             __source: {
                                 fileName: "src/components/MovieCard/movie-card.jsx",
-                                lineNumber: 15,
+                                lineNumber: 33,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -24548,11 +24564,11 @@ class MovieCard extends _reactDefault.default.Component {
                         /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                             __source: {
                                 fileName: "src/components/MovieCard/movie-card.jsx",
-                                lineNumber: 16,
+                                lineNumber: 34,
                                 columnNumber: 11
                             },
                             __self: this,
-                            children: movieData.Description
+                            children: this.truncateText(movieData.Description)
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                             onClick: ()=>onMovieClick(movieData)
@@ -24560,7 +24576,7 @@ class MovieCard extends _reactDefault.default.Component {
                             variant: "link",
                             __source: {
                                 fileName: "src/components/MovieCard/movie-card.jsx",
-                                lineNumber: 17,
+                                lineNumber: 35,
                                 columnNumber: 11
                             },
                             __self: this,
