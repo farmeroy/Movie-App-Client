@@ -11,7 +11,7 @@ function RegistrationView(props) {
   return (
     <Form>
       <Form.Group controlId="formUserName">
-        <Form.Label>Username:</Form.Label>
+        <Form.Label><span className="label">Username:</span></Form.Label>
         <Form.Control
           type="text"
           onChange={(event) => setUsername(event.target.value)}
@@ -19,7 +19,7 @@ function RegistrationView(props) {
       </Form.Group>
 
       <Form.Group controlId="formPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label><span className="label">Password</span></Form.Label>
         <Form.Control
           type="password"
           onChange={(event) => setPassword(event.target.value)}
@@ -27,7 +27,7 @@ function RegistrationView(props) {
       </Form.Group>
 
       <Form.Group controlId="formEmail">
-        <Form.Label>Email:</Form.Label>
+        <Form.Label><span className="label">Email:</span></Form.Label>
         <Form.Control
           type="text"
           onchange={(event) => setEmail(event.target.value)}
@@ -35,7 +35,7 @@ function RegistrationView(props) {
       </Form.Group>
 
       <Form.Group controlId="formBirthday">
-        <Form.Label>Birthday:</Form.Label>
+        <Form.Label><span className="label">Birthday:</span></Form.Label>
         <Form.Control
           type="date"
           onChange={(event) => setBirthday(event.target.value)}
