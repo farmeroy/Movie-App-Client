@@ -18,11 +18,15 @@ class MainView extends React.Component {
     };
   }
   componentDidMount() {
+    this.setState({
+      isLoading: true
+    })
     axios
       .get("http://pre-code-flix.herokuapp.com/movies")
       .then((response) => {
         this.setState({
           movies: response.data,
+          isLoading: false
         });
       })
       .catch((error) => {
@@ -69,7 +73,6 @@ class MainView extends React.Component {
             <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
           </Container>
         </Navbar>
-
         <Row className="main-view justify-content-md-center">
           {selectedMovie ? (
             <Col lg={10}>
