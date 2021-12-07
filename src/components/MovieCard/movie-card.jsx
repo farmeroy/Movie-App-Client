@@ -27,7 +27,7 @@ class MovieCard extends React.Component {
     const { movieData, onMovieClick } = this.props;
 
     return (
-      <Card className='movie-card'>
+      <Card bsPrefix='movie-card'>
         <Card.Img variant="top" className="poster" src={movieData.ImagePath} />
         <Card.Body>
           <Card.Title className='limelight'>{movieData.Title}</Card.Title>
