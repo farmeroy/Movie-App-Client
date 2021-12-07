@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 class MyFlixApp extends React.Component {
   render() {
     return (
-      <Container>
+      <Container className="app-background">
         <MainView />
       </Container>
     );
