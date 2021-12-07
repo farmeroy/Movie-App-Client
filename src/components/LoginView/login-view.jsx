@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 import './login-view.scss';
 
 function LoginView(props) {
@@ -17,6 +18,7 @@ function LoginView(props) {
   };
 
   return (
+    <Col md={8}>
     <Form className="login-form">
       <Form.Group controlId="formUsername">
         <Form.Label><span className='label'>Username:</span></Form.Label>
@@ -34,13 +36,14 @@ function LoginView(props) {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
+      <Button sizevariant="primary" type="submit" onClick={handleSubmit}>
         Login
-      </Button>
+      </Button>{' '}
       <Button variant="secondary" type="button" onClick={props.onRegisterUser}>
         New Account
       </Button>
     </Form>
+    </Col>
   );
 }
 
