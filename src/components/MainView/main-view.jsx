@@ -5,7 +5,7 @@ import LoginView from "../LoginView/login-view";
 import MovieCard from "../MovieCard/movie-card";
 import MovieView from "../MovieView/movie-view";
 import RegistrationView from "../RegistrationView/registration-view";
-import { Container, Row, Col, Navbar } from "react-bootstrap";
+import { CardGroup, Container, Row, Col, Navbar } from "react-bootstrap";
 
 class MainView extends React.Component {
   constructor() {
@@ -66,24 +66,8 @@ class MainView extends React.Component {
 
     if (!movies.length) return <div className="main-view"></div>;
 
-    return (
-      <>
-        <Navbar bg="light" sticky="top" >
-          <Container fluid>
-            <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
-          </Container>
-        </Navbar>
-        <Row className="main-view justify-content-md-center">
-          {selectedMovie ? (
-            <Col lg={10}>
-              <MovieView
-                movie={selectedMovie}
-                onBackClick={() => this.setSelectedMovie(null)}
-              />
-            </Col>
-          ) : (
-            movies.map((movie) => (
-              <Col  sm={6} md={4} lg={3} className='movie-column'>
+    const movieCards =  movies.map((movie) => (
+               <Col  sm={6} md={4} lg={3} className='movie-column'>
                 <MovieCard
                   key={movie._id}
                   movieData={movie}
@@ -92,8 +76,25 @@ class MainView extends React.Component {
                   }}
                 />
               </Col>
-            ))
-          )}
+            ));
+
+    return (
+      <>
+        <Navbar bsPrefix="my-navbar" sticky="top" >
+          <Container fluid>
+            <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
+          </Container>
+        </Navbar>
+        <Row className="main-view justify-content-md-center row-eq-height">
+          {selectedMovie && 
+            <Col lg={10}>
+              <MovieView
+                movie={selectedMovie}
+                onBackClick={() => this.setSelectedMovie(null)}
+              />
+            </Col>
+          }
+          {!selectedMovie && movieCards}
         </Row>
       </>
     );
