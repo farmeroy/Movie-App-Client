@@ -4,7 +4,25 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+
+
 class MovieCard extends React.Component {
+
+  // method to ensure consistent text length and card height
+  truncateText(text) {
+    if (!text) {
+      return '...'
+    }
+    if (text.length > 120) {
+      let newText = text.slice(0, 117);
+      newText += '...';
+      console.log(newText)
+      return newText;
+    } 
+    return text;
+  }
+
+
   render() {
     const { movieData, onMovieClick } = this.props;
 
@@ -13,7 +31,7 @@ class MovieCard extends React.Component {
         <Card.Img variant="top" className="poster" src={movieData.ImagePath} />
         <Card.Body>
           <Card.Title className='limelight'>{movieData.Title}</Card.Title>
-          <Card.Text>{movieData.Description}</Card.Text>
+          <Card.Text>{this.truncateText(movieData.Description)}</Card.Text>
           <Button onClick={ () =>  onMovieClick(movieData)} variant="link">Open</Button>
           </Card.Body>
       </Card>
