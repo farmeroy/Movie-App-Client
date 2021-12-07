@@ -32,7 +32,7 @@ class MovieCard extends React.Component {
         <Card.Body>
           <Card.Title bsPrefix='limelight'>{movieData.Title}</Card.Title>
           <Card.Text>{this.truncateText(movieData.Description)}</Card.Text>
-          <Button onClick={ () =>  onMovieClick(movieData)}  variant="link-dark">Open</Button>
+          <Button onClick={ () =>  onMovieClick(movieData)}  variant="link-dark" fluid>Open</Button>
           </Card.Body>
       </Card>
     );
