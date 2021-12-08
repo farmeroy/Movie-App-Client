@@ -1,5 +1,6 @@
 import React from "react";
-import './main-view.scss';
+import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
+import "./main-view.scss";
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
 import MovieCard from "../MovieCard/movie-card";
@@ -8,7 +9,6 @@ import RegistrationView from "../RegistrationView/registration-view";
 import { Button, Container, Row, Col, Navbar } from "react-bootstrap";
 
 class MainView extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -20,32 +20,31 @@ class MainView extends React.Component {
   }
 
   componentDidMount() {
-    const accessToken = localStorage.getItem('token');
+    const accessToken = localStorage.getItem("token");
     if (accessToken !== null) {
       this.setState({
-        user: localStorage.getItem('user')
+        user: localStorage.getItem("user"),
       });
       this.getMovies(accessToken);
     }
   }
 
-
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user.Username
+      user: authData.user.Username,
     });
 
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.Username);
     this.getMovies(authData.token);
   }
 
   onLoggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.setState({
-      user: null
+      user: null,
     });
   }
 
@@ -57,17 +56,18 @@ class MainView extends React.Component {
   }
 
   getMovies(token) {
-    axios.get("http://pre-code-flix.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
+    axios
+      .get("http://pre-code-flix.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
         this.setState({
-          movies: response.data
+          movies: response.data,
         });
       })
       .catch(function (error) {
         console.log(error);
-      })
+      });
   }
 
   setSelectedMovie(newSelectedMovie) {
@@ -76,7 +76,7 @@ class MainView extends React.Component {
 
   render() {
     const { movies, selectedMovie, user, registerUser } = this.state;
-
+    const params = useParams();
     if (!user && !registerUser)
       return (
         <LoginView
@@ -89,38 +89,49 @@ class MainView extends React.Component {
 
     if (!movies.length) return <div className="main-view"></div>;
 
-    const movieCards =  movies.map((movie) => (
-               <Col  sm={6} md={4} lg={3} className='movie-column' key={movie._id}>
-                <MovieCard
-                  key={movie._id}
-                  movieData={movie}
-                  onMovieClick={(movie) => {
-                    this.setSelectedMovie(movie);
-                  }}
-                />
-              </Col>
-            ));
+    const movieCards = movies.map((movie) => (
+      <Col sm={6} md={4} lg={3} className="movie-column" key={movie._id}>
+        <MovieCard
+          key={movie._id}
+          movieData={movie}
+          onMovieClick={(movie) => {
+            this.setSelectedMovie(movie);
+          }}
+        />
+      </Col>
+    ));
 
     return (
-      <>
-        <Navbar bsPrefix="my-navbar" sticky="top" >
+      <Router>
+        <Navbar bsPrefix="my-navbar" sticky="top">
           <Container fluid>
             <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
             <Button onClick={this.onLoggedOut.bind(this)}>Log Out</Button>
           </Container>
         </Navbar>
+
         <Row className="main-view justify-content-md-center row-eq-height">
-          {selectedMovie && 
-            <Col lg={10}>
-              <MovieView
-                movie={selectedMovie}
-                onBackClick={() => this.setSelectedMovie(null)}
-              />
-            </Col>
-          }
-          {!selectedMovie && movieCards}
+          <Routes>
+            <Route exact path="/" element={movieCards} />
+
+            <Route
+              path="/movies/:movieId"
+              element={
+                <Col lg={10}>
+                  <MovieView
+                    movie={params.movieId}
+                    onBackClick={() => console.log("poop")}
+                  />
+                </Col>
+              }
+            />
+
+            <Route exact patch="/genres/:name" />
+
+            <Route exact patch="/directors/:name" />
+          </Routes>
         </Row>
-      </>
+      </Router>
     );
   }
 }
