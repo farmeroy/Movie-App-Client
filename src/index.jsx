@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
-import MainView from "./components/MainView/main-view";
+// import MainView from "./components/MainView/main-view";
+import MainView from "./components/MainView/main-view.func.jsx";
 import Container from "react-bootstrap/Container";
 
 class MyFlixApp extends React.Component {
