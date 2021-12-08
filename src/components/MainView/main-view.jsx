@@ -5,9 +5,10 @@ import LoginView from "../LoginView/login-view";
 import MovieCard from "../MovieCard/movie-card";
 import MovieView from "../MovieView/movie-view";
 import RegistrationView from "../RegistrationView/registration-view";
-import { CardGroup, Container, Row, Col, Navbar } from "react-bootstrap";
+import { Button, Container, Row, Col, Navbar } from "react-bootstrap";
 
 class MainView extends React.Component {
+
   constructor() {
     super();
     this.state = {
@@ -17,26 +18,34 @@ class MainView extends React.Component {
       registerUser: false,
     };
   }
+
   componentDidMount() {
-    this.setState({
-      isLoading: true
-    })
-    axios
-      .get("http://pre-code-flix.herokuapp.com/movies")
-      .then((response) => {
-        this.setState({
-          movies: response.data,
-          isLoading: false
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    const accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
       });
+      this.getMovies(accessToken);
+    }
   }
 
-  onLoggedIn(user) {
+
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user,
+      user: authData.user.Username
+    });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
     });
   }
 
@@ -45,6 +54,20 @@ class MainView extends React.Component {
     this.setState({
       registerUser: showRegisterUser,
     });
+  }
+
+  getMovies(token) {
+    axios.get("http://pre-code-flix.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        this.setState({
+          movies: response.data
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   setSelectedMovie(newSelectedMovie) {
@@ -67,7 +90,7 @@ class MainView extends React.Component {
     if (!movies.length) return <div className="main-view"></div>;
 
     const movieCards =  movies.map((movie) => (
-               <Col  sm={6} md={4} lg={3} className='movie-column'>
+               <Col  sm={6} md={4} lg={3} className='movie-column' key={movie._id}>
                 <MovieCard
                   key={movie._id}
                   movieData={movie}
@@ -83,6 +106,7 @@ class MainView extends React.Component {
         <Navbar bsPrefix="my-navbar" sticky="top" >
           <Container fluid>
             <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
+            <Button onClick={this.onLoggedOut.bind(this)}>Log Out</Button>
           </Container>
         </Navbar>
         <Row className="main-view justify-content-md-center row-eq-height">
