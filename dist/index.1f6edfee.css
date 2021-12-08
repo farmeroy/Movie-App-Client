@@ -6,6 +6,9 @@ body {
 .my-flix {
   color: steelblue;
 }
+.label {
+  color: white;
+}
 .movie-card {
   overflow: hidden;
   color: white;
@@ -39,9 +42,6 @@ body {
 .back-btn {
   background-color: #344cb7;
   border: none;
-}
-.label {
-  color: white;
 }
 .preCodeBrand {
   font-family: "Limelight", cursive;
