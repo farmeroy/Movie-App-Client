@@ -16,7 +16,6 @@ class MovieCard extends React.Component {
     if (text.length > 120) {
       let newText = text.slice(0, 117);
       newText += '...';
-      console.log(newText)
       return newText;
     } 
     return text;
@@ -27,12 +26,12 @@ class MovieCard extends React.Component {
     const { movieData, onMovieClick } = this.props;
 
     return (
-      <Card bsPrefix='movie-card'>
+      <Card bsPrefix='movie-card' >
         <Card.Img variant="top"  src={movieData.ImagePath} />
         <Card.Body>
           <Card.Title bsPrefix='limelight'>{movieData.Title}</Card.Title>
           <Card.Text>{this.truncateText(movieData.Description)}</Card.Text>
-          <Button onClick={ () =>  onMovieClick(movieData)}  variant="link-dark" fluid>Open</Button>
+          <Button onClick={ () =>  onMovieClick(movieData)}  variant="link-dark" >Open</Button>
           </Card.Body>
       </Card>
     );
