@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
+import axios from 'axios';
+import {Button, Col, Form} from "react-bootstrap";
 import './login-view.scss';
 
 function LoginView(props) {
@@ -11,20 +10,28 @@ function LoginView(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(username, password);
-    /* Send a request to the server for authentication */
-    /* then call props.onLoggedIn(username) */
-    props.onLoggedIn(username);
+    axios.post('https://pre-code-flix.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+      .then(response => { 
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(event => {
+        console.log('no such user')
+      })
   };
 
   return (
     <Col md={8}>
-    <Form className="login-form">
+    <Form className="login-form" >
       <Form.Group controlId="formUsername">
         <Form.Label><span className='label'>Username:</span></Form.Label>
         <Form.Control
           type="text"
           onChange={(event) => setUsername(event.target.value)}
+          placeholder='username'
         />
       </Form.Group>
 
@@ -33,6 +40,7 @@ function LoginView(props) {
         <Form.Control
           type="password"
           onChange={(event) => setPassword(event.target.value)}
+          placeholder='password'
         />
       </Form.Group>
 
