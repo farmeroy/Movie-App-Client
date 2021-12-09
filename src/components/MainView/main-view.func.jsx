@@ -28,10 +28,15 @@ const MainView = () => {
       .catch(function (error) {
         console.log(error);
       });
+    console.log(movies)
   };
 
   const onLoggedIn = (authData) => {
+    console.log(authData.user.Username)
+    console.log('token', authData.token)
+
     setUser(authData.user.Username);
+    console.log('error is here')
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
     getMovies(authData.token);
@@ -68,6 +73,12 @@ const MainView = () => {
 
       <Row className="main-view justify-content-md-center row-eq-height">
         <Routes>
+          {/* placeholder while the movies fetch*/}
+          {user && !movies &&
+          <Route
+          path="/"
+            element={<div className="main-view"></div>}
+            />}
           {user && (
             <Route
               path="/"
@@ -79,8 +90,7 @@ const MainView = () => {
               path="/"
               element={
                 <LoginView
-                  onLoggedIn={(user) => onLoggedIn(user)}
-                  onRegisterUser={() => onRegisterUserHandler()}
+                  onLoggedIn={onLoggedIn}
                 />
               }
             />
