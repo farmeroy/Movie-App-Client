@@ -9,16 +9,18 @@ body {
 .label {
   color: white;
 }
-.movie-card {
-  overflow: hidden;
-  color: white;
-  text-align: center;
-  background-color: #577bc1;
+.preCodeBrand {
+  font-family: "Limelight", cursive;
+  color: #ebe645;
 }
 
-.limelight {
-  font-family: "Limelight", cursive;
-  text-align: center;
+.movie-column {
+  padding: 1rem;
+  display: flex;
+}
+
+.my-navbar {
+  background-color: #000957;
 }
 .movie-image {
   height: 80vh important;
@@ -43,17 +45,15 @@ body {
   background-color: #344cb7;
   border: none;
 }
-.preCodeBrand {
+.movie-card {
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  background-color: #577bc1;
+}
+
+.limelight {
   font-family: "Limelight", cursive;
-  color: #ebe645;
-}
-
-.movie-column {
-  padding: 1rem;
-  display: flex;
-}
-
-.my-navbar {
-  background-color: #000957;
+  text-align: center;
 }
 /*# sourceMappingURL=index.1f6edfee.css.map */
