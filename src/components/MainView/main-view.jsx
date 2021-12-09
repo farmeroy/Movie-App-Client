@@ -120,7 +120,7 @@ class MainView extends React.Component {
                 <Col lg={10}>
                   <MovieView
                     movie={params.movieId}
-                    onBackClick={() => console.log("poop")}
+                    onBackClick={() => console.log("go back")}
                   />
                 </Col>
               }
