@@ -23060,9 +23060,13 @@ const MainView = ()=>{
         }).catch(function(error) {
             console.log(error);
         });
+        console.log(movies);
     };
     const onLoggedIn = (authData)=>{
+        console.log(authData.user.Username);
+        console.log('token', authData.token);
         setUser(authData.user.Username);
+        console.log('error is here');
         localStorage.setItem("token", authData.token);
         localStorage.setItem("user", authData.user.Username);
         getMovies(authData.token);
@@ -23086,7 +23090,7 @@ const MainView = ()=>{
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
         __source: {
             fileName: "src/components/MainView/main-view.func.jsx",
-            lineNumber: 61,
+            lineNumber: 66,
             columnNumber: 5
         },
         __self: undefined,
@@ -23096,7 +23100,7 @@ const MainView = ()=>{
                 sticky: "top",
                 __source: {
                     fileName: "src/components/MainView/main-view.func.jsx",
-                    lineNumber: 62,
+                    lineNumber: 67,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -23104,7 +23108,7 @@ const MainView = ()=>{
                     fluid: true,
                     __source: {
                         fileName: "src/components/MainView/main-view.func.jsx",
-                        lineNumber: 63,
+                        lineNumber: 68,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23113,7 +23117,7 @@ const MainView = ()=>{
                             className: "preCodeBrand",
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 64,
+                                lineNumber: 69,
                                 columnNumber: 11
                             },
                             __self: undefined,
@@ -23123,7 +23127,7 @@ const MainView = ()=>{
                             onClick: onLoggedOut.bind(undefined),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 65,
+                                lineNumber: 70,
                                 columnNumber: 11
                             },
                             __self: undefined,
@@ -23136,18 +23140,30 @@ const MainView = ()=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.func.jsx",
-                    lineNumber: 69,
+                    lineNumber: 74,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.func.jsx",
-                        lineNumber: 70,
+                        lineNumber: 75,
                         columnNumber: 9
                     },
                     __self: undefined,
                     children: [
+                        user && !movies && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                            path: "/",
+                            element: /*#__PURE__*/ _jsxRuntime.jsx("div", {
+                                className: "main-view"
+                            }),
+                            __source: {
+                                fileName: "src/components/MainView/main-view.func.jsx",
+                                lineNumber: 78,
+                                columnNumber: 11
+                            },
+                            __self: undefined
+                        }),
                         user && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_moviesJsxDefault.default, {
@@ -23156,7 +23172,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 72,
+                                lineNumber: 83,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23164,13 +23180,11 @@ const MainView = ()=>{
                         !user && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_loginViewDefault.default, {
-                                onLoggedIn: (user)=>onLoggedIn(user)
-                                ,
-                                onRegisterUser: ()=>onRegisterUserHandler()
+                                onLoggedIn: onLoggedIn
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 78,
+                                lineNumber: 89,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23181,7 +23195,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 88,
+                                lineNumber: 98,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23194,7 +23208,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 89,
+                                lineNumber: 99,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23206,7 +23220,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 99,
+                                lineNumber: 109,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23218,7 +23232,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 100,
+                                lineNumber: 110,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -26466,7 +26480,7 @@ function LoginView(props) {
         }).then((response)=>{
             const data = response.data;
             props.onLoggedIn(data);
-        }).catch((event)=>{
+        }).catch((error)=>{
             console.log('no such user');
         });
     };
@@ -26474,7 +26488,7 @@ function LoginView(props) {
         md: 8,
         __source: {
             fileName: "src/components/LoginView/login-view.jsx",
-            lineNumber: 28,
+            lineNumber: 29,
             columnNumber: 5
         },
         __self: this,
@@ -26482,7 +26496,7 @@ function LoginView(props) {
             className: "login-form",
             __source: {
                 fileName: "src/components/LoginView/login-view.jsx",
-                lineNumber: 29,
+                lineNumber: 30,
                 columnNumber: 5
             },
             __self: this,
@@ -26491,7 +26505,7 @@ function LoginView(props) {
                     controlId: "formUsername",
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 30,
+                        lineNumber: 31,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26499,7 +26513,7 @@ function LoginView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 31,
+                                lineNumber: 32,
                                 columnNumber: 9
                             },
                             __self: this,
@@ -26507,7 +26521,7 @@ function LoginView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/LoginView/login-view.jsx",
-                                    lineNumber: 31,
+                                    lineNumber: 32,
                                     columnNumber: 21
                                 },
                                 __self: this,
@@ -26521,7 +26535,7 @@ function LoginView(props) {
                             placeholder: "username",
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 32,
+                                lineNumber: 33,
                                 columnNumber: 9
                             },
                             __self: this
@@ -26532,7 +26546,7 @@ function LoginView(props) {
                     controlId: "formPassword",
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 39,
+                        lineNumber: 40,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26540,7 +26554,7 @@ function LoginView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 40,
+                                lineNumber: 41,
                                 columnNumber: 9
                             },
                             __self: this,
@@ -26548,7 +26562,7 @@ function LoginView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/LoginView/login-view.jsx",
-                                    lineNumber: 40,
+                                    lineNumber: 41,
                                     columnNumber: 21
                                 },
                                 __self: this,
@@ -26562,7 +26576,7 @@ function LoginView(props) {
                             placeholder: "password",
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 41,
+                                lineNumber: 42,
                                 columnNumber: 9
                             },
                             __self: this
@@ -26575,7 +26589,7 @@ function LoginView(props) {
                     onClick: handleSubmit,
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 48,
+                        lineNumber: 49,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26590,7 +26604,7 @@ function LoginView(props) {
                     },
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 51,
+                        lineNumber: 52,
                         columnNumber: 7
                     },
                     __self: this,
