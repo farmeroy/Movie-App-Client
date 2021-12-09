@@ -36,6 +36,12 @@ const MovieView = (props) => {
               <Button onClick={() => { navigate('/') }} className="back-btn">
                 Back
               </Button>
+              <Button onClick={() => { navigate(`/directors/${movie.Director.Name}`) }}>
+                Director
+                </Button>
+              <Button onClick={() => { navigate(`/genres/${movie.Genre.Name}`) }}>
+                Genre
+                </Button>
             </ListGroup>
           </Card>
         </Col>
