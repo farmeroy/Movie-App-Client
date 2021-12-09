@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 import { Row, Col, Button, Image, Card, ListGroup } from "react-bootstrap";
 import './movie-view.scss';
 
@@ -7,6 +8,7 @@ class MovieView extends React.Component {
   render() {
     const { movie, onBackClick } = this.props;
     return (
+      <Col lg={10}>
         <Row className="movie-view"> 
         <Col sm={12} md={6} className="movie-poster">
           <Image src={movie.ImagePath} fluid />
@@ -31,6 +33,7 @@ class MovieView extends React.Component {
           </Card>
         </Col>
       </Row>
+      </Col>
     );
   }
 }
