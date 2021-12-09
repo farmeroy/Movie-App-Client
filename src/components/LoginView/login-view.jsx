@@ -9,6 +9,7 @@ function LoginView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('https://pre-code-flix.herokuapp.com/login', {
@@ -19,7 +20,7 @@ function LoginView(props) {
         const data = response.data;
         props.onLoggedIn(data);
       })
-      .catch(event => {
+      .catch(error => {
         console.log('no such user')
       })
   };
