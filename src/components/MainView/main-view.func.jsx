@@ -8,8 +8,8 @@ import {
 import "./main-view.scss";
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
-import MovieCard from "../MovieCard/movie-card";
-import MovieView from "../MovieView/movie-view";
+import MovieCard from "../MovieCard/movie-card-func";
+import MovieView from "../MovieView/movie-view-func.jsx";
 import RegistrationView from "../RegistrationView/registration-view";
 import { Button, Container, Row, Col, Navbar } from "react-bootstrap";
 
@@ -96,16 +96,14 @@ const MainView = (props) => {
       <Row className="main-view justify-content-md-center row-eq-height">
         <Routes>
           <Route exact path="/" element={movieCards} />
-
+          <Route path="/registration" element={<RegistrationView/>} />
           <Route
             path="/movies/:movieId"
             element={
-              <Col lg={10}>
                 <MovieView
-                  movie={params.movieId}
-                  onBackClick={() => console.log("poop")}
+                  movies={movies}
+                  onBackClick={() => console.log("go back")}
                 />
-              </Col>
             }
           />
 
