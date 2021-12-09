@@ -1,25 +1,21 @@
 import { useState, useEffect, React } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
-import MovieCard from "../MovieCard/movie-card-func";
 import MovieView from "../MovieView/movie-view-func.jsx";
+import Movies from "../Movies/movies.jsx";
 import RegistrationView from "../RegistrationView/registration-view";
-import { Button, Container, Row, Col, Navbar } from "react-bootstrap";
+import DirectorView from "../DirectorView/director-view";
+import GenreView from "../GenreView/genre-view";
 
-const MainView = (props) => {
+import { Button, Container, Row, Navbar } from "react-bootstrap";
+
+const MainView = () => {
   [selectedMovie, setSelectedMovie] = useState("");
   [movies, setMovies] = useState("");
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
-
-  const params = useParams();
 
   const getMovies = (token) => {
     axios
@@ -60,31 +56,8 @@ const MainView = (props) => {
     }
   }, []);
 
-  if (!user && !registerUser)
-    return (
-      <LoginView
-        onLoggedIn={(user) => onLoggedIn(user)}
-        onRegisterUser={() => onRegisterUserHandler()}
-      />
-    );
-
-  if (!user && registerUser) return <RegistrationView />;
-
-  if (!movies.length) return <div className="main-view"></div>;
-
-  const movieCards = movies.map((movie) => (
-    <Col sm={6} md={4} lg={3} className="movie-column" key={movie._id}>
-      <MovieCard
-        key={movie._id}
-        movieData={movie}
-        // onMovieClick={(movie) => {
-        //   this.setSelectedMovie(movie);
-        // }}
-      />
-    </Col>
-  ));
-
   return (
+
     <Router>
       <Navbar bsPrefix="my-navbar" sticky="top">
         <Container fluid>
@@ -95,21 +68,39 @@ const MainView = (props) => {
 
       <Row className="main-view justify-content-md-center row-eq-height">
         <Routes>
-          <Route exact path="/" element={movieCards} />
-          <Route path="/registration" element={<RegistrationView/>} />
+          {user && (
+            <Route
+              path="/"
+              element={<Movies moviesData={movies} user={user} />}
+            />
+          )}
+          {!user && (
+            <Route
+              path="/"
+              element={
+                <LoginView
+                  onLoggedIn={(user) => onLoggedIn(user)}
+                  onRegisterUser={() => onRegisterUserHandler()}
+                />
+              }
+            />
+          )}
+          <Route path="/registration" element={<RegistrationView />} />
           <Route
             path="/movies/:movieId"
             element={
-                <MovieView
-                  movies={movies}
-                  onBackClick={() => console.log("go back")}
-                />
+              <MovieView
+                movies={movies}
+                onBackClick={() => console.log("go back")}
+              />
             }
           />
 
-          <Route exact patch="/genres/:name" />
-
-          <Route exact patch="/directors/:name" />
+          <Route path="/genres/:name" element={<GenreView movies={movies} />} />
+          <Route
+            path="/directors/:name"
+            element={<DirectorView movies={movies} />}
+          />
         </Routes>
       </Row>
     </Router>
