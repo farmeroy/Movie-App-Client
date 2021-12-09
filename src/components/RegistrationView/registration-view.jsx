@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Col, Form, Button } from "react-bootstrap";
+import axios from 'axios';
 
 function RegistrationView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+
+
+  const registerUserHandler = (event) => {
+    event.preventDefault();
+    axios.post('pre-code-flix.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        window.open('/', '_self');
+      })
+      .catch( error => {
+        console.log('error registering the user')
+      });
+  };
 
   return (
     <Col md={8}>
@@ -51,7 +71,7 @@ function RegistrationView(props) {
           />
         </Form.Group>
 
-        <Button type="submit" onClick={() => console.log("clicked")}>
+        <Button type="submit" onClick={registerUserHandler}>
           Confirm
         </Button>
       </Form>
