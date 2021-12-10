@@ -23021,7 +23021,6 @@ const MainView = ()=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: `/users/${user}`,
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_userProfileViewDefault.default, {
-                                moviesData: movies
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
@@ -39420,8 +39419,9 @@ const MovieCard = (props)=>{
     const { movieData , userData  } = props;
     const navigate = _reactRouterDom.useNavigate();
     const movieId = movieData._id;
-    const isUserFav = userData.FavMovies.find((id)=>id === movieId
+    const isUserFav = userData.FavMovies.find((movie)=>movie._id === movieId
     );
+    console.log(userData, movieId);
     const removeFavHandler = ()=>{
         console.log('remove');
     };
@@ -39432,7 +39432,7 @@ const MovieCard = (props)=>{
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card-func.jsx",
-            lineNumber: 36,
+            lineNumber: 38,
             columnNumber: 5
         },
         __self: undefined,
@@ -39442,7 +39442,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 37,
+                    lineNumber: 39,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -39450,7 +39450,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 38,
+                    lineNumber: 40,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -39459,7 +39459,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 39,
+                            lineNumber: 41,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39468,7 +39468,7 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 40,
+                            lineNumber: 42,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39480,7 +39480,7 @@ const MovieCard = (props)=>{
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 41,
+                            lineNumber: 43,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39490,7 +39490,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 44,
+                            lineNumber: 46,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -39500,7 +39500,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 45,
+                            lineNumber: 47,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -39966,8 +39966,9 @@ var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
 const ProfileView = (props)=>{
     _s();
-    const { moviesData  } = props;
+    // const { moviesData } = props;
     const [userData, setUserData] = _react.useState("");
+    const moviesData = userData.FavMovies;
     const getUserData = (token)=>{
         const user = localStorage.getItem("user");
         _axiosDefault.default.get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
@@ -39993,9 +39994,17 @@ const ProfileView = (props)=>{
         __self: undefined,
         children: "Loading data"
     }));
-    if (userData) return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
+    if (userData) return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Row, {
+        className: "justify-content-center row-eq-height",
+        __source: {
+            fileName: "src/components/UserProfileView/user-profile-view.jsx",
+            lineNumber: 36,
+            columnNumber: 5
+        },
+        __self: undefined,
         children: [
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+                md: 3,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
                     lineNumber: 37,
@@ -40012,22 +40021,32 @@ const ProfileView = (props)=>{
                     __self: undefined
                 })
             }),
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+                md: 9,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
                     lineNumber: 40,
                     columnNumber: 7
                 },
                 __self: undefined,
-                children: /*#__PURE__*/ _jsxRuntime.jsx(_favMoviesDefault.default, {
-                    userData: userData,
-                    moviesData: moviesData,
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+                    className: "justify-content-md-center row-eq-height",
                     __source: {
                         fileName: "src/components/UserProfileView/user-profile-view.jsx",
                         lineNumber: 41,
                         columnNumber: 9
                     },
-                    __self: undefined
+                    __self: undefined,
+                    children: /*#__PURE__*/ _jsxRuntime.jsx(_favMoviesDefault.default, {
+                        userData: userData,
+                        moviesData: moviesData,
+                        __source: {
+                            fileName: "src/components/UserProfileView/user-profile-view.jsx",
+                            lineNumber: 42,
+                            columnNumber: 9
+                        },
+                        __self: undefined
+                    })
                 })
             })
         ]
@@ -40100,12 +40119,17 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactBootstrap = require("react-bootstrap");
+var _updateUserFormJsx = require("./update-user-form.jsx");
+var _updateUserFormJsxDefault = parcelHelpers.interopDefault(_updateUserFormJsx);
+var _s = $RefreshSig$();
 const UserInfo = (props)=>{
+    _s();
     const { userData  } = props;
+    const [showUpdateUserForm, setShowUpdateUserForm] = _react.useState(false);
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
         __source: {
             fileName: "src/components/UserProfileView/user-info.jsx",
-            lineNumber: 8,
+            lineNumber: 10,
             columnNumber: 5
         },
         __self: undefined,
@@ -40113,7 +40137,7 @@ const UserInfo = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 9,
+                    lineNumber: 11,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -40122,30 +40146,274 @@ const UserInfo = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 10,
+                    lineNumber: 12,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: userData.Email
             }),
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+            !showUpdateUserForm && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                onClick: ()=>{
+                    setShowUpdateUserForm(true);
+                },
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 11,
+                    lineNumber: 14,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: "Update Info"
+            }),
+            showUpdateUserForm && /*#__PURE__*/ _jsxRuntime.jsx(_updateUserFormJsxDefault.default, {
+                userData: userData,
+                hideForm: ()=>{
+                    setShowUpdateUserForm(false);
+                },
+                __source: {
+                    fileName: "src/components/UserProfileView/user-info.jsx",
+                    lineNumber: 16,
+                    columnNumber: 30
+                },
+                __self: undefined
             })
         ]
     }));
 };
+_s(UserInfo, "WPN6vIlfGu8T2xOLVaXAtN5GbXM=");
 _c = UserInfo;
 exports.default = UserInfo;
 var _c;
 $RefreshReg$(_c, "UserInfo");
 
   $parcel$ReactRefreshHelpers$58a2.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","./update-user-form.jsx":"dvrZ0"}],"dvrZ0":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$666e = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$666e.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactBootstrap = require("react-bootstrap");
+var _s = $RefreshSig$();
+const UpdateUserForm = (props)=>{
+    _s();
+    const { userData , hideForm  } = props;
+    const [username, setUsername] = _react.useState(userData.Username);
+    const [userEmail, setUserEmail] = _react.useState(userData.Email);
+    // set this to false to ensure the user enters a valid password -- this prefents our hashed password in the database from being used
+    const [userPassword, setPassword] = _react.useState(false);
+    const [userBirthday, setUserBirthday] = _react.useState(userData.Birthday);
+    const updateUserHandler = (event)=>{
+        event.prevent.default;
+    };
+    return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
+        __source: {
+            fileName: "src/components/UserProfileView/update-user-form.jsx",
+            lineNumber: 18,
+            columnNumber: 7
+        },
+        __self: undefined,
+        children: [
+            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                controlId: "formUserName",
+                __source: {
+                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                    lineNumber: 19,
+                    columnNumber: 9
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 20,
+                            columnNumber: 11
+                        },
+                        __self: undefined,
+                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                lineNumber: 21,
+                                columnNumber: 13
+                            },
+                            __self: undefined,
+                            children: "Username:"
+                        })
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                        type: "text",
+                        onChange: (event)=>setUsername(event.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 23,
+                            columnNumber: 11
+                        },
+                        __self: undefined
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                controlId: "formPassword",
+                __source: {
+                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                    lineNumber: 29,
+                    columnNumber: 9
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 30,
+                            columnNumber: 11
+                        },
+                        __self: undefined,
+                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                lineNumber: 31,
+                                columnNumber: 13
+                            },
+                            __self: undefined,
+                            children: "Password"
+                        })
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                        type: "password",
+                        onChange: (event)=>setPassword(event.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 33,
+                            columnNumber: 11
+                        },
+                        __self: undefined
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                controlId: "formEmail",
+                __source: {
+                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                    lineNumber: 39,
+                    columnNumber: 9
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 40,
+                            columnNumber: 11
+                        },
+                        __self: undefined,
+                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                lineNumber: 41,
+                                columnNumber: 13
+                            },
+                            __self: undefined,
+                            children: "Email:"
+                        })
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                        type: "text",
+                        onChange: (event)=>setUserEmail(event.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 43,
+                            columnNumber: 11
+                        },
+                        __self: undefined
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                controlId: "formBirthday",
+                __source: {
+                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                    lineNumber: 49,
+                    columnNumber: 9
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 50,
+                            columnNumber: 11
+                        },
+                        __self: undefined,
+                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                lineNumber: 51,
+                                columnNumber: 13
+                            },
+                            __self: undefined,
+                            children: "Birthday:"
+                        })
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                        type: "date",
+                        onChange: (event)=>setUserBirthday(event.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 53,
+                            columnNumber: 11
+                        },
+                        __self: undefined
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                type: "submit",
+                onClick: updateUserHandler,
+                __source: {
+                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                    lineNumber: 59,
+                    columnNumber: 9
+                },
+                __self: undefined,
+                children: "Confirm"
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                type: "button",
+                onClick: hideForm,
+                __source: {
+                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                    lineNumber: 62,
+                    columnNumber: 9
+                },
+                __self: undefined,
+                children: "Cancel"
+            })
+        ]
+    }));
+};
+_s(UpdateUserForm, "dhSYsHN8RmZ0y9jPNjTfXGwyjEA=");
+_c = UpdateUserForm;
+exports.default = UpdateUserForm;
+var _c;
+$RefreshReg$(_c, "UpdateUserForm");
+
+  $parcel$ReactRefreshHelpers$666e.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
