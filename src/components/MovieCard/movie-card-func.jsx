@@ -17,10 +17,20 @@ const truncateText = (text) => {
   return text;
 };
 
+
 const MovieCard = (props) => {
-  const { movieData, onMovieClick } = props;
+  const { movieData, userData } = props;
   const navigate = useNavigate();
   const movieId = movieData._id;
+
+  const isUserFav = userData.FavMovies.find(id => id === movieId);
+
+  const removeFavHandler = () => {
+    console.log('remove')
+  };
+  const addFavHandler = () => {
+    console.log('add')
+  };
 
   return (
     <Card bsPrefix="movie-card">
@@ -31,6 +41,8 @@ const MovieCard = (props) => {
         <Button onClick={() => navigate(`/movies/${movieId}`)} variant="link-dark">
           Open
         </Button>
+        {isUserFav && <Button onClick={removeFavHandler}>Unlike</Button>} 
+       {!isUserFav && <Button onClick={addFavHandler}>Like</Button>}
       </Card.Body>
     </Card>
   );
