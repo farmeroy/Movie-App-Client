@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
@@ -8,6 +8,7 @@ import Movies from "../Movies/movies.jsx";
 import RegistrationView from "../RegistrationView/registration-view";
 import DirectorView from "../DirectorView/director-view";
 import GenreView from "../GenreView/genre-view";
+import ProfileView from "../UserProfileView/user-profile-view";
 
 import { Button, Container, Row, Navbar } from "react-bootstrap";
 
@@ -16,6 +17,7 @@ const MainView = () => {
   [movies, setMovies] = useState("");
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
+  [userData, setUserData] = useState("");
 
   const getMovies = (token) => {
     axios
@@ -28,29 +30,20 @@ const MainView = () => {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(movies)
   };
 
   const onLoggedIn = (authData) => {
-    console.log(authData.user.Username)
-    console.log('token', authData.token)
-
     setUser(authData.user.Username);
-    console.log('error is here')
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
-    getMovies(authData.token);
+    setUserData(authData.user);
+    console.log(authData.user);
   };
 
   const onLoggedOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-  };
-
-  const onRegisterUserHandler = () => {
-    const showRegisterUser = !registerUser;
-    setRegisterUser(showRegisterUser);
   };
 
   useEffect(() => {
@@ -61,39 +54,34 @@ const MainView = () => {
     }
   }, []);
 
-  return (
+  const dataIsLoaded = movies && userData;
 
-    <Router>
+  return (
+    <>
       <Navbar bsPrefix="my-navbar" sticky="top">
         <Container fluid>
           <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
-          <Button onClick={onLoggedOut.bind(this)}>Log Out</Button>
+          <Button onClick={onLoggedOut.bind(this)}><Link to={`/`}>Log Out</Link></Button>
+          <Button className="preCodeBrand">
+            <Link to={`/users/${user}`}>View Profile</Link>
+          </Button>
         </Container>
       </Navbar>
 
       <Row className="main-view justify-content-md-center row-eq-height">
         <Routes>
           {/* placeholder while the movies fetch*/}
-          {user && !movies &&
-          <Route
-          path="/"
-            element={<div className="main-view"></div>}
-            />}
+          {user && !dataIsLoaded && (
+            <Route path="/" element={<div className="main-view"></div>} />
+          )}
           {user && (
             <Route
               path="/"
-              element={<Movies moviesData={movies} user={user} />}
+              element={<Movies moviesData={movies} userData={userData} />}
             />
           )}
           {!user && (
-            <Route
-              path="/"
-              element={
-                <LoginView
-                  onLoggedIn={onLoggedIn}
-                />
-              }
-            />
+            <Route path="/" element={<LoginView onLoggedIn={onLoggedIn} />} />
           )}
           <Route path="/registration" element={<RegistrationView />} />
           <Route
@@ -111,9 +99,13 @@ const MainView = () => {
             path="/directors/:name"
             element={<DirectorView movies={movies} />}
           />
+          <Route
+            path={`/users/${user}`}
+            element={<ProfileView moviesData={movies}  />}
+          />
         </Routes>
       </Row>
-    </Router>
+    </>
   );
 };
 
