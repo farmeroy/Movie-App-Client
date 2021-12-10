@@ -101,7 +101,7 @@ const MainView = () => {
           />
           <Route
             path={`/users/${user}`}
-            element={<ProfileView moviesData={movies}  />}
+            element={<ProfileView   />}
           />
         </Routes>
       </Row>
