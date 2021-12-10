@@ -1,13 +1,13 @@
 import { useEffect, React, useState } from "react";
 import FavMovies from "./fav-movies";
 import UserInfo from "./user-info";
-import { Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import axios from "axios";
 
 const ProfileView = (props) => {
-  const { moviesData } = props;
+  // const { moviesData } = props;
   const [userData, setUserData] = useState("");
-
+  const moviesData = userData.FavMovies;
   const getUserData = (token) => {
     const user = localStorage.getItem("user");
     axios
@@ -33,14 +33,16 @@ const ProfileView = (props) => {
   if (!userData) return <div>Loading data</div>;
 
   if (userData)  return (
-    <>
-      <Row>
+    <Row className="justify-content-center row-eq-height">
+      <Col md={3}>
         <UserInfo userData={userData} />
-      </Row>
-      <Row>
+      </Col>
+      <Col md={9}>
+        <Row className="justify-content-md-center row-eq-height">
         <FavMovies userData={userData} moviesData={moviesData} />
-      </Row>
-    </>
+        </Row>
+      </Col>
+    </Row>
   );
 };
 
