@@ -12,12 +12,15 @@ function RegistrationView(props) {
 
   const registerUserHandler = (event) => {
     event.preventDefault();
-    axios.post('pre-code-flix.herokuapp.com/users', {
+    const newUser = {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday
-    })
+      Birthday: new Date(birthday)
+    };
+    console.log(newUser, typeof newUser.Birthday)
+
+    axios.post('https://pre-code-flix.herokuapp.com/users', newUser )
       .then(response => {
         const data = response.data;
         console.log(data);
@@ -57,7 +60,7 @@ function RegistrationView(props) {
           </Form.Label>
           <Form.Control
             type="text"
-            onchange={(event) => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </Form.Group>
 
