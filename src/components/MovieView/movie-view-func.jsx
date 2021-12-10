@@ -9,7 +9,6 @@ const MovieView = (props) => {
   const { movies, onBackClick } = props;
   const navigate = useNavigate();
 
-  console.log( movieId )
   const movie = movies.find((m) => m._id === movieId);
 
   return (
