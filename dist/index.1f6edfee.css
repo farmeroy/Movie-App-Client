@@ -6,9 +6,6 @@ body {
 .my-flix {
   color: steelblue;
 }
-.label {
-  color: white;
-}
 .preCodeBrand {
   font-family: "Limelight", cursive;
   color: #ebe645;
@@ -21,6 +18,9 @@ body {
 
 .my-navbar {
   background-color: #000957;
+}
+.label {
+  color: white;
 }
 .movie-image {
   height: 80vh important;
