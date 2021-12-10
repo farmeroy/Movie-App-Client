@@ -23,8 +23,10 @@ const MovieCard = (props) => {
   const navigate = useNavigate();
   const movieId = movieData._id;
 
-  const isUserFav = userData.FavMovies.find(id => id === movieId);
 
+  const isUserFav = userData.FavMovies.find(movie => movie._id === movieId);
+  
+  console.log(userData, movieId)
   const removeFavHandler = () => {
     console.log('remove')
   };
