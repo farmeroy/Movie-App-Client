@@ -36,6 +36,8 @@ function LoginView(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!formIsValid) {
+      usernameTouchHandler();
+      passwordTouchHandler();
       return;
     }
     axios.post('https://pre-code-flix.herokuapp.com/login', {
