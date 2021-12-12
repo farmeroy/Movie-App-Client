@@ -26314,7 +26314,11 @@ function LoginView(props) {
     const formIsValid = usernameIsValid && passwordIsValid;
     const handleSubmit = (event)=>{
         event.preventDefault();
-        if (!formIsValid) return;
+        if (!formIsValid) {
+            usernameTouchHandler();
+            passwordTouchHandler();
+            return;
+        }
         _axiosDefault.default.post('https://pre-code-flix.herokuapp.com/login', {
             Username: enteredUsername,
             Password: enteredPassword
@@ -26329,7 +26333,7 @@ function LoginView(props) {
         md: 8,
         __source: {
             fileName: "src/components/LoginView/login-view.jsx",
-            lineNumber: 55,
+            lineNumber: 57,
             columnNumber: 5
         },
         __self: this,
@@ -26337,7 +26341,7 @@ function LoginView(props) {
             className: "login-form",
             __source: {
                 fileName: "src/components/LoginView/login-view.jsx",
-                lineNumber: 56,
+                lineNumber: 58,
                 columnNumber: 5
             },
             __self: this,
@@ -26346,7 +26350,7 @@ function LoginView(props) {
                     controlId: "formUsername",
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 57,
+                        lineNumber: 59,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26354,7 +26358,7 @@ function LoginView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 58,
+                                lineNumber: 60,
                                 columnNumber: 9
                             },
                             __self: this,
@@ -26362,7 +26366,7 @@ function LoginView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/LoginView/login-view.jsx",
-                                    lineNumber: 58,
+                                    lineNumber: 60,
                                     columnNumber: 21
                                 },
                                 __self: this,
@@ -26377,7 +26381,7 @@ function LoginView(props) {
                             placeholder: "username",
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 59,
+                                lineNumber: 61,
                                 columnNumber: 9
                             },
                             __self: this
@@ -26385,7 +26389,7 @@ function LoginView(props) {
                         usernameHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 66,
+                                lineNumber: 68,
                                 columnNumber: 30
                             },
                             __self: this,
@@ -26397,7 +26401,7 @@ function LoginView(props) {
                     controlId: "formPassword",
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 69,
+                        lineNumber: 71,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26405,7 +26409,7 @@ function LoginView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 70,
+                                lineNumber: 72,
                                 columnNumber: 9
                             },
                             __self: this,
@@ -26413,7 +26417,7 @@ function LoginView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/LoginView/login-view.jsx",
-                                    lineNumber: 70,
+                                    lineNumber: 72,
                                     columnNumber: 21
                                 },
                                 __self: this,
@@ -26429,7 +26433,7 @@ function LoginView(props) {
                             placeholder: "password",
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 71,
+                                lineNumber: 73,
                                 columnNumber: 9
                             },
                             __self: this
@@ -26437,7 +26441,7 @@ function LoginView(props) {
                         passwordHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 79,
+                                lineNumber: 81,
                                 columnNumber: 30
                             },
                             __self: this,
@@ -26451,7 +26455,7 @@ function LoginView(props) {
                     onClick: handleSubmit,
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 82,
+                        lineNumber: 84,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26466,7 +26470,7 @@ function LoginView(props) {
                     },
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 85,
+                        lineNumber: 87,
                         columnNumber: 7
                     },
                     __self: this,
@@ -39651,25 +39655,38 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _useForm = require("../../hooks/useForm");
+var _useFormDefault = parcelHelpers.interopDefault(_useForm);
 var _reactBootstrap = require("react-bootstrap");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
+// validation logic to check input in text field
+const textInputIsValid = (text)=>{
+    return text.trim() !== "";
+};
 function RegistrationView(props) {
     _s();
-    const [username, setUsername] = _react.useState("");
-    const [password, setPassword] = _react.useState("");
-    const [email, setEmail] = _react.useState("");
-    const [birthday, setBirthday] = _react.useState("");
+    const { enteredValue: enteredEmail , hasError: emailHasError , isValid: emailIsValid , inputChangeHandler: emailChangeHandler , inputTouchHandler: emailTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredBirthday , hasError: birthdayHasError , isValid: birthdayIsValid , inputChangeHandler: birthdayChangeHandler , inputTouchHandler: birthdayTouchHandler  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredUsername , hasError: usernameHasError , isValid: usernameIsValid , inputChangeHandler: usernameChangeHandler , inputTouchHandler: usernameTouchHandler  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredPassword , hasError: passwordHasError , isValid: passwordIsValid , inputChangeHandler: passwordChangeHandler , inputTouchHandler: passwordTouchHandler  } = _useFormDefault.default(textInputIsValid);
+    const formIsValid = usernameIsValid && passwordIsValid && emailIsValid && birthdayIsValid;
     const registerUserHandler = (event)=>{
         event.preventDefault();
+        if (!formIsValid) {
+            usernameTouchHandler();
+            passwordTouchHandler();
+            emailTouchHandler();
+            birthdayTouchHandler();
+            return;
+        }
         const newUser = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: new Date(birthday)
+            Username: enteredUsername,
+            Password: enteredPassword,
+            Email: enteredEmail,
+            Birthday: new Date(enteredBirthday)
         };
-        console.log(newUser, typeof newUser.Birthday);
         _axiosDefault.default.post('https://pre-code-flix.herokuapp.com/users', newUser).then((response)=>{
             const data = response.data;
             console.log(data);
@@ -39682,23 +39699,23 @@ function RegistrationView(props) {
         md: 8,
         __source: {
             fileName: "src/components/RegistrationView/registration-view.jsx",
-            lineNumber: 35,
+            lineNumber: 78,
             columnNumber: 5
         },
         __self: this,
         children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
             __source: {
                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                lineNumber: 36,
+                lineNumber: 79,
                 columnNumber: 7
             },
             __self: this,
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                    controlId: "formUserName",
+                    controlId: "formUsername",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 37,
+                        lineNumber: 80,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39706,7 +39723,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 38,
+                                lineNumber: 81,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39714,7 +39731,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 39,
+                                    lineNumber: 82,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39723,14 +39740,25 @@ function RegistrationView(props) {
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                             type: "text",
-                            onChange: (event)=>setUsername(event.target.value)
-                            ,
+                            value: enteredUsername,
+                            onChange: usernameChangeHandler,
+                            onBlur: usernameTouchHandler,
+                            placeholder: "username",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 41,
+                                lineNumber: 84,
                                 columnNumber: 11
                             },
                             __self: this
+                        }),
+                        usernameHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                            __source: {
+                                fileName: "src/components/RegistrationView/registration-view.jsx",
+                                lineNumber: 91,
+                                columnNumber: 32
+                            },
+                            __self: this,
+                            children: "Please enter a Username"
                         })
                     ]
                 }),
@@ -39738,7 +39766,7 @@ function RegistrationView(props) {
                     controlId: "formPassword",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 47,
+                        lineNumber: 94,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39746,7 +39774,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 48,
+                                lineNumber: 95,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39754,7 +39782,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 49,
+                                    lineNumber: 96,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39763,14 +39791,25 @@ function RegistrationView(props) {
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                             type: "password",
-                            onChange: (event)=>setPassword(event.target.value)
-                            ,
+                            value: enteredPassword,
+                            onChange: passwordChangeHandler,
+                            onBlur: passwordTouchHandler,
+                            placeholder: "password",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 51,
+                                lineNumber: 98,
                                 columnNumber: 11
                             },
                             __self: this
+                        }),
+                        passwordHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                            __source: {
+                                fileName: "src/components/RegistrationView/registration-view.jsx",
+                                lineNumber: 105,
+                                columnNumber: 32
+                            },
+                            __self: this,
+                            children: "Please enter a password"
                         })
                     ]
                 }),
@@ -39778,7 +39817,7 @@ function RegistrationView(props) {
                     controlId: "formEmail",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 57,
+                        lineNumber: 108,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39786,7 +39825,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 58,
+                                lineNumber: 109,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39794,7 +39833,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 59,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39803,14 +39842,25 @@ function RegistrationView(props) {
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                             type: "text",
-                            onChange: (event)=>setEmail(event.target.value)
-                            ,
+                            placeholder: "email",
+                            value: enteredEmail,
+                            onChange: emailChangeHandler,
+                            onBlur: emailTouchHandler,
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 61,
+                                lineNumber: 112,
                                 columnNumber: 11
                             },
                             __self: this
+                        }),
+                        emailHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                            __source: {
+                                fileName: "src/components/RegistrationView/registration-view.jsx",
+                                lineNumber: 119,
+                                columnNumber: 29
+                            },
+                            __self: this,
+                            children: "Please enter a valid email"
                         })
                     ]
                 }),
@@ -39818,7 +39868,7 @@ function RegistrationView(props) {
                     controlId: "formBirthday",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 122,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39826,7 +39876,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 68,
+                                lineNumber: 123,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39834,7 +39884,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 69,
+                                    lineNumber: 124,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39843,14 +39893,25 @@ function RegistrationView(props) {
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                             type: "date",
-                            onChange: (event)=>setBirthday(event.target.value)
-                            ,
+                            placeholder: "",
+                            value: enteredBirthday,
+                            onBlur: birthdayTouchHandler,
+                            onChange: birthdayChangeHandler,
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 71,
+                                lineNumber: 126,
                                 columnNumber: 11
                             },
                             __self: this
+                        }),
+                        birthdayHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                            __source: {
+                                fileName: "src/components/RegistrationView/registration-view.jsx",
+                                lineNumber: 133,
+                                columnNumber: 32
+                            },
+                            __self: this,
+                            children: "Please enter your birthday"
                         })
                     ]
                 }),
@@ -39859,7 +39920,7 @@ function RegistrationView(props) {
                     onClick: registerUserHandler,
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 77,
+                        lineNumber: 136,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39869,7 +39930,14 @@ function RegistrationView(props) {
         })
     }));
 }
-_s(RegistrationView, "jsOQN3GC2XlBG9ITlzCdpyJOnso=");
+_s(RegistrationView, "pi50UC92X1IjlpUsIiC88s+WPcc=", false, function() {
+    return [
+        _useFormDefault.default,
+        _useFormDefault.default,
+        _useFormDefault.default,
+        _useFormDefault.default
+    ];
+});
 _c = RegistrationView;
 RegistrationView.propTypes = {
 };
@@ -39882,7 +39950,7 @@ $RefreshReg$(_c, "RegistrationView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","react-bootstrap":"9qMdX","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"3zdMm":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","react-bootstrap":"9qMdX","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","../../hooks/useForm":"58JlL"}],"3zdMm":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$cd77 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40316,216 +40384,297 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactBootstrap = require("react-bootstrap");
+var _useForm = require("../../hooks/useForm");
+var _useFormDefault = parcelHelpers.interopDefault(_useForm);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
+// validation logic to check input in text field
+const textInputIsValid = (text)=>{
+    return text.trim() !== "";
+};
 const UpdateUserForm = (props)=>{
     _s();
     const { userData , hideForm  } = props;
-    const [username, setUsername] = _react.useState(userData.Username);
-    const [userEmail, setUserEmail] = _react.useState(userData.Email);
-    // set this to false to ensure the user enters a valid password -- this prefents our hashed password in the database from being used
-    const [userPassword, setPassword] = _react.useState('');
-    const [userBirthday, setUserBirthday] = _react.useState(userData.Birthday);
+    const { enteredValue: enteredEmail , hasError: emailHasError , isValid: emailIsValid , inputChangeHandler: emailChangeHandler , inputTouchHandler: emailTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredBirthday , hasError: birthdayHasError , isValid: birthdayIsValid , inputChangeHandler: birthdayChangeHandler , inputTouchHandler: birthdayTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredUsername , hasError: usernameHasError , isValid: usernameIsValid , inputChangeHandler: usernameChangeHandler , inputTouchHandler: usernameTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredPassword , hasError: passwordHasError , isValid: passwordIsValid , inputChangeHandler: passwordChangeHandler , inputTouchHandler: passwordTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const formIsValid = usernameIsValid && passwordIsValid && emailIsValid && birthdayIsValid;
     const updateUserHandler = (event)=>{
-        event.prevent.default;
+        event.preventDefault();
+        if (!formIsValid) {
+            usernameTouchHandler();
+            passwordTouchHandler();
+            emailTouchHandler();
+            birthdayTouchHandler();
+            return;
+        }
+        console.log("updated!");
     };
-    return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
+    return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+        className: "main-view justify-content-md-center row-eq-height",
         __source: {
             fileName: "src/components/UserProfileView/update-user-form.jsx",
-            lineNumber: 18,
-            columnNumber: 7
+            lineNumber: 62,
+            columnNumber: 5
         },
         __self: undefined,
-        children: [
-            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                controlId: "formUserName",
+        children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+            md: 8,
+            __source: {
+                fileName: "src/components/UserProfileView/update-user-form.jsx",
+                lineNumber: 63,
+                columnNumber: 7
+            },
+            __self: undefined,
+            children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 19,
+                    lineNumber: 64,
                     columnNumber: 9
                 },
                 __self: undefined,
                 children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                        controlId: "formUsername",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 20,
+                            lineNumber: 65,
                             columnNumber: 11
                         },
                         __self: undefined,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                            className: "label",
-                            __source: {
-                                fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 21,
-                                columnNumber: 13
-                            },
-                            __self: undefined,
-                            children: "Username:"
-                        })
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 66,
+                                    columnNumber: 13
+                                },
+                                __self: undefined,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                                    className: "label",
+                                    __source: {
+                                        fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                        lineNumber: 67,
+                                        columnNumber: 15
+                                    },
+                                    __self: undefined,
+                                    children: "Username:"
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                type: "text",
+                                value: enteredUsername,
+                                onChange: usernameChangeHandler,
+                                onBlur: usernameTouchHandler,
+                                placeholder: "username",
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 69,
+                                    columnNumber: 13
+                                },
+                                __self: undefined
+                            }),
+                            usernameHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 76,
+                                    columnNumber: 34
+                                },
+                                __self: undefined,
+                                children: "Please enter a Username"
+                            })
+                        ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
-                        type: "text",
-                        placeholder: username,
-                        onChange: (event)=>setUsername(event.target.value)
-                        ,
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                        controlId: "formPassword",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 23,
-                            columnNumber: 11
-                        },
-                        __self: undefined
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                controlId: "formPassword",
-                __source: {
-                    fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 30,
-                    columnNumber: 9
-                },
-                __self: undefined,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
-                        __source: {
-                            fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 31,
+                            lineNumber: 79,
                             columnNumber: 11
                         },
                         __self: undefined,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                            className: "label",
-                            __source: {
-                                fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 32,
-                                columnNumber: 13
-                            },
-                            __self: undefined,
-                            children: "Password"
-                        })
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 80,
+                                    columnNumber: 13
+                                },
+                                __self: undefined,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                                    className: "label",
+                                    __source: {
+                                        fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                        lineNumber: 81,
+                                        columnNumber: 15
+                                    },
+                                    __self: undefined,
+                                    children: "Password"
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                type: "password",
+                                value: enteredPassword,
+                                onChange: passwordChangeHandler,
+                                onBlur: passwordTouchHandler,
+                                placeholder: "password",
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 83,
+                                    columnNumber: 13
+                                },
+                                __self: undefined
+                            }),
+                            passwordHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 90,
+                                    columnNumber: 34
+                                },
+                                __self: undefined,
+                                children: "Please enter a password"
+                            })
+                        ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
-                        type: "password",
-                        placeholder: userPassword,
-                        onChange: (event)=>setPassword(event.target.value)
-                        ,
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                        controlId: "formEmail",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 34,
-                            columnNumber: 11
-                        },
-                        __self: undefined
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                controlId: "formEmail",
-                __source: {
-                    fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 41,
-                    columnNumber: 9
-                },
-                __self: undefined,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
-                        __source: {
-                            fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 42,
+                            lineNumber: 93,
                             columnNumber: 11
                         },
                         __self: undefined,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                            className: "label",
-                            __source: {
-                                fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 43,
-                                columnNumber: 13
-                            },
-                            __self: undefined,
-                            children: "Email:"
-                        })
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 94,
+                                    columnNumber: 13
+                                },
+                                __self: undefined,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                                    className: "label",
+                                    __source: {
+                                        fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                        lineNumber: 95,
+                                        columnNumber: 15
+                                    },
+                                    __self: undefined,
+                                    children: "Email:"
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                type: "text",
+                                placeholder: "email",
+                                value: enteredEmail,
+                                onChange: emailChangeHandler,
+                                onBlur: emailTouchHandler,
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 97,
+                                    columnNumber: 13
+                                },
+                                __self: undefined
+                            }),
+                            emailHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 104,
+                                    columnNumber: 31
+                                },
+                                __self: undefined,
+                                children: "Please enter a valid email"
+                            })
+                        ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
-                        type: "text",
-                        placeholder: userEmail,
-                        onChange: (event)=>setUserEmail(event.target.value)
-                        ,
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                        controlId: "formBirthday",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 45,
-                            columnNumber: 11
-                        },
-                        __self: undefined
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                controlId: "formBirthday",
-                __source: {
-                    fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 52,
-                    columnNumber: 9
-                },
-                __self: undefined,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
-                        __source: {
-                            fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 53,
+                            lineNumber: 107,
                             columnNumber: 11
                         },
                         __self: undefined,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                            className: "label",
-                            __source: {
-                                fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 54,
-                                columnNumber: 13
-                            },
-                            __self: undefined,
-                            children: "Birthday:"
-                        })
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 108,
+                                    columnNumber: 13
+                                },
+                                __self: undefined,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                                    className: "label",
+                                    __source: {
+                                        fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                        lineNumber: 109,
+                                        columnNumber: 15
+                                    },
+                                    __self: undefined,
+                                    children: "Birthday:"
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                type: "date",
+                                placeholder: "",
+                                value: enteredBirthday,
+                                onBlur: birthdayTouchHandler,
+                                onChange: birthdayChangeHandler,
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 111,
+                                    columnNumber: 13
+                                },
+                                __self: undefined
+                            }),
+                            birthdayHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                                __source: {
+                                    fileName: "src/components/UserProfileView/update-user-form.jsx",
+                                    lineNumber: 118,
+                                    columnNumber: 34
+                                },
+                                __self: undefined,
+                                children: "Please enter your birthday"
+                            })
+                        ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
-                        type: "date",
-                        placeholder: userBirthday,
-                        onChange: (event)=>setUserBirthday(event.target.value)
-                        ,
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                        type: "submit",
+                        onClick: updateUserHandler,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 56,
+                            lineNumber: 121,
                             columnNumber: 11
                         },
-                        __self: undefined
+                        __self: undefined,
+                        children: "Confirm"
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                        type: "button",
+                        onClick: hideForm,
+                        __source: {
+                            fileName: "src/components/UserProfileView/update-user-form.jsx",
+                            lineNumber: 124,
+                            columnNumber: 11
+                        },
+                        __self: undefined,
+                        children: "Cancel"
                     })
                 ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                type: "submit",
-                onClick: updateUserHandler,
-                __source: {
-                    fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 63,
-                    columnNumber: 9
-                },
-                __self: undefined,
-                children: "Confirm"
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                type: "button",
-                onClick: hideForm,
-                __source: {
-                    fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 66,
-                    columnNumber: 9
-                },
-                __self: undefined,
-                children: "Cancel"
             })
-        ]
+        })
     }));
 };
-_s(UpdateUserForm, "3UVPS4ckSlmrG60Bg3N2OwrAIJc=");
+_s(UpdateUserForm, "flkWTcuqmntuXSlo2/NQH1v40M8=", false, function() {
+    return [
+        _useFormDefault.default,
+        _useFormDefault.default,
+        _useFormDefault.default,
+        _useFormDefault.default
+    ];
+});
 _c = UpdateUserForm;
 exports.default = UpdateUserForm;
 var _c;
@@ -40536,6 +40685,6 @@ $RefreshReg$(_c, "UpdateUserForm");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"6xyDQ":[function() {},{}]},["emU3S","90ZSn","dB8et"], "dB8et", "parcelRequire3a21")
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","../../hooks/useForm":"58JlL","axios":"1IeuP"}],"6xyDQ":[function() {},{}]},["emU3S","90ZSn","dB8et"], "dB8et", "parcelRequire3a21")
 
 //# sourceMappingURL=index.e1b27ffe.js.map
