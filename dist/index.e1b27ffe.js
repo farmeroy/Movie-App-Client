@@ -22867,16 +22867,26 @@ const MainView = ()=>{
                     __self: undefined,
                     children: [
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Brand, {
-                            className: "preCodeBrand",
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
                                 lineNumber: 63,
                                 columnNumber: 11
                             },
                             __self: undefined,
-                            children: "Pre-Code Flix"
+                            children: /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
+                                to: '/',
+                                className: "preCodeBrand",
+                                __source: {
+                                    fileName: "src/components/MainView/main-view.func.jsx",
+                                    lineNumber: 63,
+                                    columnNumber: 26
+                                },
+                                __self: undefined,
+                                children: "Pre-Code Flix"
+                            })
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                            variant: "dark",
                             onClick: onLoggedOut.bind(undefined),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
@@ -22889,13 +22899,14 @@ const MainView = ()=>{
                                 __source: {
                                     fileName: "src/components/MainView/main-view.func.jsx",
                                     lineNumber: 64,
-                                    columnNumber: 52
+                                    columnNumber: 67
                                 },
                                 __self: undefined,
                                 children: "Log Out"
                             })
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                            variant: "dark",
                             className: "preCodeBrand",
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
@@ -26281,6 +26292,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _useForm = require("../../hooks/useForm");
+var _useFormDefault = parcelHelpers.interopDefault(_useForm);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _axios = require("axios");
@@ -26289,16 +26302,22 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _loginViewScss = require("./login-view.scss");
 var _s = $RefreshSig$();
+// validation logic to check input in text field
+const textInputIsValid = (text)=>{
+    return text.trim() !== "";
+};
 function LoginView(props) {
     _s();
-    const [username, setUsername] = _react.useState("");
-    const [password, setPassword] = _react.useState("");
     const navigate = _reactRouterDom.useNavigate();
+    const { enteredValue: enteredUsername , hasError: usernameHasError , isValid: usernameIsValid , inputChangeHandler: usernameChangeHandler , inputTouchHandler: usernameTouchHandler  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredPassword , hasError: passwordHasError , isValid: passwordIsValid , inputChangeHandler: passwordChangeHandler , inputTouchHandler: passwordTouchHandler  } = _useFormDefault.default(textInputIsValid);
+    const formIsValid = usernameIsValid && passwordIsValid;
     const handleSubmit = (event)=>{
         event.preventDefault();
+        if (!formIsValid) return;
         _axiosDefault.default.post('https://pre-code-flix.herokuapp.com/login', {
-            Username: username,
-            Password: password
+            Username: enteredUsername,
+            Password: enteredPassword
         }).then((response)=>{
             const data = response.data;
             props.onLoggedIn(data);
@@ -26310,7 +26329,7 @@ function LoginView(props) {
         md: 8,
         __source: {
             fileName: "src/components/LoginView/login-view.jsx",
-            lineNumber: 29,
+            lineNumber: 55,
             columnNumber: 5
         },
         __self: this,
@@ -26318,7 +26337,7 @@ function LoginView(props) {
             className: "login-form",
             __source: {
                 fileName: "src/components/LoginView/login-view.jsx",
-                lineNumber: 30,
+                lineNumber: 56,
                 columnNumber: 5
             },
             __self: this,
@@ -26327,7 +26346,7 @@ function LoginView(props) {
                     controlId: "formUsername",
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 31,
+                        lineNumber: 57,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26335,7 +26354,7 @@ function LoginView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 32,
+                                lineNumber: 58,
                                 columnNumber: 9
                             },
                             __self: this,
@@ -26343,7 +26362,7 @@ function LoginView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/LoginView/login-view.jsx",
-                                    lineNumber: 32,
+                                    lineNumber: 58,
                                     columnNumber: 21
                                 },
                                 __self: this,
@@ -26352,15 +26371,25 @@ function LoginView(props) {
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                             type: "text",
-                            onChange: (event)=>setUsername(event.target.value)
-                            ,
+                            value: enteredUsername,
+                            onChange: usernameChangeHandler,
+                            onBlur: usernameTouchHandler,
                             placeholder: "username",
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 33,
+                                lineNumber: 59,
                                 columnNumber: 9
                             },
                             __self: this
+                        }),
+                        usernameHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                            __source: {
+                                fileName: "src/components/LoginView/login-view.jsx",
+                                lineNumber: 66,
+                                columnNumber: 30
+                            },
+                            __self: this,
+                            children: "Please enter your Username"
                         })
                     ]
                 }),
@@ -26368,7 +26397,7 @@ function LoginView(props) {
                     controlId: "formPassword",
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 40,
+                        lineNumber: 69,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26376,7 +26405,7 @@ function LoginView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 41,
+                                lineNumber: 70,
                                 columnNumber: 9
                             },
                             __self: this,
@@ -26384,7 +26413,7 @@ function LoginView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/LoginView/login-view.jsx",
-                                    lineNumber: 41,
+                                    lineNumber: 70,
                                     columnNumber: 21
                                 },
                                 __self: this,
@@ -26393,15 +26422,26 @@ function LoginView(props) {
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                             type: "password",
-                            onChange: (event)=>setPassword(event.target.value)
-                            ,
+                            value: enteredPassword,
+                            onChange: passwordChangeHandler,
+                            onBlur: passwordTouchHandler,
+                            onChange: passwordChangeHandler,
                             placeholder: "password",
                             __source: {
                                 fileName: "src/components/LoginView/login-view.jsx",
-                                lineNumber: 42,
+                                lineNumber: 71,
                                 columnNumber: 9
                             },
                             __self: this
+                        }),
+                        passwordHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                            __source: {
+                                fileName: "src/components/LoginView/login-view.jsx",
+                                lineNumber: 79,
+                                columnNumber: 30
+                            },
+                            __self: this,
+                            children: "Please enter your Password"
                         })
                     ]
                 }),
@@ -26411,7 +26451,7 @@ function LoginView(props) {
                     onClick: handleSubmit,
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 49,
+                        lineNumber: 82,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26426,7 +26466,7 @@ function LoginView(props) {
                     },
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 52,
+                        lineNumber: 85,
                         columnNumber: 7
                     },
                     __self: this,
@@ -26436,9 +26476,11 @@ function LoginView(props) {
         })
     }));
 }
-_s(LoginView, "JBV44+s3MGwvm5P+UO1Bab3M9dc=", false, function() {
+_s(LoginView, "ORsUBxoyrK8LKX0DVqlCz8RR2/g=", false, function() {
     return [
-        _reactRouterDom.useNavigate
+        _reactRouterDom.useNavigate,
+        _useFormDefault.default,
+        _useFormDefault.default
     ];
 });
 _c = LoginView;
@@ -26455,7 +26497,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","axios":"1IeuP","react-bootstrap":"9qMdX","react-router-dom":"16kZP","./login-view.scss":"33qlD","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"2bysO":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","axios":"1IeuP","react-bootstrap":"9qMdX","react-router-dom":"16kZP","./login-view.scss":"33qlD","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","../../hooks/useForm":"58JlL"}],"2bysO":[function(require,module,exports) {
 var ReactIs = require('react-is');
 // By explicitly using `prop-types` you are opting into new development behavior.
 // http://fb.me/prop-types-in-prod
@@ -39087,7 +39129,48 @@ function registerExportsForReactRefresh(module) {
     }
 }
 
-},{"react-refresh/runtime":"aeH4U"}],"kq7LL":[function(require,module,exports) {
+},{"react-refresh/runtime":"aeH4U"}],"58JlL":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$75ae = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$75ae.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _s = $RefreshSig$();
+const useForm = (validate)=>{
+    _s();
+    const [enteredValue, setEnteredValue] = _react.useState('');
+    const [inputIsTouched, setInputIsTouched] = _react.useState(false);
+    // validate is a function that is accepted as an argument
+    const isValid = validate(enteredValue);
+    const hasError = !isValid && inputIsTouched;
+    const inputChangeHandler = (event)=>{
+        setEnteredValue(event.target.value);
+    };
+    const inputTouchHandler = ()=>{
+        setInputIsTouched(true);
+    };
+    return {
+        enteredValue,
+        hasError,
+        isValid,
+        inputChangeHandler,
+        inputTouchHandler
+    };
+};
+_s(useForm, "Mc8m8xDSWybos4DVBFpZibWW5+s=");
+exports.default = useForm;
+
+  $parcel$ReactRefreshHelpers$75ae.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"4mchR","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"kq7LL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4d20 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -39431,7 +39514,8 @@ const MovieCard = (props)=>{
         _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
-            }
+            },
+            method: 'PUT'
         }).then((response)=>{
             console.log(response);
         }).catch((error)=>{
@@ -39459,7 +39543,7 @@ const MovieCard = (props)=>{
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card-func.jsx",
-            lineNumber: 66,
+            lineNumber: 67,
             columnNumber: 5
         },
         __self: undefined,
@@ -39469,7 +39553,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 67,
+                    lineNumber: 68,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -39477,7 +39561,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 68,
+                    lineNumber: 69,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -39486,7 +39570,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 69,
+                            lineNumber: 70,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39495,7 +39579,7 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 70,
+                            lineNumber: 71,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39507,7 +39591,7 @@ const MovieCard = (props)=>{
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 71,
+                            lineNumber: 72,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39517,7 +39601,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 74,
+                            lineNumber: 75,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -39527,7 +39611,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 75,
+                            lineNumber: 76,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -40148,23 +40232,26 @@ var _react = require("react");
 var _reactBootstrap = require("react-bootstrap");
 var _updateUserFormJsx = require("./update-user-form.jsx");
 var _updateUserFormJsxDefault = parcelHelpers.interopDefault(_updateUserFormJsx);
+var _userProfileViewCss = require("./user-profile-view.css");
 var _s = $RefreshSig$();
 const UserInfo = (props)=>{
     _s();
     const { userData  } = props;
     const [showUpdateUserForm, setShowUpdateUserForm] = _react.useState(false);
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
+        bsPrefix: "profile-card",
         __source: {
             fileName: "src/components/UserProfileView/user-info.jsx",
-            lineNumber: 10,
+            lineNumber: 12,
             columnNumber: 5
         },
         __self: undefined,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
+                bsPrefix: "limelight",
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 11,
+                    lineNumber: 13,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -40173,7 +40260,7 @@ const UserInfo = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 12,
+                    lineNumber: 14,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -40185,7 +40272,7 @@ const UserInfo = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 14,
+                    lineNumber: 16,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -40198,7 +40285,7 @@ const UserInfo = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 16,
+                    lineNumber: 18,
                     columnNumber: 30
                 },
                 __self: undefined
@@ -40217,7 +40304,7 @@ $RefreshReg$(_c, "UserInfo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","./update-user-form.jsx":"dvrZ0"}],"dvrZ0":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","./update-user-form.jsx":"dvrZ0","./user-profile-view.css":"6xyDQ"}],"dvrZ0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$666e = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40236,7 +40323,7 @@ const UpdateUserForm = (props)=>{
     const [username, setUsername] = _react.useState(userData.Username);
     const [userEmail, setUserEmail] = _react.useState(userData.Email);
     // set this to false to ensure the user enters a valid password -- this prefents our hashed password in the database from being used
-    const [userPassword, setPassword] = _react.useState(false);
+    const [userPassword, setPassword] = _react.useState('');
     const [userBirthday, setUserBirthday] = _react.useState(userData.Birthday);
     const updateUserHandler = (event)=>{
         event.prevent.default;
@@ -40278,6 +40365,7 @@ const UpdateUserForm = (props)=>{
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                         type: "text",
+                        placeholder: username,
                         onChange: (event)=>setUsername(event.target.value)
                         ,
                         __source: {
@@ -40293,7 +40381,7 @@ const UpdateUserForm = (props)=>{
                 controlId: "formPassword",
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 29,
+                    lineNumber: 30,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -40301,7 +40389,7 @@ const UpdateUserForm = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 30,
+                            lineNumber: 31,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40309,7 +40397,7 @@ const UpdateUserForm = (props)=>{
                             className: "label",
                             __source: {
                                 fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 31,
+                                lineNumber: 32,
                                 columnNumber: 13
                             },
                             __self: undefined,
@@ -40318,11 +40406,12 @@ const UpdateUserForm = (props)=>{
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                         type: "password",
+                        placeholder: userPassword,
                         onChange: (event)=>setPassword(event.target.value)
                         ,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 33,
+                            lineNumber: 34,
                             columnNumber: 11
                         },
                         __self: undefined
@@ -40333,7 +40422,7 @@ const UpdateUserForm = (props)=>{
                 controlId: "formEmail",
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 39,
+                    lineNumber: 41,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -40341,7 +40430,7 @@ const UpdateUserForm = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 40,
+                            lineNumber: 42,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40349,7 +40438,7 @@ const UpdateUserForm = (props)=>{
                             className: "label",
                             __source: {
                                 fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 41,
+                                lineNumber: 43,
                                 columnNumber: 13
                             },
                             __self: undefined,
@@ -40358,11 +40447,12 @@ const UpdateUserForm = (props)=>{
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                         type: "text",
+                        placeholder: userEmail,
                         onChange: (event)=>setUserEmail(event.target.value)
                         ,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 43,
+                            lineNumber: 45,
                             columnNumber: 11
                         },
                         __self: undefined
@@ -40373,7 +40463,7 @@ const UpdateUserForm = (props)=>{
                 controlId: "formBirthday",
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 49,
+                    lineNumber: 52,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -40381,7 +40471,7 @@ const UpdateUserForm = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 50,
+                            lineNumber: 53,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40389,7 +40479,7 @@ const UpdateUserForm = (props)=>{
                             className: "label",
                             __source: {
                                 fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                lineNumber: 51,
+                                lineNumber: 54,
                                 columnNumber: 13
                             },
                             __self: undefined,
@@ -40398,11 +40488,12 @@ const UpdateUserForm = (props)=>{
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
                         type: "date",
+                        placeholder: userBirthday,
                         onChange: (event)=>setUserBirthday(event.target.value)
                         ,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 53,
+                            lineNumber: 56,
                             columnNumber: 11
                         },
                         __self: undefined
@@ -40414,7 +40505,7 @@ const UpdateUserForm = (props)=>{
                 onClick: updateUserHandler,
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 59,
+                    lineNumber: 63,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -40425,7 +40516,7 @@ const UpdateUserForm = (props)=>{
                 onClick: hideForm,
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 62,
+                    lineNumber: 66,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -40434,7 +40525,7 @@ const UpdateUserForm = (props)=>{
         ]
     }));
 };
-_s(UpdateUserForm, "dhSYsHN8RmZ0y9jPNjTfXGwyjEA=");
+_s(UpdateUserForm, "3UVPS4ckSlmrG60Bg3N2OwrAIJc=");
 _c = UpdateUserForm;
 exports.default = UpdateUserForm;
 var _c;
@@ -40445,6 +40536,6 @@ $RefreshReg$(_c, "UpdateUserForm");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}]},["emU3S","90ZSn","dB8et"], "dB8et", "parcelRequire3a21")
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"6xyDQ":[function() {},{}]},["emU3S","90ZSn","dB8et"], "dB8et", "parcelRequire3a21")
 
 //# sourceMappingURL=index.e1b27ffe.js.map
