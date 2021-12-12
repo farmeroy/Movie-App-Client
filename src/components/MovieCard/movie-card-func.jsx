@@ -33,7 +33,8 @@ const MovieCard = (props) => {
     console.log(token, username);
     axios
       .put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
+        method: 'PUT'
       })
       .then((response) => {
         console.log(response)

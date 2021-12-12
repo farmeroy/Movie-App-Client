@@ -7,7 +7,7 @@ const UpdateUserForm = (props) => {
   const [username, setUsername] = useState(userData.Username);
   const [userEmail, setUserEmail] = useState(userData.Email);
   // set this to false to ensure the user enters a valid password -- this prefents our hashed password in the database from being used
-  const [userPassword, setPassword] = useState(false);
+  const [userPassword, setPassword] = useState('');
   const [userBirthday, setUserBirthday] = useState(userData.Birthday);
 
   const updateUserHandler = (event) => {
@@ -22,6 +22,7 @@ const UpdateUserForm = (props) => {
           </Form.Label>
           <Form.Control
             type="text"
+            placeholder={username}
             onChange={(event) => setUsername(event.target.value)}
           />
         </Form.Group>
@@ -32,6 +33,7 @@ const UpdateUserForm = (props) => {
           </Form.Label>
           <Form.Control
             type="password"
+            placeholder={userPassword}
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
@@ -42,6 +44,7 @@ const UpdateUserForm = (props) => {
           </Form.Label>
           <Form.Control
             type="text"
+            placeholder={userEmail}
             onChange={(event) => setUserEmail(event.target.value)}
           />
         </Form.Group>
@@ -52,6 +55,7 @@ const UpdateUserForm = (props) => {
           </Form.Label>
           <Form.Control
             type="date"
+            placeholder={userBirthday}
             onChange={(event) => setUserBirthday(event.target.value)}
           />
         </Form.Group>
