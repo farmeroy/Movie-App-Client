@@ -1,0 +1,13 @@
+.profile-card {
+  // height: 600px;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  background-color: #577bc1;
+}
+
+.limelight {
+  font-family: "Limelight", cursive;
+  // color: #344cb7;
+  text-align: center;
+}
