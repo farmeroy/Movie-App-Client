@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from "react";
-import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Link,  Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
@@ -60,9 +60,9 @@ const MainView = () => {
     <>
       <Navbar bsPrefix="my-navbar" sticky="top">
         <Container fluid>
-          <Navbar.Brand className="preCodeBrand">Pre-Code Flix</Navbar.Brand>
-          <Button onClick={onLoggedOut.bind(this)}><Link to={`/`}>Log Out</Link></Button>
-          <Button className="preCodeBrand">
+          <Navbar.Brand ><Link to={'/'} className="preCodeBrand">Pre-Code Flix</Link></Navbar.Brand>
+          <Button variant="dark" onClick={onLoggedOut.bind(this)}><Link to={`/`}>Log Out</Link></Button>
+          <Button variant="dark" className="preCodeBrand">
             <Link to={`/users/${user}`}>View Profile</Link>
           </Button>
         </Container>
