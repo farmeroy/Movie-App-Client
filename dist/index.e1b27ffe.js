@@ -39404,6 +39404,8 @@ var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _card = require("react-bootstrap/Card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
 var _reactRouterDom = require("react-router-dom");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
 const truncateText = (text)=>{
     if (!text) return "...";
@@ -39418,21 +39420,46 @@ const MovieCard = (props)=>{
     _s();
     const { movieData , userData  } = props;
     const navigate = _reactRouterDom.useNavigate();
-    const movieId = movieData._id;
-    const isUserFav = userData.FavMovies.find((movie)=>movie._id === movieId
+    const movieId1 = movieData._id;
+    const isUserFav = userData.FavMovies.find((movie)=>movie._id === movieId1
     );
-    console.log(userData, movieId);
     const removeFavHandler = ()=>{
-        console.log('remove');
+        const username = localStorage.getItem("user");
+        const movieId = movieData._id;
+        const token = localStorage.getItem("token");
+        console.log(token, username);
+        _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response);
+        }).catch((error)=>{
+            console.log(error);
+        });
     };
     const addFavHandler = ()=>{
+        const username = localStorage.getItem('user');
+        const token = localStorage.getItem("token");
+        const movieId = movieData._id;
+        console.log(movieId);
+        // console.log(token)
+        _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response);
+        }).catch((error)=>{
+            console.log(error);
+        });
         console.log('add');
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card-func.jsx",
-            lineNumber: 38,
+            lineNumber: 66,
             columnNumber: 5
         },
         __self: undefined,
@@ -39442,7 +39469,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 39,
+                    lineNumber: 67,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -39450,7 +39477,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 40,
+                    lineNumber: 68,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -39459,7 +39486,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 41,
+                            lineNumber: 69,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39468,19 +39495,19 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 42,
+                            lineNumber: 70,
                             columnNumber: 9
                         },
                         __self: undefined,
                         children: truncateText(movieData.Description)
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                        onClick: ()=>navigate(`/movies/${movieId}`)
+                        onClick: ()=>navigate(`/movies/${movieId1}`)
                         ,
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 43,
+                            lineNumber: 71,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39490,7 +39517,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 46,
+                            lineNumber: 74,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -39500,7 +39527,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 47,
+                            lineNumber: 75,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -39526,7 +39553,7 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./movie-card.scss":"4oxxX","prop-types":"2bysO","react-bootstrap/Button":"64Pgd","react-bootstrap/Card":"jeXXJ","react-router-dom":"16kZP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"4oxxX":[function() {},{}],"93iJL":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./movie-card.scss":"4oxxX","prop-types":"2bysO","react-bootstrap/Button":"64Pgd","react-bootstrap/Card":"jeXXJ","react-router-dom":"16kZP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","axios":"1IeuP"}],"4oxxX":[function() {},{}],"93iJL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$cde8 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40004,7 +40031,7 @@ const ProfileView = (props)=>{
         __self: undefined,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
-                md: 3,
+                md: 10,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
                     lineNumber: 37,
@@ -40022,7 +40049,7 @@ const ProfileView = (props)=>{
                 })
             }),
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
-                md: 9,
+                md: 10,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
                     lineNumber: 40,
