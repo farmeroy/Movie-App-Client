@@ -34,10 +34,10 @@ const ProfileView = (props) => {
 
   if (userData)  return (
     <Row className="justify-content-center row-eq-height">
-      <Col md={3}>
+      <Col md={10}>
         <UserInfo userData={userData} />
       </Col>
-      <Col md={9}>
+      <Col md={10}>
         <Row className="justify-content-md-center row-eq-height">
         <FavMovies userData={userData} moviesData={moviesData} />
         </Row>
