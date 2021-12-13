@@ -71,7 +71,9 @@ const UpdateUserForm = (props) => {
         {headers: { Authorization: `Bearer ${token}` }},
       )
       .then((response) => {
+        localStorage.setItem("user", enteredUsername)
         console.log(response)
+        window.open(`/users/${enteredUsername}`, "_self");
       })
       .catch((error) => {
         console.log(error)
