@@ -29,7 +29,7 @@ const MovieCard = (props) => {
     const username = localStorage.getItem("user");
     const movieId = movieData._id;
     const token = localStorage.getItem("token");
-    console.log(token, username);
+
     axios
       .put(
         `http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`,
