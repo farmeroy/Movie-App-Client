@@ -22,6 +22,14 @@ body {
 .label {
   color: white;
 }
+
+.error {
+  color: #cd1818;
+}
+
+.login-form {
+  padding: 1rem;
+}
 .movie-image {
   height: 80vh important;
   width: auto;
@@ -56,11 +64,13 @@ body {
   font-family: "Limelight", cursive;
   text-align: center;
 }
-.profile-card {
+.director-card {
   overflow: hidden;
   color: white;
   text-align: center;
   background-color: #577bc1;
+  padding: 1rem;
+  margin: 10px;
 }
 
 .limelight {
@@ -68,4 +78,47 @@ body {
   text-align: center;
 }
 
+.other-films {
+  color: #ebe645;
+}
+.genre-card {
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  background-color: #577bc1;
+  padding: 1rem;
+  margin: 10px;
+}
+
+.limelight {
+  font-family: "Limelight", cursive;
+  text-align: center;
+}
+
+.other-films {
+  color: #ebe645;
+}
+.profile-card {
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  background-color: #577bc1;
+  padding: 1rem;
+  margin: 10px;
+
+}
+
+.limelight {
+  font-family: "Limelight", cursive;
+  text-align: center;
+}
+
+.preCodeBrand {
+  font-family: "Limelight", cursive;
+  color: #ebe645;
+}
+
+.my-navbar {
+  background-color: #000957;
+}
 /*# sourceMappingURL=index.1f6edfee.css.map */
