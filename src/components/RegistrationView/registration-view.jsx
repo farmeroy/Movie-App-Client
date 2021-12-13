@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import useForm from '../../hooks/useForm';
 import { Col, Form, Button } from "react-bootstrap";
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 // validation logic to check input in text field
@@ -10,6 +11,8 @@ const textInputIsValid = (text) => {
 }
 
 function RegistrationView(props) {
+
+  const navigate = useNavigate();
 
   const {
     enteredValue: enteredEmail,
@@ -136,6 +139,7 @@ function RegistrationView(props) {
         <Button type="submit" onClick={registerUserHandler}>
           Confirm
         </Button>
+        <Button type="button" variant="secondary" onClick={()=> navigate(-1)}>Cancel</Button>
       </Form>
     </Col>
   );
