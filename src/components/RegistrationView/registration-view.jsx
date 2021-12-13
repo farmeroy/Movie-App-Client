@@ -88,7 +88,7 @@ function RegistrationView(props) {
             onBlur={usernameTouchHandler}
             placeholder="username"
           />
-          {usernameHasError && <p>Please enter a Username</p>}
+          {usernameHasError && <p className="error">Please enter a Username</p>}
         </Form.Group>
 
         <Form.Group controlId="formPassword">
@@ -102,7 +102,7 @@ function RegistrationView(props) {
             onBlur={passwordTouchHandler}
             placeholder='password'
           />
-          {passwordHasError && <p>Please enter a password</p>}
+          {passwordHasError && <p className="error">Please enter a password</p>}
         </Form.Group>
 
         <Form.Group controlId="formEmail">
@@ -116,7 +116,7 @@ function RegistrationView(props) {
             onChange={emailChangeHandler}
             onBlur={emailTouchHandler}
           />
-          {emailHasError && <p>Please enter a valid email</p>}
+          {emailHasError && <p className="error">Please enter a valid email</p>}
         </Form.Group>
 
         <Form.Group controlId="formBirthday">
@@ -130,7 +130,7 @@ function RegistrationView(props) {
             onBlur={birthdayTouchHandler}
             onChange={birthdayChangeHandler}
           />
-          {birthdayHasError && <p>Please enter your birthday</p>}
+          {birthdayHasError && <p className="error">Please enter your birthday</p>}
         </Form.Group>
 
         <Button type="submit" onClick={registerUserHandler}>
