@@ -39606,10 +39606,13 @@ var _s = $RefreshSig$();
 const textInputIsValid = (text)=>{
     return text.trim() !== "";
 };
+const emailInputIsValid = (email)=>{
+    return /\S+@\S+\.\S+/.test(email);
+};
 function RegistrationView(props) {
     _s();
     const navigate = _reactRouterDom.useNavigate();
-    const { enteredValue: enteredEmail , hasError: emailHasError , isValid: emailIsValid , inputChangeHandler: emailChangeHandler , inputTouchHandler: emailTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredEmail , hasError: emailHasError , isValid: emailIsValid , inputChangeHandler: emailChangeHandler , inputTouchHandler: emailTouchHandler ,  } = _useFormDefault.default(emailInputIsValid);
     const { enteredValue: enteredBirthday , hasError: birthdayHasError , isValid: birthdayIsValid , inputChangeHandler: birthdayChangeHandler , inputTouchHandler: birthdayTouchHandler  } = _useFormDefault.default(textInputIsValid);
     const { enteredValue: enteredUsername , hasError: usernameHasError , isValid: usernameIsValid , inputChangeHandler: usernameChangeHandler , inputTouchHandler: usernameTouchHandler  } = _useFormDefault.default(textInputIsValid);
     const { enteredValue: enteredPassword , hasError: passwordHasError , isValid: passwordIsValid , inputChangeHandler: passwordChangeHandler , inputTouchHandler: passwordTouchHandler  } = _useFormDefault.default(textInputIsValid);
@@ -39641,14 +39644,14 @@ function RegistrationView(props) {
         md: 8,
         __source: {
             fileName: "src/components/RegistrationView/registration-view.jsx",
-            lineNumber: 81,
+            lineNumber: 85,
             columnNumber: 5
         },
         __self: this,
         children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
             __source: {
                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                lineNumber: 82,
+                lineNumber: 86,
                 columnNumber: 7
             },
             __self: this,
@@ -39657,7 +39660,7 @@ function RegistrationView(props) {
                     controlId: "formUsername",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 83,
+                        lineNumber: 87,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39665,7 +39668,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 84,
+                                lineNumber: 88,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39673,7 +39676,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 85,
+                                    lineNumber: 89,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39688,7 +39691,7 @@ function RegistrationView(props) {
                             placeholder: "username",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 87,
+                                lineNumber: 91,
                                 columnNumber: 11
                             },
                             __self: this
@@ -39697,7 +39700,7 @@ function RegistrationView(props) {
                             className: "error",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 94,
+                                lineNumber: 98,
                                 columnNumber: 32
                             },
                             __self: this,
@@ -39709,7 +39712,7 @@ function RegistrationView(props) {
                     controlId: "formPassword",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 97,
+                        lineNumber: 101,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39717,7 +39720,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 98,
+                                lineNumber: 102,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39725,7 +39728,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 99,
+                                    lineNumber: 103,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39740,7 +39743,7 @@ function RegistrationView(props) {
                             placeholder: "password",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 101,
+                                lineNumber: 105,
                                 columnNumber: 11
                             },
                             __self: this
@@ -39749,7 +39752,7 @@ function RegistrationView(props) {
                             className: "error",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 108,
+                                lineNumber: 112,
                                 columnNumber: 32
                             },
                             __self: this,
@@ -39761,7 +39764,7 @@ function RegistrationView(props) {
                     controlId: "formEmail",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 111,
+                        lineNumber: 115,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39769,7 +39772,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 112,
+                                lineNumber: 116,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39777,7 +39780,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 113,
+                                    lineNumber: 117,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39792,7 +39795,7 @@ function RegistrationView(props) {
                             onBlur: emailTouchHandler,
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 115,
+                                lineNumber: 119,
                                 columnNumber: 11
                             },
                             __self: this
@@ -39801,7 +39804,7 @@ function RegistrationView(props) {
                             className: "error",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 122,
+                                lineNumber: 126,
                                 columnNumber: 29
                             },
                             __self: this,
@@ -39813,7 +39816,7 @@ function RegistrationView(props) {
                     controlId: "formBirthday",
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 125,
+                        lineNumber: 129,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39821,7 +39824,7 @@ function RegistrationView(props) {
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 126,
+                                lineNumber: 130,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -39829,7 +39832,7 @@ function RegistrationView(props) {
                                 className: "label",
                                 __source: {
                                     fileName: "src/components/RegistrationView/registration-view.jsx",
-                                    lineNumber: 127,
+                                    lineNumber: 131,
                                     columnNumber: 13
                                 },
                                 __self: this,
@@ -39844,7 +39847,7 @@ function RegistrationView(props) {
                             onChange: birthdayChangeHandler,
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 129,
+                                lineNumber: 133,
                                 columnNumber: 11
                             },
                             __self: this
@@ -39853,7 +39856,7 @@ function RegistrationView(props) {
                             className: "error",
                             __source: {
                                 fileName: "src/components/RegistrationView/registration-view.jsx",
-                                lineNumber: 136,
+                                lineNumber: 140,
                                 columnNumber: 32
                             },
                             __self: this,
@@ -39866,7 +39869,7 @@ function RegistrationView(props) {
                     onClick: registerUserHandler,
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 139,
+                        lineNumber: 143,
                         columnNumber: 9
                     },
                     __self: this,
@@ -39879,7 +39882,7 @@ function RegistrationView(props) {
                     ,
                     __source: {
                         fileName: "src/components/RegistrationView/registration-view.jsx",
-                        lineNumber: 142,
+                        lineNumber: 146,
                         columnNumber: 9
                     },
                     __self: this,
@@ -40510,10 +40513,13 @@ var _s = $RefreshSig$();
 const textInputIsValid = (text)=>{
     return text.trim() !== "";
 };
+const emailInputIsValid = (email)=>{
+    return /\S+@\S+\.\S+/.test(email);
+};
 const UpdateUserForm = (props)=>{
     _s();
     const { userData , hideForm  } = props;
-    const { enteredValue: enteredEmail , hasError: emailHasError , isValid: emailIsValid , inputChangeHandler: emailChangeHandler , inputTouchHandler: emailTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
+    const { enteredValue: enteredEmail , hasError: emailHasError , isValid: emailIsValid , inputChangeHandler: emailChangeHandler , inputTouchHandler: emailTouchHandler ,  } = _useFormDefault.default(emailInputIsValid);
     const { enteredValue: enteredBirthday , hasError: birthdayHasError , isValid: birthdayIsValid , inputChangeHandler: birthdayChangeHandler , inputTouchHandler: birthdayTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
     const { enteredValue: enteredUsername , hasError: usernameHasError , isValid: usernameIsValid , inputChangeHandler: usernameChangeHandler , inputTouchHandler: usernameTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
     const { enteredValue: enteredPassword , hasError: passwordHasError , isValid: passwordIsValid , inputChangeHandler: passwordChangeHandler , inputTouchHandler: passwordTouchHandler ,  } = _useFormDefault.default(textInputIsValid);
@@ -40551,7 +40557,7 @@ const UpdateUserForm = (props)=>{
         className: "main-view justify-content-md-center row-eq-height",
         __source: {
             fileName: "src/components/UserProfileView/update-user-form.jsx",
-            lineNumber: 84,
+            lineNumber: 88,
             columnNumber: 5
         },
         __self: undefined,
@@ -40559,14 +40565,14 @@ const UpdateUserForm = (props)=>{
             md: 8,
             __source: {
                 fileName: "src/components/UserProfileView/update-user-form.jsx",
-                lineNumber: 85,
+                lineNumber: 89,
                 columnNumber: 7
             },
             __self: undefined,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 86,
+                    lineNumber: 90,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -40575,7 +40581,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formUsername",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 87,
+                            lineNumber: 91,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40583,7 +40589,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 88,
+                                    lineNumber: 92,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -40591,7 +40597,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 89,
+                                        lineNumber: 93,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40606,7 +40612,7 @@ const UpdateUserForm = (props)=>{
                                 placeholder: userData.Username,
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 91,
+                                    lineNumber: 95,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -40614,7 +40620,7 @@ const UpdateUserForm = (props)=>{
                             usernameHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 98,
+                                    lineNumber: 102,
                                     columnNumber: 34
                                 },
                                 __self: undefined,
@@ -40626,7 +40632,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formPassword",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 101,
+                            lineNumber: 105,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40634,7 +40640,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 102,
+                                    lineNumber: 106,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -40642,7 +40648,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 103,
+                                        lineNumber: 107,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40657,7 +40663,7 @@ const UpdateUserForm = (props)=>{
                                 placeholder: "enter a new password",
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 105,
+                                    lineNumber: 109,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -40665,7 +40671,7 @@ const UpdateUserForm = (props)=>{
                             passwordHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 112,
+                                    lineNumber: 116,
                                     columnNumber: 34
                                 },
                                 __self: undefined,
@@ -40677,7 +40683,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formEmail",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 115,
+                            lineNumber: 119,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40685,7 +40691,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 116,
+                                    lineNumber: 120,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -40693,7 +40699,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 117,
+                                        lineNumber: 121,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40708,7 +40714,7 @@ const UpdateUserForm = (props)=>{
                                 onBlur: emailTouchHandler,
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 119,
+                                    lineNumber: 123,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -40716,7 +40722,7 @@ const UpdateUserForm = (props)=>{
                             emailHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 126,
+                                    lineNumber: 130,
                                     columnNumber: 31
                                 },
                                 __self: undefined,
@@ -40728,7 +40734,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formBirthday",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 129,
+                            lineNumber: 133,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40736,7 +40742,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 130,
+                                    lineNumber: 134,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -40744,7 +40750,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 131,
+                                        lineNumber: 135,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40759,7 +40765,7 @@ const UpdateUserForm = (props)=>{
                                 onChange: birthdayChangeHandler,
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 133,
+                                    lineNumber: 137,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -40767,7 +40773,7 @@ const UpdateUserForm = (props)=>{
                             birthdayHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 140,
+                                    lineNumber: 144,
                                     columnNumber: 34
                                 },
                                 __self: undefined,
@@ -40780,7 +40786,7 @@ const UpdateUserForm = (props)=>{
                         onClick: updateUserHandler,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 143,
+                            lineNumber: 147,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40791,7 +40797,7 @@ const UpdateUserForm = (props)=>{
                         onClick: hideForm,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 146,
+                            lineNumber: 150,
                             columnNumber: 11
                         },
                         __self: undefined,
