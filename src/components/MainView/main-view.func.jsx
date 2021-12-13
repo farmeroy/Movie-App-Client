@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from "react";
-import { Link,  Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
 import LoginView from "../LoginView/login-view";
@@ -37,7 +37,6 @@ const MainView = () => {
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
     setUserData(authData.user);
-    console.log(authData.user);
   };
 
   const onLoggedOut = () => {
@@ -52,7 +51,7 @@ const MainView = () => {
       setUser(localStorage.getItem("user"));
       getMovies(accessToken);
     }
-  }, []);
+  }, [user]);
 
   const dataIsLoaded = movies && userData;
 
@@ -60,8 +59,14 @@ const MainView = () => {
     <>
       <Navbar bsPrefix="my-navbar" sticky="top">
         <Container fluid>
-          <Navbar.Brand ><Link to={'/'} className="preCodeBrand">Pre-Code Flix</Link></Navbar.Brand>
-          <Button variant="dark" onClick={onLoggedOut.bind(this)}><Link to={`/`}>Log Out</Link></Button>
+          <Navbar.Brand>
+            <Link to={"/"} className="preCodeBrand">
+              Pre-Code Flix
+            </Link>
+          </Navbar.Brand>
+          <Button variant="dark" onClick={onLoggedOut.bind(this)}>
+            <Link to={`/`}>Log Out</Link>
+          </Button>
           <Button variant="dark" className="preCodeBrand">
             <Link to={`/users/${user}`}>View Profile</Link>
           </Button>
@@ -95,15 +100,15 @@ const MainView = () => {
             }
           />
 
-          <Route path="/genres/:name" element={<GenreView movies={movies} userData={userData} />} />
+          <Route
+            path="/genres/:name"
+            element={<GenreView movies={movies} userData={userData} />}
+          />
           <Route
             path="/directors/:name"
-            element={<DirectorView movies={movies} />}
+            element={<DirectorView movies={movies} userData={userData} />}
           />
-          <Route
-            path={`/users/${user}`}
-            element={<ProfileView   />}
-          />
+          <Route path={`/users/${user}`} element={<ProfileView />} />
         </Routes>
       </Row>
     </>
