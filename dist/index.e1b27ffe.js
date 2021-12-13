@@ -22997,6 +22997,8 @@ const MainView = ()=>{
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_movieViewFuncJsxDefault.default, {
                                 movies: movies,
                                 onBackClick: ()=>console.log("go back")
+                                ,
+                                userData: userData
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
@@ -23008,11 +23010,12 @@ const MainView = ()=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/genres/:name",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_genreViewDefault.default, {
-                                movies: movies
+                                movies: movies,
+                                userData: userData
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 97,
+                                lineNumber: 98,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23024,7 +23027,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 98,
+                                lineNumber: 99,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23035,7 +23038,7 @@ const MainView = ()=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 102,
+                                lineNumber: 103,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -39516,10 +39519,11 @@ const MovieCard = (props)=>{
         const token = localStorage.getItem("token");
         console.log(token, username);
         _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`, {
+        }, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            method: 'PUT'
+            method: "PUT"
         }).then((response)=>{
             console.log(response);
         }).catch((error)=>{
@@ -39527,12 +39531,13 @@ const MovieCard = (props)=>{
         });
     };
     const addFavHandler = ()=>{
-        const username = localStorage.getItem('user');
+        const username = localStorage.getItem("user");
         const token = localStorage.getItem("token");
         const movieId = movieData._id;
         console.log(movieId);
         // console.log(token)
         _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`, {
+        }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -39541,13 +39546,13 @@ const MovieCard = (props)=>{
         }).catch((error)=>{
             console.log(error);
         });
-        console.log('add');
+        console.log("add");
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card-func.jsx",
-            lineNumber: 67,
+            lineNumber: 74,
             columnNumber: 5
         },
         __self: undefined,
@@ -39557,7 +39562,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 68,
+                    lineNumber: 75,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -39565,7 +39570,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card-func.jsx",
-                    lineNumber: 69,
+                    lineNumber: 76,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -39574,7 +39579,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 70,
+                            lineNumber: 77,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39583,7 +39588,7 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 71,
+                            lineNumber: 78,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39595,7 +39600,7 @@ const MovieCard = (props)=>{
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 72,
+                            lineNumber: 79,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -39605,7 +39610,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 75,
+                            lineNumber: 85,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -39615,8 +39620,8 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card-func.jsx",
-                            lineNumber: 76,
-                            columnNumber: 23
+                            lineNumber: 86,
+                            columnNumber: 24
                         },
                         __self: undefined,
                         children: "Like"
@@ -40049,63 +40054,111 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactRouterDom = require("react-router-dom");
+var _moviesJsx = require("../Movies/movies.jsx");
+var _moviesJsxDefault = parcelHelpers.interopDefault(_moviesJsx);
 var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
 const GenreView = (props)=>{
     _s();
-    const { movies  } = props;
+    const { movies , userData  } = props;
     const { name  } = _reactRouterDom.useParams();
     const navigate = _reactRouterDom.useNavigate();
     const genre = movies.find((movie)=>movie.Genre.Name === name
     ).Genre;
-    return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
-        __source: {
-            fileName: "src/components/GenreView/genre-view.jsx",
-            lineNumber: 14,
-            columnNumber: 5
-        },
-        __self: undefined,
-        children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
-            __source: {
-                fileName: "src/components/GenreView/genre-view.jsx",
-                lineNumber: 15,
-                columnNumber: 7
-            },
-            __self: undefined,
-            children: [
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
+    const genreMovies = movies.filter((movie)=>movie.Genre.Name === name
+    );
+    console.log(name);
+    return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
+        children: [
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+                __source: {
+                    fileName: "src/components/GenreView/genre-view.jsx",
+                    lineNumber: 19,
+                    columnNumber: 7
+                },
+                __self: undefined,
+                children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                     __source: {
                         fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 16,
+                        lineNumber: 20,
                         columnNumber: 9
                     },
                     __self: undefined,
-                    children: genre.Name
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
-                    __source: {
-                        fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 17,
-                        columnNumber: 9
-                    },
-                    __self: undefined,
-                    children: genre.Bio
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                    onClick: ()=>{
-                        navigate("/");
-                    },
-                    className: "back-btn",
-                    __source: {
-                        fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 18,
-                        columnNumber: 9
-                    },
-                    __self: undefined,
-                    children: "Back"
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
+                            __source: {
+                                fileName: "src/components/GenreView/genre-view.jsx",
+                                lineNumber: 21,
+                                columnNumber: 11
+                            },
+                            __self: undefined,
+                            children: genre.Name
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
+                            __source: {
+                                fileName: "src/components/GenreView/genre-view.jsx",
+                                lineNumber: 22,
+                                columnNumber: 11
+                            },
+                            __self: undefined,
+                            children: genre.Bio
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                            onClick: ()=>{
+                                navigate("/");
+                            },
+                            className: "back-btn",
+                            __source: {
+                                fileName: "src/components/GenreView/genre-view.jsx",
+                                lineNumber: 23,
+                                columnNumber: 11
+                            },
+                            __self: undefined,
+                            children: "Back"
+                        })
+                    ]
                 })
-            ]
-        })
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+                __source: {
+                    fileName: "src/components/GenreView/genre-view.jsx",
+                    lineNumber: 33,
+                    columnNumber: 7
+                },
+                __self: undefined,
+                children: /*#__PURE__*/ _jsxRuntime.jsxs("h1", {
+                    __source: {
+                        fileName: "src/components/GenreView/genre-view.jsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    },
+                    __self: undefined,
+                    children: [
+                        "Other ",
+                        genre.Name,
+                        " Movies"
+                    ]
+                })
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+                __source: {
+                    fileName: "src/components/GenreView/genre-view.jsx",
+                    lineNumber: 36,
+                    columnNumber: 7
+                },
+                __self: undefined,
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_moviesJsxDefault.default, {
+                    moviesData: genreMovies,
+                    userData: userData,
+                    __source: {
+                        fileName: "src/components/GenreView/genre-view.jsx",
+                        lineNumber: 37,
+                        columnNumber: 9
+                    },
+                    __self: undefined
+                })
+            })
+        ]
     }));
 };
 _s(GenreView, "efCiYOhdP9YRW91T186e+7j9BJY=", false, function() {
@@ -40124,7 +40177,7 @@ $RefreshReg$(_c, "GenreView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"fcaoo":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","../Movies/movies.jsx":"8NrtK"}],"fcaoo":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1c89 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

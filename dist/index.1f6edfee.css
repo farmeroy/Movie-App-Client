@@ -57,7 +57,6 @@ body {
   text-align: center;
 }
 .profile-card {
-  // height: 600px;
   overflow: hidden;
   color: white;
   text-align: center;
@@ -66,7 +65,6 @@ body {
 
 .limelight {
   font-family: "Limelight", cursive;
-  // color: #344cb7;
   text-align: center;
 }
 
