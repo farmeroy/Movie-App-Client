@@ -9,8 +9,9 @@ import RegistrationView from "../RegistrationView/registration-view";
 import DirectorView from "../DirectorView/director-view";
 import GenreView from "../GenreView/genre-view";
 import ProfileView from "../UserProfileView/user-profile-view";
+import TopNav from "../UI/TopNav/top-nav";
 
-import { Button, Container, Row, Navbar } from "react-bootstrap";
+import {  Row } from "react-bootstrap";
 
 const MainView = () => {
   [selectedMovie, setSelectedMovie] = useState("");
@@ -57,22 +58,7 @@ const MainView = () => {
 
   return (
     <>
-      <Navbar bsPrefix="my-navbar" sticky="top">
-        <Container fluid>
-          <Navbar.Brand>
-            <Link to={"/"} className="preCodeBrand">
-              Pre-Code Flix
-            </Link>
-          </Navbar.Brand>
-          <Button variant="dark" onClick={onLoggedOut.bind(this)}>
-            <Link to={`/`}>Log Out</Link>
-          </Button>
-          <Button variant="dark" className="preCodeBrand">
-            <Link to={`/users/${user}`}>View Profile</Link>
-          </Button>
-        </Container>
-      </Navbar>
-
+      <TopNav onLoggedOut={onLoggedOut} />
       <Row className="main-view justify-content-md-center row-eq-height">
         <Routes>
           {/* placeholder while the movies fetch*/}
