@@ -2,6 +2,7 @@ import { React } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Movies from "../Movies/movies.jsx";
 import { Row, Card, Col, Button } from "react-bootstrap";
+import './genre-view.scss';
 
 const GenreView = (props) => {
   const { movies, userData } = props;
@@ -15,8 +16,9 @@ const GenreView = (props) => {
   return (
     <>
       <Row>
-        <Card>
-          <Card.Title>{genre.Name}</Card.Title>
+        <Col sm={12}>
+        <Card bsPrefix="genre-card">
+          <Card.Title bsPrefix="limelight">{genre.Name}</Card.Title>
           <Card.Text>{genre.Description}</Card.Text>
           <Button
             onClick={() => {
@@ -27,11 +29,14 @@ const GenreView = (props) => {
             Back
           </Button>
         </Card>
+        </Col>
       </Row>
       <Row>
-        <h1>Other {genre.Name} Movies</h1>
+        <Col sm={12}>
+        <h1 className="other-films limelight">Other {genre.Name} Movies</h1>
+        </Col>
         </Row>
-      <Row>
+      <Row className="main-view justify-content-md-center row-eq-height">
         <Movies moviesData={genreMovies} userData={userData} />
       </Row>
     </>
