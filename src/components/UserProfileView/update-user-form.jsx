@@ -8,6 +8,10 @@ const textInputIsValid = (text) => {
   return text.trim() !== "";
 };
 
+const emailInputIsValid = (email) => {
+  return /\S+@\S+\.\S+/.test(email)
+}
+
 const UpdateUserForm = (props) => {
   const { userData, hideForm } = props;
 
@@ -17,7 +21,7 @@ const UpdateUserForm = (props) => {
     isValid: emailIsValid,
     inputChangeHandler: emailChangeHandler,
     inputTouchHandler: emailTouchHandler,
-  } = useForm(textInputIsValid);
+  } = useForm(emailInputIsValid);
 
   const {
     enteredValue: enteredBirthday,

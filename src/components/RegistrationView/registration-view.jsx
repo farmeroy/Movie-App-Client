@@ -10,6 +10,10 @@ const textInputIsValid = (text) => {
   return text.trim() !== "";
 }
 
+const emailInputIsValid = (email) => {
+  return /\S+@\S+\.\S+/.test(email)
+}
+
 function RegistrationView(props) {
 
   const navigate = useNavigate();
@@ -20,7 +24,7 @@ function RegistrationView(props) {
     isValid: emailIsValid,
     inputChangeHandler: emailChangeHandler,
     inputTouchHandler: emailTouchHandler,
-  } = useForm(textInputIsValid);
+  } = useForm(emailInputIsValid);
 
   const {
     enteredValue: enteredBirthday,
