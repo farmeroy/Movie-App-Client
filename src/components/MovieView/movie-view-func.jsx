@@ -32,7 +32,7 @@ const MovieView = (props) => {
                 <span className="label">Description: </span>
                 <span className="value">{movie.Description}</span>
               </ListGroup.Item>
-              <Button onClick={() => { navigate('/') }} className="back-btn">
+              <Button onClick={() => { navigate(-1) }} className="back-btn">
                 Back
               </Button>
               <Button onClick={() => { navigate(`/directors/${movie.Director.Name}`) }}>
