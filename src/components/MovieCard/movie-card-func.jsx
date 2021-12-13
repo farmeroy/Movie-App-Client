@@ -41,6 +41,7 @@ const MovieCard = (props) => {
       )
       .then((response) => {
         console.log(response);
+        location.reload();
       })
       .catch((error) => {
         console.log(error);
