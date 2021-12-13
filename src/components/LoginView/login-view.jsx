@@ -65,7 +65,7 @@ function LoginView(props) {
           onBlur={usernameTouchHandler}
           placeholder='username'
         />       
-        {usernameHasError && <p>Please enter your Username</p>}
+        {usernameHasError && <p className="error">Please enter your Username</p>}
       </Form.Group>
 
       <Form.Group controlId="formPassword">
@@ -78,7 +78,7 @@ function LoginView(props) {
           onChange={passwordChangeHandler}
           placeholder='password'
         />
-        {passwordHasError && <p>Please enter your Password</p>}
+        {passwordHasError && <p className="error">Please enter your Password</p>}
       </Form.Group>
 
       <Button sizevariant="primary" type="submit" onClick={handleSubmit}>
