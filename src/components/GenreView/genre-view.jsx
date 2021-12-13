@@ -12,14 +12,12 @@ const GenreView = (props) => {
 
   const genreMovies = movies.filter(movie => movie.Genre.Name === name);
 
-  console.log(name );
-
   return (
     <>
       <Row>
         <Card>
           <Card.Title>{genre.Name}</Card.Title>
-          <Card.Text>{genre.Bio}</Card.Text>
+          <Card.Text>{genre.Description}</Card.Text>
           <Button
             onClick={() => {
               navigate("/");
