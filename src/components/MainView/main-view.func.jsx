@@ -90,11 +90,12 @@ const MainView = () => {
               <MovieView
                 movies={movies}
                 onBackClick={() => console.log("go back")}
+                userData={userData}
               />
             }
           />
 
-          <Route path="/genres/:name" element={<GenreView movies={movies} />} />
+          <Route path="/genres/:name" element={<GenreView movies={movies} userData={userData} />} />
           <Route
             path="/directors/:name"
             element={<DirectorView movies={movies} />}
