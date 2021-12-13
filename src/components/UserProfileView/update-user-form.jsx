@@ -55,7 +55,27 @@ const UpdateUserForm = (props) => {
       birthdayTouchHandler();
       return;
     }
-    console.log("updated!");
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    
+    const updatedUser = {
+      Username: enteredUsername,
+      Password: enteredPassword,
+      Email: enteredEmail,
+      Birthday: new Date(enteredBirthday)
+    }
+    axios
+      .put(
+        `http://pre-code-flix.herokuapp.com/users/${user}/update`,
+        updatedUser,
+        {headers: { Authorization: `Bearer ${token}` }},
+      )
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   };
 
   return (
@@ -71,7 +91,7 @@ const UpdateUserForm = (props) => {
               value={enteredUsername}
               onChange={usernameChangeHandler}
               onBlur={usernameTouchHandler}
-              placeholder="username"
+              placeholder={userData.Username}
             />
             {usernameHasError && <p>Please enter a Username</p>}
           </Form.Group>
@@ -85,7 +105,7 @@ const UpdateUserForm = (props) => {
               value={enteredPassword}
               onChange={passwordChangeHandler}
               onBlur={passwordTouchHandler}
-              placeholder="password"
+              placeholder="enter a new password"
             />
             {passwordHasError && <p>Please enter a password</p>}
           </Form.Group>
@@ -96,7 +116,7 @@ const UpdateUserForm = (props) => {
             </Form.Label>
             <Form.Control
               type="text"
-              placeholder="email"
+              placeholder={userData.Email}
               value={enteredEmail}
               onChange={emailChangeHandler}
               onBlur={emailTouchHandler}
@@ -110,7 +130,7 @@ const UpdateUserForm = (props) => {
             </Form.Label>
             <Form.Control
               type="date"
-              placeholder=""
+              placeholder={userData.Birthday}
               value={enteredBirthday}
               onBlur={birthdayTouchHandler}
               onChange={birthdayChangeHandler}
