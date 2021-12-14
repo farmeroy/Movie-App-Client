@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { moviesApp } from "./reducers/reducers";
+import  moviesApp  from "./reducers/reducers";
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import './index.scss';
 
