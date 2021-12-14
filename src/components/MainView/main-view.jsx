@@ -4,7 +4,7 @@ import "./main-view.scss";
 import axios from "axios";
 import { connect } from 'react-redux';
 import LoginView from "../LoginView/login-view";
-import MovieView from "../MovieView/movie-view-func.jsx";
+import MovieView from "../MovieView/movie-view.jsx";
 import Movies from "../Movies/movies.jsx";
 import RegistrationView from "../RegistrationView/registration-view";
 import DirectorView from "../DirectorView/director-view";

@@ -1,6 +1,4 @@
 import { React } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import MovieCard from '../MovieCard/movie-card-func';
 import Movies from '../Movies/movies';
 
 
