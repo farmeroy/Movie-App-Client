@@ -952,9 +952,10 @@ var _appDefault = parcelHelpers.interopDefault(_app);
 var _redux = require("redux");
 var _reactRedux = require("react-redux");
 var _reducers = require("./reducers/reducers");
+var _reducersDefault = parcelHelpers.interopDefault(_reducers);
 var _reduxDevtoolsExtension = require("redux-devtools-extension");
 var _indexScss = require("./index.scss");
-const store = _redux.createStore(_reducers.moviesApp, _reduxDevtoolsExtension.devToolsEnhancer());
+const store = _redux.createStore(_reducersDefault.default, _reduxDevtoolsExtension.devToolsEnhancer());
 const rootElement = document.getElementById("root");
 _reactDom.render(/*#__PURE__*/ _jsxRuntime.jsx(_reactRedux.Provider, {
     store: store,
@@ -22830,7 +22831,6 @@ var _s = $RefreshSig$();
 const MainView = (props)=>{
     _s();
     [selectedMovie, setSelectedMovie] = _react.useState("");
-    // [movies, setMovies] = useState("");
     [user, setUser] = _react.useState("");
     [registerUser, setRegisterUser] = _react.useState("");
     [userData, setUserData] = _react.useState("");
@@ -22841,7 +22841,7 @@ const MainView = (props)=>{
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
-            _actions.setMovies(response.data);
+            props.setMovies(response.data);
         }).catch(function(error) {
             console.log(error);
         });
@@ -22873,7 +22873,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.func.jsx",
-                    lineNumber: 63,
+                    lineNumber: 62,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -22882,14 +22882,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.func.jsx",
-                    lineNumber: 64,
+                    lineNumber: 63,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.func.jsx",
-                        lineNumber: 65,
+                        lineNumber: 64,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -22901,7 +22901,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 68,
+                                lineNumber: 67,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -22914,7 +22914,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 71,
+                                lineNumber: 70,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -22926,7 +22926,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 77,
+                                lineNumber: 76,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -22937,7 +22937,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 79,
+                                lineNumber: 78,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -22952,7 +22952,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 80,
+                                lineNumber: 79,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -22965,7 +22965,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 91,
+                                lineNumber: 90,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -22978,7 +22978,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 95,
+                                lineNumber: 94,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -22989,7 +22989,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.func.jsx",
-                                lineNumber: 99,
+                                lineNumber: 98,
                                 columnNumber: 11
                             },
                             __self: undefined
