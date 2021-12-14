@@ -16,7 +16,6 @@ import { setMovies } from '../../actions/actions';
 
 const MainView = (props) => {
   [selectedMovie, setSelectedMovie] = useState("");
-  // [movies, setMovies] = useState("");
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
   [userData, setUserData] = useState("");
@@ -28,7 +27,7 @@ const MainView = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setMovies(response.data);
+        props.setMovies(response.data);
       })
       .catch(function (error) {
         console.log(error);
