@@ -2,6 +2,7 @@ import { useState, useEffect, React } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
+import { connect } from 'react-redux';
 import LoginView from "../LoginView/login-view";
 import MovieView from "../MovieView/movie-view-func.jsx";
 import Movies from "../Movies/movies.jsx";
@@ -10,15 +11,16 @@ import DirectorView from "../DirectorView/director-view";
 import GenreView from "../GenreView/genre-view";
 import ProfileView from "../UserProfileView/user-profile-view";
 import TopNav from "../UI/TopNav/top-nav";
-
 import {  Row } from "react-bootstrap";
+import { setMovies } from '../../actions/actions';
 
-const MainView = () => {
+const MainView = (props) => {
   [selectedMovie, setSelectedMovie] = useState("");
-  [movies, setMovies] = useState("");
+  // [movies, setMovies] = useState("");
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
   [userData, setUserData] = useState("");
+  const { movies } = props;
 
   const getMovies = (token) => {
     axios
@@ -101,4 +103,8 @@ const MainView = () => {
   );
 };
 
-export default MainView;
+const mapStateToProps = state => {
+  return { movies: state.movies }
+};
+
+export default connect(mapStateToProps, { setMovies })(MainView);
