@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
 import { connect } from 'react-redux';
@@ -12,14 +12,14 @@ import GenreView from "../GenreView/genre-view";
 import ProfileView from "../UserProfileView/user-profile-view";
 import TopNav from "../UI/TopNav/top-nav";
 import {  Row } from "react-bootstrap";
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUserData } from '../../actions/actions';
 
 const MainView = (props) => {
   [selectedMovie, setSelectedMovie] = useState("");
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
-  [userData, setUserData] = useState("");
-  const { movies } = props;
+  //
+  const { movies, userData } = props;
 
   const getMovies = (token) => {
     axios
@@ -30,28 +30,44 @@ const MainView = (props) => {
         props.setMovies(response.data);
       })
       .catch(function (error) {
+      });
+  };
+const getUserData = (token) => {
+    const user = localStorage.getItem("user");
+    axios
+      .get(`http://pre-code-flix.herokuapp.com/users/${user}`
+      , {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        props.setUserData(response.data);
+      })
+      .catch((error) => {
         console.log(error);
       });
   };
 
+
+
   const onLoggedIn = (authData) => {
-    setUser(authData.user.Username);
+    setUser(authData.user.Username)
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
-    setUserData(authData.user);
   };
 
   const onLoggedOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser(null);
+    setUser('');
   };
+
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token");
     if (accessToken) {
       setUser(localStorage.getItem("user"));
       getMovies(accessToken);
+      getUserData(accessToken);
     }
   }, [user]);
 
@@ -69,7 +85,7 @@ const MainView = (props) => {
           {user && (
             <Route
               path="/"
-              element={<Movies moviesData={movies} userData={userData} />}
+              element={<Movies userData={userData} />}
             />
           )}
           {!user && (
@@ -103,7 +119,7 @@ const MainView = (props) => {
 };
 
 const mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies, userData: state.userData }
 };
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUserData })(MainView);
