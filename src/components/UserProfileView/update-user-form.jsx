@@ -2,6 +2,12 @@ import { React } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import axios from "axios";
+import { setUserData } from "../../actions/actions";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return { userData: state.userData }
+};
 
 // validation logic to check input in text field
 const textInputIsValid = (text) => {
@@ -76,8 +82,9 @@ const UpdateUserForm = (props) => {
       )
       .then((response) => {
         localStorage.setItem("user", enteredUsername)
-        console.log(response)
-        window.open(`/users/${enteredUsername}`, "_self");
+        console.log(response);
+        props.setUserData(updatedUser);
+        hideForm();
       })
       .catch((error) => {
         console.log(error)
@@ -156,4 +163,4 @@ const UpdateUserForm = (props) => {
   );
 };
 
-export default UpdateUserForm;
+export default connect(mapStateToProps, { setUserData })(UpdateUserForm);
