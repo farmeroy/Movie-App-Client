@@ -19,7 +19,7 @@ const MainView = (props) => {
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
   //
-  const { movies, userData, favMovies } = props;
+  const { movies, userData } = props;
 
   const getMovies = (token) => {
     axios
@@ -67,7 +67,7 @@ const MainView = (props) => {
       getMovies(accessToken);
       getUserData(accessToken);
     }
-  }, [user]);
+  }, []);
 
   const dataIsLoaded = movies && userData;
 
@@ -89,7 +89,7 @@ const MainView = (props) => {
 
           <Route path="/genres/:name" element={<GenreView />} />
           <Route path="/directors/:name" element={<DirectorView />} />
-          <Route path={`/users/${user}`} element={<ProfileView />} />
+          <Route path={`/users/:name`} element={<ProfileView />} />
         </Routes>
       </Row>
     </>
