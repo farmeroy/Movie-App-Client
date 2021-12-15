@@ -1,10 +1,18 @@
 import React from "react";
+import { connect } from 'react-redux';
 import "./movie-card.scss";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { setMovies, setUserData } from "../../actions/actions";
+
+
+const mapStateToProps = (state) => {
+  return {  userData: state.userData };
+};
+
 
 const truncateText = (text) => {
   if (!text) {
@@ -24,6 +32,21 @@ const MovieCard = (props) => {
   const movieId = movieData._id;
 
   const isUserFav = userData.FavMovies.find((movie) => movie._id === movieId);
+
+  const getUserData = (token) => {
+    const user = localStorage.getItem("user");
+    axios
+      .get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        props.setUserData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
 
   const removeFavHandler = () => {
     const username = localStorage.getItem("user");
@@ -46,14 +69,13 @@ const MovieCard = (props) => {
       .catch((error) => {
         console.log(error);
       });
+    getUserData(token);
   };
 
   const addFavHandler = () => {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     const movieId = movieData._id;
-    console.log(movieId);
-    // console.log(token)
     axios
       .put(
         `http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`,
@@ -68,7 +90,7 @@ const MovieCard = (props) => {
       .catch((error) => {
         console.log(error);
       });
-    console.log("add");
+    getUserData(token);
   };
 
   return (
@@ -90,4 +112,4 @@ const MovieCard = (props) => {
   );
 };
 
-export default MovieCard;
+export default connect(mapStateToProps, { setMovies, setUserData })(MovieCard);
