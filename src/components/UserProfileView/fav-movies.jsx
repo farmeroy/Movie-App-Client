@@ -5,18 +5,12 @@ import VisibilityFilterInput from "../VisibilityFilterInput/visibility-filter-in
 import { Col } from "react-bootstrap";
 
 const mapStateToProps = (state) => {
-  const { visibilityFilter, userData, movies} = state;
-  return { visibilityFilter, userData, movies};
+  const { visibilityFilter, favMovies } = state;
+  return { visibilityFilter, favMovies };
 };
 
 const FavMovies = (props) => {
-  const { userData, visibilityFilter, movies } = props;
-  let favMovies = []; 
-  movies.forEach((movie) => {
-    if (userData.FavMovies.find((favMovie) => favMovie._id === movie._id)) {
-      favMovies.push(movie)
-    }
-  })
+  const {  visibilityFilter, favMovies } = props;
 
   let filteredMovies = favMovies; 
 
@@ -26,11 +20,11 @@ const FavMovies = (props) => {
     );
   }
 
-  if (!userData) return <div className="main-view" />;
-
+  // if (!userData) return <div className="main-view" />;
+ 
   const movieCards = filteredMovies.map((movie) => (
     <Col sm={6} md={4} lg={3} className="movie-column" key={movie._id}>
-      <MovieCard key={movie._id} movieData={movie} userData={userData} />
+      <MovieCard key={movie._id} movieData={movie}  />
     </Col>
   ));
 
