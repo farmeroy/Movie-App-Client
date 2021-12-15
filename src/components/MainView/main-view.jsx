@@ -55,9 +55,11 @@ const MainView = (props) => {
   };
 
   const onLoggedOut = () => {
+    setUser('');
+    setMovies('');
+    setFavMovies('');
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser("");
   };
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const MainView = (props) => {
       getMovies(accessToken);
       getUserData(accessToken);
     }
-  }, []);
+  }, [user]);
 
   const dataIsLoaded = movies && userData;
 
