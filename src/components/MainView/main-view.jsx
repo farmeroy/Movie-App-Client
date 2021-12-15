@@ -29,7 +29,9 @@ const MainView = (props) => {
       .then((response) => {
         props.setMovies(response.data);
       })
-      .catch(function (error) {});
+      .catch(function (error) {
+        console.log(error)
+      });
   };
   const getUserData = (token) => {
     const user = localStorage.getItem("user");
