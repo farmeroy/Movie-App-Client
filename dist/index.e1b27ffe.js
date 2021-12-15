@@ -23103,8 +23103,8 @@ const MainView = (props)=>{
     [selectedMovie, setSelectedMovie] = _react.useState("");
     [user, setUser] = _react.useState("");
     [registerUser, setRegisterUser] = _react.useState("");
-    [userData, setUserData] = _react.useState("");
-    const { movies  } = props;
+    //
+    const { movies , userData  } = props;
     const getMovies = (token)=>{
         _axiosDefault.default.get("http://pre-code-flix.herokuapp.com/movies", {
             headers: {
@@ -23113,6 +23113,17 @@ const MainView = (props)=>{
         }).then((response)=>{
             props.setMovies(response.data);
         }).catch(function(error) {
+        });
+    };
+    const getUserData = (token)=>{
+        const user = localStorage.getItem("user");
+        _axiosDefault.default.get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            props.setUserData(response.data);
+        }).catch((error)=>{
             console.log(error);
         });
     };
@@ -23120,18 +23131,18 @@ const MainView = (props)=>{
         setUser(authData.user.Username);
         localStorage.setItem("token", authData.token);
         localStorage.setItem("user", authData.user.Username);
-        setUserData(authData.user);
     };
     const onLoggedOut = ()=>{
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        setUser(null);
+        setUser("");
     };
     _react.useEffect(()=>{
         const accessToken = localStorage.getItem("token");
         if (accessToken) {
             setUser(localStorage.getItem("user"));
             getMovies(accessToken);
+            getUserData(accessToken);
         }
     }, [
         user
@@ -23143,7 +23154,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 62,
+                    lineNumber: 73,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -23152,14 +23163,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 63,
+                    lineNumber: 74,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 64,
+                        lineNumber: 75,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23171,7 +23182,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 67,
+                                lineNumber: 78,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23179,13 +23190,12 @@ const MainView = (props)=>{
                         user && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_moviesJsxDefault.default, {
-                                moviesData: movies,
                                 userData: userData
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 70,
-                                columnNumber: 13
+                                lineNumber: 80,
+                                columnNumber: 20
                             },
                             __self: undefined
                         }),
@@ -23196,7 +23206,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 76,
+                                lineNumber: 82,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23207,7 +23217,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 78,
+                                lineNumber: 84,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23215,14 +23225,10 @@ const MainView = (props)=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/movies/:movieId",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_movieViewJsxDefault.default, {
-                                movies: movies,
-                                onBackClick: ()=>console.log("go back")
-                                ,
-                                userData: userData
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 79,
+                                lineNumber: 85,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23230,12 +23236,10 @@ const MainView = (props)=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/genres/:name",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_genreViewDefault.default, {
-                                movies: movies,
-                                userData: userData
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 90,
+                                lineNumber: 87,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23243,12 +23247,10 @@ const MainView = (props)=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/directors/:name",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_directorViewDefault.default, {
-                                movies: movies,
-                                userData: userData
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 94,
+                                lineNumber: 88,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23259,7 +23261,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 98,
+                                lineNumber: 89,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23274,11 +23276,13 @@ _s(MainView, "OD7bBpZva5O2jO+Puf00hKivP7c=");
 _c = MainView;
 const mapStateToProps = (state)=>{
     return {
-        movies: state.movies
+        movies: state.movies,
+        userData: state.userData
     };
 };
 exports.default = _reactRedux.connect(mapStateToProps, {
-    setMovies: _actions.setMovies
+    setMovies: _actions.setMovies,
+    setUserData: _actions.setUserData
 })(MainView);
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -40649,14 +40653,21 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _reactRedux = require("react-redux");
 var _reactRouterDom = require("react-router-dom");
 var _reactBootstrap = require("react-bootstrap");
 var _movieViewScss = require("./movie-view.scss");
 var _s = $RefreshSig$();
+const mapStateToProps = (state)=>{
+    return {
+        movies: state.movies,
+        userData: state.userData
+    };
+};
 const MovieView = (props)=>{
     _s();
     const { movieId  } = _reactRouterDom.useParams();
-    const { movies , onBackClick  } = props;
+    const { movies  } = props;
     const navigate = _reactRouterDom.useNavigate();
     const movie = movies.find((m)=>m._id === movieId
     );
@@ -40664,7 +40675,7 @@ const MovieView = (props)=>{
         lg: 10,
         __source: {
             fileName: "src/components/MovieView/movie-view.jsx",
-            lineNumber: 15,
+            lineNumber: 20,
             columnNumber: 5
         },
         __self: undefined,
@@ -40672,7 +40683,7 @@ const MovieView = (props)=>{
             className: "movie-view",
             __source: {
                 fileName: "src/components/MovieView/movie-view.jsx",
-                lineNumber: 16,
+                lineNumber: 21,
                 columnNumber: 7
             },
             __self: undefined,
@@ -40683,7 +40694,7 @@ const MovieView = (props)=>{
                     className: "movie-poster",
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 17,
+                        lineNumber: 22,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -40692,7 +40703,7 @@ const MovieView = (props)=>{
                         fluid: true,
                         __source: {
                             fileName: "src/components/MovieView/movie-view.jsx",
-                            lineNumber: 18,
+                            lineNumber: 23,
                             columnNumber: 11
                         },
                         __self: undefined
@@ -40703,7 +40714,7 @@ const MovieView = (props)=>{
                     md: 6,
                     __source: {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 20,
+                        lineNumber: 25,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -40711,7 +40722,7 @@ const MovieView = (props)=>{
                         bsPrefix: "movie-info",
                         __source: {
                             fileName: "src/components/MovieView/movie-view.jsx",
-                            lineNumber: 21,
+                            lineNumber: 26,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -40719,7 +40730,7 @@ const MovieView = (props)=>{
                             variant: "flush",
                             __source: {
                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                lineNumber: 22,
+                                lineNumber: 27,
                                 columnNumber: 13
                             },
                             __self: undefined,
@@ -40728,7 +40739,7 @@ const MovieView = (props)=>{
                                     className: "movie-info",
                                     __source: {
                                         fileName: "src/components/MovieView/movie-view.jsx",
-                                        lineNumber: 23,
+                                        lineNumber: 28,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40737,7 +40748,7 @@ const MovieView = (props)=>{
                                             className: "label",
                                             __source: {
                                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                                lineNumber: 24,
+                                                lineNumber: 29,
                                                 columnNumber: 17
                                             },
                                             __self: undefined,
@@ -40747,7 +40758,7 @@ const MovieView = (props)=>{
                                             className: "value",
                                             __source: {
                                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                                lineNumber: 25,
+                                                lineNumber: 30,
                                                 columnNumber: 17
                                             },
                                             __self: undefined,
@@ -40759,7 +40770,7 @@ const MovieView = (props)=>{
                                     className: "movie-info",
                                     __source: {
                                         fileName: "src/components/MovieView/movie-view.jsx",
-                                        lineNumber: 27,
+                                        lineNumber: 32,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40768,7 +40779,7 @@ const MovieView = (props)=>{
                                             className: "label",
                                             __source: {
                                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                                lineNumber: 28,
+                                                lineNumber: 33,
                                                 columnNumber: 17
                                             },
                                             __self: undefined,
@@ -40778,7 +40789,7 @@ const MovieView = (props)=>{
                                             className: "value",
                                             __source: {
                                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                                lineNumber: 29,
+                                                lineNumber: 34,
                                                 columnNumber: 17
                                             },
                                             __self: undefined,
@@ -40790,7 +40801,7 @@ const MovieView = (props)=>{
                                     className: "movie-info",
                                     __source: {
                                         fileName: "src/components/MovieView/movie-view.jsx",
-                                        lineNumber: 31,
+                                        lineNumber: 36,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40799,7 +40810,7 @@ const MovieView = (props)=>{
                                             className: "label",
                                             __source: {
                                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                                lineNumber: 32,
+                                                lineNumber: 37,
                                                 columnNumber: 17
                                             },
                                             __self: undefined,
@@ -40809,7 +40820,7 @@ const MovieView = (props)=>{
                                             className: "value",
                                             __source: {
                                                 fileName: "src/components/MovieView/movie-view.jsx",
-                                                lineNumber: 33,
+                                                lineNumber: 38,
                                                 columnNumber: 17
                                             },
                                             __self: undefined,
@@ -40824,7 +40835,7 @@ const MovieView = (props)=>{
                                     className: "back-btn",
                                     __source: {
                                         fileName: "src/components/MovieView/movie-view.jsx",
-                                        lineNumber: 35,
+                                        lineNumber: 40,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40836,7 +40847,7 @@ const MovieView = (props)=>{
                                     },
                                     __source: {
                                         fileName: "src/components/MovieView/movie-view.jsx",
-                                        lineNumber: 38,
+                                        lineNumber: 43,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40848,7 +40859,7 @@ const MovieView = (props)=>{
                                     },
                                     __source: {
                                         fileName: "src/components/MovieView/movie-view.jsx",
-                                        lineNumber: 41,
+                                        lineNumber: 46,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -40869,7 +40880,7 @@ _s(MovieView, "swAgLovTfCqnzhBbc1khOGU+rY8=", false, function() {
     ];
 });
 _c = MovieView;
-exports.default = MovieView;
+exports.default = _reactRedux.connect(mapStateToProps)(MovieView);
 var _c;
 $RefreshReg$(_c, "MovieView");
 
@@ -40878,7 +40889,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./movie-view.scss":"2H30j","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"2H30j":[function() {},{}],"8NrtK":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./movie-view.scss":"2H30j","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms"}],"2H30j":[function() {},{}],"8NrtK":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$c134 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40890,19 +40901,41 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
 var _movieCardJsx = require("../MovieCard/movie-card.jsx");
 var _movieCardJsxDefault = parcelHelpers.interopDefault(_movieCardJsx);
+var _visibilityFilterInput = require("../VisibilityFilterInput/visibility-filter-input");
+var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _reactBootstrap = require("react-bootstrap");
+const mapStateToProps = (state)=>{
+    const { visibilityFilter , movies  } = state;
+    return {
+        visibilityFilter,
+        movies
+    };
+};
 const Movies = (props)=>{
-    const { moviesData , userData  } = props;
-    const movieCards = moviesData.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+    const { movies , userData , visibilityFilter  } = props;
+    let filteredMovies = movies;
+    if (visibilityFilter !== "") filteredMovies = movies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
+    );
+    if (!movies) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+        className: "main-view",
+        __source: {
+            fileName: "src/components/Movies/movies.jsx",
+            lineNumber: 22,
+            columnNumber: 23
+        },
+        __self: undefined
+    }));
+    const movieCards = filteredMovies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
             sm: 6,
             md: 4,
             lg: 3,
             className: "movie-column",
             __source: {
                 fileName: "src/components/Movies/movies.jsx",
-                lineNumber: 9,
+                lineNumber: 25,
                 columnNumber: 5
             },
             __self: undefined,
@@ -40911,19 +40944,42 @@ const Movies = (props)=>{
                 userData: userData,
                 __source: {
                     fileName: "src/components/Movies/movies.jsx",
-                    lineNumber: 10,
+                    lineNumber: 26,
                     columnNumber: 7
                 },
                 __self: undefined
             }, movie._id)
         }, movie._id)
     );
-    return(/*#__PURE__*/ _jsxRuntime.jsx(_jsxRuntime.Fragment, {
-        children: movieCards
+    return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
+        children: [
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+                md: 12,
+                style: {
+                    margin: "1em"
+                },
+                __source: {
+                    fileName: "src/components/Movies/movies.jsx",
+                    lineNumber: 32,
+                    columnNumber: 7
+                },
+                __self: undefined,
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_visibilityFilterInputDefault.default, {
+                    visibilityFilter: visibilityFilter,
+                    __source: {
+                        fileName: "src/components/Movies/movies.jsx",
+                        lineNumber: 33,
+                        columnNumber: 9
+                    },
+                    __self: undefined
+                })
+            }),
+            movieCards
+        ]
     }));
 };
 _c = Movies;
-exports.default = Movies;
+exports.default = _reactRedux.connect(mapStateToProps)(Movies);
 var _c;
 $RefreshReg$(_c, "Movies");
 
@@ -40932,7 +40988,7 @@ $RefreshReg$(_c, "Movies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","../MovieCard/movie-card.jsx":"jXJOA","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"jXJOA":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","../MovieCard/movie-card.jsx":"jXJOA","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../VisibilityFilterInput/visibility-filter-input":"3qPb4"}],"jXJOA":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$095d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41104,7 +41160,85 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./movie-card.scss":"4oxxX","prop-types":"2bysO","react-bootstrap/Button":"64Pgd","react-bootstrap/Card":"jeXXJ","react-router-dom":"16kZP","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"4oxxX":[function() {},{}],"93iJL":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./movie-card.scss":"4oxxX","prop-types":"2bysO","react-bootstrap/Button":"64Pgd","react-bootstrap/Card":"jeXXJ","react-router-dom":"16kZP","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"4oxxX":[function() {},{}],"3qPb4":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$c271 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$c271.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
+var _reactBootstrap = require("react-bootstrap");
+var _actions = require("../../actions/actions");
+const VisibilityFilter = (props)=>{
+    return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+        onChange: (event)=>props.setFilter(event.target.value)
+        ,
+        value: props.VisibilityFilter,
+        placeholder: "search",
+        __source: {
+            fileName: "src/components/VisibilityFilterInput/visibility-filter-input.jsx",
+            lineNumber: 9,
+            columnNumber: 3
+        },
+        __self: undefined
+    }));
+};
+_c = VisibilityFilter;
+exports.default = _reactRedux.connect(null, {
+    setFilter: _actions.setFilter
+})(VisibilityFilter);
+var _c;
+$RefreshReg$(_c, "VisibilityFilter");
+
+  $parcel$ReactRefreshHelpers$c271.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-redux":"lT3ms","react-bootstrap":"9qMdX","../../actions/actions":"6dgbZ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"6dgbZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
+);
+parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
+);
+parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
+);
+parcelHelpers.export(exports, "setMovies", ()=>setMovies
+);
+parcelHelpers.export(exports, "setFilter", ()=>setFilter
+);
+parcelHelpers.export(exports, "setUserData", ()=>setUserData
+);
+const SET_MOVIES = "SET_MOVIES";
+const SET_FILTER = "SET_FILTER";
+const SET_USER_DATA = "SET_USER_DATA";
+function setMovies(value) {
+    return {
+        type: SET_MOVIES,
+        value
+    };
+}
+function setFilter(value) {
+    return {
+        type: SET_FILTER,
+        value
+    };
+}
+function setUserData(value) {
+    return {
+        type: SET_USER_DATA,
+        value
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"93iJL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$cde8 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41447,12 +41581,20 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
-var _movies = require("../Movies/movies");
-var _moviesDefault = parcelHelpers.interopDefault(_movies);
+var _reactRedux = require("react-redux");
+var _movieCardJsx = require("../MovieCard/movie-card.jsx");
+var _movieCardJsxDefault = parcelHelpers.interopDefault(_movieCardJsx);
 var _reactRouterDom = require("react-router-dom");
 var _reactBootstrap = require("react-bootstrap");
 var _directorViewScss = require("./director-view.scss");
 var _s = $RefreshSig$();
+const mapStateToProps = (state)=>{
+    const { movies , userData  } = state;
+    return {
+        movies,
+        userData
+    };
+};
 const DirectorView = (props)=>{
     _s();
     const { userData , movies  } = props;
@@ -41462,12 +41604,35 @@ const DirectorView = (props)=>{
     ).Director;
     const directorMovies = movies.filter((movie)=>movie.Director.Name === name
     );
+    const movieCards = directorMovies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+            sm: 6,
+            md: 4,
+            lg: 3,
+            className: "movie-column",
+            __source: {
+                fileName: "src/components/DirectorView/director-view.jsx",
+                lineNumber: 28,
+                columnNumber: 5
+            },
+            __self: undefined,
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCardJsxDefault.default, {
+                movieData: movie,
+                userData: userData,
+                __source: {
+                    fileName: "src/components/DirectorView/director-view.jsx",
+                    lineNumber: 29,
+                    columnNumber: 7
+                },
+                __self: undefined
+            }, movie._id)
+        }, movie._id)
+    );
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
         children: [
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 22,
+                    lineNumber: 35,
                     columnNumber: 5
                 },
                 __self: undefined,
@@ -41475,7 +41640,7 @@ const DirectorView = (props)=>{
                     bsPrefix: "director-card",
                     __source: {
                         fileName: "src/components/DirectorView/director-view.jsx",
-                        lineNumber: 23,
+                        lineNumber: 36,
                         columnNumber: 7
                     },
                     __self: undefined,
@@ -41484,7 +41649,7 @@ const DirectorView = (props)=>{
                             bsPrefix: "limelight",
                             __source: {
                                 fileName: "src/components/DirectorView/director-view.jsx",
-                                lineNumber: 24,
+                                lineNumber: 37,
                                 columnNumber: 9
                             },
                             __self: undefined,
@@ -41493,7 +41658,7 @@ const DirectorView = (props)=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                             __source: {
                                 fileName: "src/components/DirectorView/director-view.jsx",
-                                lineNumber: 25,
+                                lineNumber: 38,
                                 columnNumber: 9
                             },
                             __self: undefined,
@@ -41501,12 +41666,12 @@ const DirectorView = (props)=>{
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
                             onClick: ()=>{
-                                navigate("/");
+                                navigate(-1);
                             },
                             className: "back-btn",
                             __source: {
                                 fileName: "src/components/DirectorView/director-view.jsx",
-                                lineNumber: 26,
+                                lineNumber: 39,
                                 columnNumber: 9
                             },
                             __self: undefined,
@@ -41518,7 +41683,7 @@ const DirectorView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 36,
+                    lineNumber: 49,
                     columnNumber: 5
                 },
                 __self: undefined,
@@ -41526,7 +41691,7 @@ const DirectorView = (props)=>{
                     sm: 12,
                     __source: {
                         fileName: "src/components/DirectorView/director-view.jsx",
-                        lineNumber: 37,
+                        lineNumber: 50,
                         columnNumber: 7
                     },
                     __self: undefined,
@@ -41534,7 +41699,7 @@ const DirectorView = (props)=>{
                         className: "limelight other-films",
                         __source: {
                             fileName: "src/components/DirectorView/director-view.jsx",
-                            lineNumber: 38,
+                            lineNumber: 51,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41548,20 +41713,11 @@ const DirectorView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 41,
+                    lineNumber: 54,
                     columnNumber: 5
                 },
                 __self: undefined,
-                children: /*#__PURE__*/ _jsxRuntime.jsx(_moviesDefault.default, {
-                    moviesData: directorMovies,
-                    userData: userData,
-                    __source: {
-                        fileName: "src/components/DirectorView/director-view.jsx",
-                        lineNumber: 42,
-                        columnNumber: 7
-                    },
-                    __self: undefined
-                })
+                children: movieCards
             })
         ]
     }));
@@ -41573,7 +41729,7 @@ _s(DirectorView, "efCiYOhdP9YRW91T186e+7j9BJY=", false, function() {
     ];
 });
 _c = DirectorView;
-exports.default = DirectorView;
+exports.default = _reactRedux.connect(mapStateToProps)(DirectorView);
 var _c;
 $RefreshReg$(_c, "DirectorView");
 
@@ -41582,7 +41738,7 @@ $RefreshReg$(_c, "DirectorView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","../Movies/movies":"8NrtK","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./director-view.scss":"3FlQV","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"3FlQV":[function() {},{}],"kSiyn":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./director-view.scss":"3FlQV","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../MovieCard/movie-card.jsx":"jXJOA"}],"3FlQV":[function() {},{}],"kSiyn":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e3f0 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41593,12 +41749,20 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
+var _reactRedux = require("react-redux");
 var _reactRouterDom = require("react-router-dom");
-var _moviesJsx = require("../Movies/movies.jsx");
-var _moviesJsxDefault = parcelHelpers.interopDefault(_moviesJsx);
+var _movieCardJsx = require("../MovieCard/movie-card.jsx");
+var _movieCardJsxDefault = parcelHelpers.interopDefault(_movieCardJsx);
 var _reactBootstrap = require("react-bootstrap");
 var _genreViewScss = require("./genre-view.scss");
 var _s = $RefreshSig$();
+const mapStateToProps = (state)=>{
+    const { movies , userData  } = state;
+    return {
+        movies,
+        userData
+    };
+};
 const GenreView = (props)=>{
     _s();
     const { movies , userData  } = props;
@@ -41608,12 +41772,35 @@ const GenreView = (props)=>{
     ).Genre;
     const genreMovies = movies.filter((movie)=>movie.Genre.Name === name
     );
+    const movieCards = genreMovies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+            sm: 6,
+            md: 4,
+            lg: 3,
+            className: "movie-column",
+            __source: {
+                fileName: "src/components/GenreView/genre-view.jsx",
+                lineNumber: 23,
+                columnNumber: 5
+            },
+            __self: undefined,
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCardJsxDefault.default, {
+                movieData: movie,
+                userData: userData,
+                __source: {
+                    fileName: "src/components/GenreView/genre-view.jsx",
+                    lineNumber: 24,
+                    columnNumber: 7
+                },
+                __self: undefined
+            }, movie._id)
+        }, movie._id)
+    );
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
         children: [
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/GenreView/genre-view.jsx",
-                    lineNumber: 18,
+                    lineNumber: 31,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41621,7 +41808,7 @@ const GenreView = (props)=>{
                     sm: 12,
                     __source: {
                         fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 19,
+                        lineNumber: 32,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -41629,7 +41816,7 @@ const GenreView = (props)=>{
                         bsPrefix: "genre-card",
                         __source: {
                             fileName: "src/components/GenreView/genre-view.jsx",
-                            lineNumber: 20,
+                            lineNumber: 33,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41638,7 +41825,7 @@ const GenreView = (props)=>{
                                 bsPrefix: "limelight",
                                 __source: {
                                     fileName: "src/components/GenreView/genre-view.jsx",
-                                    lineNumber: 21,
+                                    lineNumber: 34,
                                     columnNumber: 11
                                 },
                                 __self: undefined,
@@ -41647,7 +41834,7 @@ const GenreView = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                                 __source: {
                                     fileName: "src/components/GenreView/genre-view.jsx",
-                                    lineNumber: 22,
+                                    lineNumber: 35,
                                     columnNumber: 11
                                 },
                                 __self: undefined,
@@ -41655,12 +41842,12 @@ const GenreView = (props)=>{
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
                                 onClick: ()=>{
-                                    navigate("/");
+                                    navigate(-1);
                                 },
                                 className: "back-btn",
                                 __source: {
                                     fileName: "src/components/GenreView/genre-view.jsx",
-                                    lineNumber: 23,
+                                    lineNumber: 36,
                                     columnNumber: 11
                                 },
                                 __self: undefined,
@@ -41673,7 +41860,7 @@ const GenreView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/GenreView/genre-view.jsx",
-                    lineNumber: 34,
+                    lineNumber: 47,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41681,7 +41868,7 @@ const GenreView = (props)=>{
                     sm: 12,
                     __source: {
                         fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 35,
+                        lineNumber: 48,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -41689,7 +41876,7 @@ const GenreView = (props)=>{
                         className: "other-films limelight",
                         __source: {
                             fileName: "src/components/GenreView/genre-view.jsx",
-                            lineNumber: 36,
+                            lineNumber: 49,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41705,20 +41892,11 @@ const GenreView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/GenreView/genre-view.jsx",
-                    lineNumber: 39,
+                    lineNumber: 52,
                     columnNumber: 7
                 },
                 __self: undefined,
-                children: /*#__PURE__*/ _jsxRuntime.jsx(_moviesJsxDefault.default, {
-                    moviesData: genreMovies,
-                    userData: userData,
-                    __source: {
-                        fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 40,
-                        columnNumber: 9
-                    },
-                    __self: undefined
-                })
+                children: movieCards
             })
         ]
     }));
@@ -41730,7 +41908,7 @@ _s(GenreView, "efCiYOhdP9YRW91T186e+7j9BJY=", false, function() {
     ];
 });
 _c = GenreView;
-exports.default = GenreView;
+exports.default = _reactRedux.connect(mapStateToProps)(GenreView);
 var _c;
 $RefreshReg$(_c, "GenreView");
 
@@ -41739,7 +41917,7 @@ $RefreshReg$(_c, "GenreView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","../Movies/movies.jsx":"8NrtK","react-bootstrap":"9qMdX","./genre-view.scss":"3lkel","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"3lkel":[function() {},{}],"fcaoo":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./genre-view.scss":"3lkel","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../MovieCard/movie-card.jsx":"jXJOA"}],"3lkel":[function() {},{}],"fcaoo":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1c89 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41757,32 +41935,43 @@ var _userInfoDefault = parcelHelpers.interopDefault(_userInfo);
 var _reactBootstrap = require("react-bootstrap");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _s = $RefreshSig$();
-const ProfileView = (props)=>{
-    _s();
-    // const { moviesData } = props;
-    const [userData, setUserData] = _react.useState("");
-    const moviesData = userData.FavMovies;
-    const getUserData = (token)=>{
-        const user = localStorage.getItem("user");
-        _axiosDefault.default.get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            setUserData(response.data);
-        }).catch((error)=>{
-            console.log(error);
-        });
+var _reactRedux = require("react-redux");
+var _actions = require("../../actions/actions");
+const mapStateToProps = (state)=>{
+    return {
+        movies: state.movies,
+        userData: state.userData
     };
-    _react.useEffect(()=>{
-        const accessToken = localStorage.getItem("token");
-        if (accessToken) getUserData(accessToken);
-    }, []);
+};
+const ProfileView = (props)=>{
+    // const { moviesData } = props;
+    // const [userData, setUserData] = useState("");
+    const { userData  } = props;
+    const moviesData = userData.FavMovies;
+    // const getUserData = (token) => {
+    //   const user = localStorage.getItem("user");
+    //   axios
+    //     .get(`http://pre-code-flix.herokuapp.com/users/${user}`
+    //     , {
+    //       headers: { Authorization: `Bearer ${token}` },
+    //     })
+    //     .then((response) => {
+    //       setUserData(response.data);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // };
+    //   useEffect(() => {
+    //     const accessToken = localStorage.getItem("token");
+    //     if (accessToken) {
+    //       getUserData(accessToken);
+    //     }
+    //   }, []);
     if (!userData) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
         __source: {
             fileName: "src/components/UserProfileView/user-profile-view.jsx",
-            lineNumber: 33,
+            lineNumber: 42,
             columnNumber: 25
         },
         __self: undefined,
@@ -41792,7 +41981,7 @@ const ProfileView = (props)=>{
         className: "justify-content-center row-eq-height",
         __source: {
             fileName: "src/components/UserProfileView/user-profile-view.jsx",
-            lineNumber: 36,
+            lineNumber: 45,
             columnNumber: 5
         },
         __self: undefined,
@@ -41801,7 +41990,7 @@ const ProfileView = (props)=>{
                 md: 10,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                    lineNumber: 37,
+                    lineNumber: 46,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41809,7 +41998,7 @@ const ProfileView = (props)=>{
                     userData: userData,
                     __source: {
                         fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                        lineNumber: 38,
+                        lineNumber: 47,
                         columnNumber: 9
                     },
                     __self: undefined
@@ -41819,7 +42008,7 @@ const ProfileView = (props)=>{
                 md: 10,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                    lineNumber: 40,
+                    lineNumber: 49,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41827,7 +42016,7 @@ const ProfileView = (props)=>{
                     className: "justify-content-md-center row-eq-height",
                     __source: {
                         fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                        lineNumber: 41,
+                        lineNumber: 50,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -41836,7 +42025,7 @@ const ProfileView = (props)=>{
                         moviesData: moviesData,
                         __source: {
                             fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                            lineNumber: 42,
+                            lineNumber: 51,
                             columnNumber: 9
                         },
                         __self: undefined
@@ -41846,9 +42035,8 @@ const ProfileView = (props)=>{
         ]
     }));
 };
-_s(ProfileView, "q41q8DnBmPufImZZOsyGh8eq5jg=");
 _c = ProfileView;
-exports.default = ProfileView;
+exports.default = _reactRedux.connect(mapStateToProps)(ProfileView);
 var _c;
 $RefreshReg$(_c, "ProfileView");
 
@@ -41857,7 +42045,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./fav-movies":"a4s08","./user-info":"jjzVZ","react-bootstrap":"9qMdX","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"a4s08":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./fav-movies":"a4s08","./user-info":"jjzVZ","react-bootstrap":"9qMdX","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../../actions/actions":"6dgbZ"}],"a4s08":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$a3ee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41868,28 +42056,86 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
-var _movies = require("../Movies/movies");
-var _moviesDefault = parcelHelpers.interopDefault(_movies);
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
+var _movieCardJsx = require("../MovieCard/movie-card.jsx");
+var _movieCardJsxDefault = parcelHelpers.interopDefault(_movieCardJsx);
+var _visibilityFilterInput = require("../VisibilityFilterInput/visibility-filter-input");
+var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
+var _reactBootstrap = require("react-bootstrap");
+const mapStateToProps = (state)=>{
+    const { visibilityFilter , userData  } = state;
+    return {
+        visibilityFilter,
+        userData
+    };
+};
 const FavMovies = (props)=>{
-    const { userData , moviesData  } = props;
-    const userFavMovies = [];
-    userData.FavMovies.forEach((userMovie)=>{
-        userFavMovies.push(moviesData.find((movie)=>movie._id === userMovie._id
-        ));
-    });
-    return(/*#__PURE__*/ _jsxRuntime.jsx(_moviesDefault.default, {
-        moviesData: userFavMovies,
-        userData: userData,
+    const { userData , visibilityFilter  } = props;
+    let filteredMovies = userData.FavMovies;
+    if (visibilityFilter !== "") filteredMovies = movies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
+    );
+    if (!userData) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+        className: "main-view",
         __source: {
             fileName: "src/components/UserProfileView/fav-movies.jsx",
-            lineNumber: 13,
-            columnNumber: 10
+            lineNumber: 22,
+            columnNumber: 25
         },
         __self: undefined
     }));
+    const movieCards = filteredMovies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+            sm: 6,
+            md: 4,
+            lg: 3,
+            className: "movie-column",
+            __source: {
+                fileName: "src/components/UserProfileView/fav-movies.jsx",
+                lineNumber: 25,
+                columnNumber: 5
+            },
+            __self: undefined,
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCardJsxDefault.default, {
+                movieData: movie,
+                userData: userData,
+                __source: {
+                    fileName: "src/components/UserProfileView/fav-movies.jsx",
+                    lineNumber: 26,
+                    columnNumber: 7
+                },
+                __self: undefined
+            }, movie._id)
+        }, movie._id)
+    );
+    return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
+        children: [
+            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+                md: 12,
+                style: {
+                    margin: "1em"
+                },
+                __source: {
+                    fileName: "src/components/UserProfileView/fav-movies.jsx",
+                    lineNumber: 32,
+                    columnNumber: 7
+                },
+                __self: undefined,
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_visibilityFilterInputDefault.default, {
+                    visibilityFilter: visibilityFilter,
+                    __source: {
+                        fileName: "src/components/UserProfileView/fav-movies.jsx",
+                        lineNumber: 33,
+                        columnNumber: 9
+                    },
+                    __self: undefined
+                })
+            }),
+            movieCards
+        ]
+    }));
 };
 _c = FavMovies;
-exports.default = FavMovies;
+exports.default = _reactRedux.connect(mapStateToProps)(FavMovies);
 var _c;
 $RefreshReg$(_c, "FavMovies");
 
@@ -41898,7 +42144,7 @@ $RefreshReg$(_c, "FavMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","../Movies/movies":"8NrtK","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"jjzVZ":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../MovieCard/movie-card.jsx":"jXJOA","../VisibilityFilterInput/visibility-filter-input":"3qPb4","react-bootstrap":"9qMdX"}],"jjzVZ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$58a2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -42457,33 +42703,7 @@ $RefreshReg$(_c, "TopNav");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./top-nav.scss":"NOpxz","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"NOpxz":[function() {},{}],"6dgbZ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
-);
-parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
-);
-parcelHelpers.export(exports, "setMovies", ()=>setMovies
-);
-parcelHelpers.export(exports, "setFilter", ()=>setFilter
-);
-const SET_MOVIES = "SET_MOVIES";
-const SET_FILTER = "SET_FILTER";
-function setMovies(value) {
-    return {
-        type: SET_MOVIES,
-        value
-    };
-}
-function setFilter(value) {
-    return {
-        type: SET_FILTER,
-        value
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ifMRI":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-router-dom":"16kZP","react-bootstrap":"9qMdX","./top-nav.scss":"NOpxz","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"NOpxz":[function() {},{}],"ifMRI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__DO_NOT_USE__ActionTypes", ()=>ActionTypes
@@ -43053,9 +43273,18 @@ function movies(state = [], action) {
             return state;
     }
 }
+function userData(state = '', action) {
+    switch(action.type){
+        case _actions.SET_USER_DATA:
+            return action.value;
+        default:
+            return state;
+    }
+}
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
-    movies
+    movies,
+    userData
 });
 exports.default = moviesApp;
 
