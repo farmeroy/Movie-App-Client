@@ -23135,9 +23135,11 @@ const MainView = (props)=>{
         localStorage.setItem("user", authData.user.Username);
     };
     const onLoggedOut = ()=>{
+        setUser('');
+        _actions.setMovies('');
+        _actions.setFavMovies('');
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        setUser("");
     };
     _react.useEffect(()=>{
         const accessToken = localStorage.getItem("token");
@@ -23146,7 +23148,9 @@ const MainView = (props)=>{
             getMovies(accessToken);
             getUserData(accessToken);
         }
-    }, []);
+    }, [
+        user
+    ]);
     const dataIsLoaded = movies && userData;
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
         children: [
@@ -23154,7 +23158,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 76,
+                    lineNumber: 78,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -23163,14 +23167,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 77,
+                    lineNumber: 79,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 78,
+                        lineNumber: 80,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23182,7 +23186,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 81,
+                                lineNumber: 83,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23194,7 +23198,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 83,
+                                lineNumber: 85,
                                 columnNumber: 20
                             },
                             __self: undefined
@@ -23206,7 +23210,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 85,
+                                lineNumber: 87,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23217,7 +23221,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 87,
+                                lineNumber: 89,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23228,7 +23232,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 88,
+                                lineNumber: 90,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23239,7 +23243,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 90,
+                                lineNumber: 92,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23250,7 +23254,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 91,
+                                lineNumber: 93,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23261,7 +23265,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 92,
+                                lineNumber: 94,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -42188,6 +42192,7 @@ const UserInfo = (props)=>{
     _s();
     const { userData  } = props;
     const [showUpdateUserForm, setShowUpdateUserForm] = _react.useState(false);
+    const [showDeleteUser, setShowDeleteUser] = _react.useState(false);
     const deleteUserHandler = ()=>{
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
@@ -42204,11 +42209,15 @@ const UserInfo = (props)=>{
             console.log(error);
         });
     };
+    const hideDeleteHandler = ()=>setShowDeleteUser(false)
+    ;
+    const showDeleteUserHandler = ()=>setShowDeleteUser(true)
+    ;
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
         bsPrefix: "profile-card",
         __source: {
             fileName: "src/components/UserProfileView/user-info.jsx",
-            lineNumber: 36,
+            lineNumber: 39,
             columnNumber: 5
         },
         __self: undefined,
@@ -42217,7 +42226,7 @@ const UserInfo = (props)=>{
                 bsPrefix: "limelight",
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 37,
+                    lineNumber: 40,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -42226,7 +42235,7 @@ const UserInfo = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 38,
+                    lineNumber: 41,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -42238,7 +42247,7 @@ const UserInfo = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 40,
+                    lineNumber: 43,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -42250,25 +42259,95 @@ const UserInfo = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 49,
+                    lineNumber: 52,
                     columnNumber: 9
                 },
                 __self: undefined
             }),
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                onClick: deleteUserHandler,
+                onClick: showDeleteUserHandler,
                 __source: {
                     fileName: "src/components/UserProfileView/user-info.jsx",
-                    lineNumber: 55,
+                    lineNumber: 58,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: "Delete Account"
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Modal, {
+                show: showDeleteUser,
+                onHide: hideDeleteHandler,
+                __source: {
+                    fileName: "src/components/UserProfileView/user-info.jsx",
+                    lineNumber: 59,
+                    columnNumber: 7
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Modal.Header, {
+                        closeButton: true,
+                        __source: {
+                            fileName: "src/components/UserProfileView/user-info.jsx",
+                            lineNumber: 60,
+                            columnNumber: 9
+                        },
+                        __self: undefined,
+                        children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Modal.Title, {
+                            __source: {
+                                fileName: "src/components/UserProfileView/user-info.jsx",
+                                lineNumber: 61,
+                                columnNumber: 11
+                            },
+                            __self: undefined,
+                            children: "Delete Account"
+                        })
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Modal.Body, {
+                        __source: {
+                            fileName: "src/components/UserProfileView/user-info.jsx",
+                            lineNumber: 63,
+                            columnNumber: 9
+                        },
+                        __self: undefined,
+                        children: "Are you sure you want to delete your account? This cannot be undone..."
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Modal.Footer, {
+                        __source: {
+                            fileName: "src/components/UserProfileView/user-info.jsx",
+                            lineNumber: 66,
+                            columnNumber: 9
+                        },
+                        __self: undefined,
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                variant: "secondary",
+                                onClick: hideDeleteHandler,
+                                __source: {
+                                    fileName: "src/components/UserProfileView/user-info.jsx",
+                                    lineNumber: 67,
+                                    columnNumber: 11
+                                },
+                                __self: undefined,
+                                children: "Cancel"
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                onClick: deleteUserHandler,
+                                __source: {
+                                    fileName: "src/components/UserProfileView/user-info.jsx",
+                                    lineNumber: 70,
+                                    columnNumber: 11
+                                },
+                                __self: undefined,
+                                children: "Delete Account"
+                            })
+                        ]
+                    })
+                ]
             })
         ]
     }));
 };
-_s(UserInfo, "WkcSsyokjaTQQPMpowApa+zM3Q4=");
+_s(UserInfo, "yPFPFrLFd25jkvyT94/0180SPLA=");
 _c = UserInfo;
 exports.default = _reactRedux.connect(mapStateToProps)(UserInfo);
 var _c;
