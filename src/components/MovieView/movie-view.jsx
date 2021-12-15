@@ -1,12 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 import { useParams, useNavigate } from "react-router-dom";
 import { Row, Col, Button, Image, Card, ListGroup } from "react-bootstrap";
 import "./movie-view.scss";
 
+const mapStateToProps = state => {
+  return { movies: state.movies, userData: state.userData }
+};
+
 const MovieView = (props) => {
   const { movieId } = useParams();
-  const { movies, onBackClick } = props;
+  const { movies } = props;
   const navigate = useNavigate();
 
   const movie = movies.find((m) => m._id === movieId);
@@ -49,4 +54,4 @@ const MovieView = (props) => {
   );
 };
 
-export default MovieView;
+export default connect(mapStateToProps)(MovieView);
