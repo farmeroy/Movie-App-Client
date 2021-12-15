@@ -23104,7 +23104,7 @@ const MainView = (props)=>{
     [user, setUser] = _react.useState("");
     [registerUser, setRegisterUser] = _react.useState("");
     //
-    const { movies , userData  } = props;
+    const { movies , userData , favMovies  } = props;
     const getMovies = (token)=>{
         _axiosDefault.default.get("http://pre-code-flix.herokuapp.com/movies", {
             headers: {
@@ -23124,6 +23124,7 @@ const MainView = (props)=>{
             }
         }).then((response)=>{
             props.setUserData(response.data);
+            props.setFavMovies(response.data.FavMovies);
         }).catch((error)=>{
             console.log(error);
         });
@@ -23155,7 +23156,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 75,
+                    lineNumber: 76,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -23164,14 +23165,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 76,
+                    lineNumber: 77,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 77,
+                        lineNumber: 78,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23183,7 +23184,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 80,
+                                lineNumber: 81,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23195,7 +23196,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 82,
+                                lineNumber: 83,
                                 columnNumber: 20
                             },
                             __self: undefined
@@ -23207,7 +23208,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 84,
+                                lineNumber: 85,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23218,7 +23219,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 86,
+                                lineNumber: 87,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23229,7 +23230,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 87,
+                                lineNumber: 88,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23240,7 +23241,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 89,
+                                lineNumber: 90,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23251,7 +23252,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 90,
+                                lineNumber: 91,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23262,7 +23263,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 91,
+                                lineNumber: 92,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23278,10 +23279,12 @@ _c = MainView;
 const mapStateToProps = (state)=>{
     return {
         movies: state.movies,
-        userData: state.userData
+        userData: state.userData,
+        favMovies: state.favMovies
     };
 };
 exports.default = _reactRedux.connect(mapStateToProps, {
+    setFavMovies: _actions.setFavMovies,
     setMovies: _actions.setMovies,
     setUserData: _actions.setUserData
 })(MainView);
@@ -40916,7 +40919,7 @@ const mapStateToProps = (state)=>{
     };
 };
 const Movies = (props)=>{
-    const { movies , userData , visibilityFilter  } = props;
+    const { movies , visibilityFilter  } = props;
     let filteredMovies = movies;
     if (visibilityFilter !== "") filteredMovies = movies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
@@ -40942,7 +40945,6 @@ const Movies = (props)=>{
             __self: undefined,
             children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCardJsxDefault.default, {
                 movieData: movie,
-                userData: userData,
                 __source: {
                     fileName: "src/components/Movies/movies.jsx",
                     lineNumber: 26,
@@ -41016,7 +41018,7 @@ var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
 const mapStateToProps = (state)=>{
     return {
-        userData: state.userData
+        favMovies: state.favMovies
     };
 };
 const truncateText = (text)=>{
@@ -41030,23 +41032,11 @@ const truncateText = (text)=>{
 };
 const MovieCard = (props)=>{
     _s();
-    const { movieData , userData  } = props;
+    const { movieData , favMovies  } = props;
     const navigate = _reactRouterDom.useNavigate();
     const movieId1 = movieData._id;
-    const isUserFav = userData.FavMovies.find((movie)=>movie._id === movieId1
+    const isUserFav = favMovies.find((movie)=>movie._id === movieId1
     );
-    const getUserData = (token)=>{
-        const user = localStorage.getItem("user");
-        _axiosDefault.default.get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            props.setUserData(response.data);
-        }).catch((error)=>{
-            console.log(error);
-        });
-    };
     const removeFavHandler = ()=>{
         const username = localStorage.getItem("user");
         const movieId = movieData._id;
@@ -41059,11 +41049,10 @@ const MovieCard = (props)=>{
             method: "PUT"
         }).then((response)=>{
             console.log(response);
-            location.reload();
+            props.removeFavMovie(movieId);
         }).catch((error)=>{
             console.log(error);
         });
-        getUserData(token);
     };
     const addFavHandler = ()=>{
         const username = localStorage.getItem("user");
@@ -41076,16 +41065,16 @@ const MovieCard = (props)=>{
             }
         }).then((response)=>{
             console.log(response);
+            props.addFavMovie(movieData);
         }).catch((error)=>{
             console.log(error);
         });
-        getUserData(token);
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card.jsx",
-            lineNumber: 97,
+            lineNumber: 81,
             columnNumber: 5
         },
         __self: undefined,
@@ -41095,7 +41084,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
-                    lineNumber: 98,
+                    lineNumber: 82,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -41103,7 +41092,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
-                    lineNumber: 99,
+                    lineNumber: 83,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41112,7 +41101,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 100,
+                            lineNumber: 84,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41121,7 +41110,7 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 101,
+                            lineNumber: 85,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41133,7 +41122,7 @@ const MovieCard = (props)=>{
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 102,
+                            lineNumber: 86,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41143,7 +41132,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 108,
+                            lineNumber: 92,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -41153,7 +41142,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 109,
+                            lineNumber: 93,
                             columnNumber: 24
                         },
                         __self: undefined,
@@ -41171,8 +41160,8 @@ _s(MovieCard, "CzcTeTziyjMsSrAVmHuCCb6+Bfg=", false, function() {
 });
 _c = MovieCard;
 exports.default = _reactRedux.connect(mapStateToProps, {
-    setMovies: _actions.setMovies,
-    setUserData: _actions.setUserData
+    addFavMovie: _actions.addFavMovie,
+    removeFavMovie: _actions.removeFavMovie
 })(MovieCard);
 var _c;
 $RefreshReg$(_c, "MovieCard");
@@ -41191,15 +41180,35 @@ parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
 );
 parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
 );
+parcelHelpers.export(exports, "SET_FAV_MOVIES", ()=>SET_FAV_MOVIES
+);
+parcelHelpers.export(exports, "REMOVE_FAV_MOVIE", ()=>REMOVE_FAV_MOVIE
+);
+parcelHelpers.export(exports, "ADD_FAV_MOVIE", ()=>ADD_FAV_MOVIE
+);
+parcelHelpers.export(exports, "UPDATE_USER_DATA", ()=>UPDATE_USER_DATA
+);
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
 parcelHelpers.export(exports, "setFilter", ()=>setFilter
 );
 parcelHelpers.export(exports, "setUserData", ()=>setUserData
 );
+parcelHelpers.export(exports, "updateUserData", ()=>updateUserData
+);
+parcelHelpers.export(exports, "setFavMovies", ()=>setFavMovies
+);
+parcelHelpers.export(exports, "removeFavMovie", ()=>removeFavMovie
+);
+parcelHelpers.export(exports, "addFavMovie", ()=>addFavMovie
+);
 const SET_MOVIES = "SET_MOVIES";
 const SET_FILTER = "SET_FILTER";
 const SET_USER_DATA = "SET_USER_DATA";
+const SET_FAV_MOVIES = "SET_FAV_MOVIES";
+const REMOVE_FAV_MOVIE = "REMOVE_FAV_MOVIE";
+const ADD_FAV_MOVIE = "ADD_FAV_MOVIE";
+const UPDATE_USER_DATA = "UPDATE_USER_DATA";
 function setMovies(value) {
     return {
         type: SET_MOVIES,
@@ -41216,6 +41225,30 @@ function setUserData(value) {
     return {
         type: SET_USER_DATA,
         value
+    };
+}
+function updateUserData(value) {
+    return {
+        type: UPDATE_USER_DATA,
+        value
+    };
+}
+function setFavMovies(value) {
+    return {
+        type: SET_FAV_MOVIES,
+        value
+    };
+}
+function removeFavMovie(movieID) {
+    return {
+        type: REMOVE_FAV_MOVIE,
+        movieID
+    };
+}
+function addFavMovie(movie) {
+    return {
+        type: ADD_FAV_MOVIE,
+        movie
     };
 }
 
@@ -42058,32 +42091,18 @@ var _visibilityFilterInput = require("../VisibilityFilterInput/visibility-filter
 var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _reactBootstrap = require("react-bootstrap");
 const mapStateToProps = (state)=>{
-    const { visibilityFilter , userData , movies  } = state;
+    const { visibilityFilter , favMovies  } = state;
     return {
         visibilityFilter,
-        userData,
-        movies
+        favMovies
     };
 };
 const FavMovies = (props)=>{
-    const { userData , visibilityFilter , movies  } = props;
-    let favMovies = [];
-    movies.forEach((movie)=>{
-        if (userData.FavMovies.find((favMovie)=>favMovie._id === movie._id
-        )) favMovies.push(movie);
-    });
+    const { visibilityFilter , favMovies  } = props;
     let filteredMovies = favMovies;
     if (visibilityFilter !== "") filteredMovies = favMovies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
-    if (!userData) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
-        className: "main-view",
-        __source: {
-            fileName: "src/components/UserProfileView/fav-movies.jsx",
-            lineNumber: 29,
-            columnNumber: 25
-        },
-        __self: undefined
-    }));
+    // if (!userData) return <div className="main-view" />;
     const movieCards = filteredMovies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
             sm: 6,
             md: 4,
@@ -42091,16 +42110,15 @@ const FavMovies = (props)=>{
             className: "movie-column",
             __source: {
                 fileName: "src/components/UserProfileView/fav-movies.jsx",
-                lineNumber: 32,
+                lineNumber: 26,
                 columnNumber: 5
             },
             __self: undefined,
             children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCardJsxDefault.default, {
                 movieData: movie,
-                userData: userData,
                 __source: {
                     fileName: "src/components/UserProfileView/fav-movies.jsx",
-                    lineNumber: 33,
+                    lineNumber: 27,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -42116,7 +42134,7 @@ const FavMovies = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/fav-movies.jsx",
-                    lineNumber: 39,
+                    lineNumber: 33,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -42124,7 +42142,7 @@ const FavMovies = (props)=>{
                     visibilityFilter: visibilityFilter,
                     __source: {
                         fileName: "src/components/UserProfileView/fav-movies.jsx",
-                        lineNumber: 40,
+                        lineNumber: 34,
                         columnNumber: 9
                     },
                     __self: undefined
@@ -43257,7 +43275,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _redux = require("redux");
 var _actions = require("../actions/actions");
-function visibilityFilter(state = '', action) {
+function visibilityFilter(state = "", action) {
     switch(action.type){
         case _actions.SET_FILTER:
             return action.value;
@@ -43273,7 +43291,7 @@ function movies(state = [], action) {
             return state;
     }
 }
-function userData(state = '', action) {
+function userData(state = "", action) {
     switch(action.type){
         case _actions.SET_USER_DATA:
             return action.value;
@@ -43281,10 +43299,28 @@ function userData(state = '', action) {
             return state;
     }
 }
+function favMovies(state = [], action) {
+    switch(action.type){
+        case _actions.SET_FAV_MOVIES:
+            return action.value;
+        case _actions.REMOVE_FAV_MOVIE:
+            return state.filter((movie)=>movie._id !== action.movieID
+            );
+        case _actions.ADD_FAV_MOVIE:
+            console.log(action.movie);
+            return [
+                ...state,
+                action.movie
+            ];
+        default:
+            return state;
+    }
+}
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
     movies,
-    userData
+    userData,
+    favMovies
 });
 exports.default = moviesApp;
 
