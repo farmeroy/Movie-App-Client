@@ -23113,6 +23113,7 @@ const MainView = (props)=>{
         }).then((response)=>{
             props.setMovies(response.data);
         }).catch(function(error) {
+            console.log(error);
         });
     };
     const getUserData = (token)=>{
@@ -23154,7 +23155,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 73,
+                    lineNumber: 75,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -23163,14 +23164,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 74,
+                    lineNumber: 76,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 75,
+                        lineNumber: 77,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23182,7 +23183,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 78,
+                                lineNumber: 80,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23194,7 +23195,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 80,
+                                lineNumber: 82,
                                 columnNumber: 20
                             },
                             __self: undefined
@@ -23206,7 +23207,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 82,
+                                lineNumber: 84,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23217,7 +23218,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 84,
+                                lineNumber: 86,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23228,7 +23229,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 85,
+                                lineNumber: 87,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23239,7 +23240,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 87,
+                                lineNumber: 89,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23250,7 +23251,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 88,
+                                lineNumber: 90,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23261,7 +23262,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 89,
+                                lineNumber: 91,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -41000,6 +41001,7 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
 var _movieCardScss = require("./movie-card.scss");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
@@ -41010,7 +41012,13 @@ var _cardDefault = parcelHelpers.interopDefault(_card);
 var _reactRouterDom = require("react-router-dom");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
+const mapStateToProps = (state)=>{
+    return {
+        userData: state.userData
+    };
+};
 const truncateText = (text)=>{
     if (!text) return "...";
     if (text.length > 120) {
@@ -41027,6 +41035,18 @@ const MovieCard = (props)=>{
     const movieId1 = movieData._id;
     const isUserFav = userData.FavMovies.find((movie)=>movie._id === movieId1
     );
+    const getUserData = (token)=>{
+        const user = localStorage.getItem("user");
+        _axiosDefault.default.get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            props.setUserData(response.data);
+        }).catch((error)=>{
+            console.log(error);
+        });
+    };
     const removeFavHandler = ()=>{
         const username = localStorage.getItem("user");
         const movieId = movieData._id;
@@ -41043,13 +41063,12 @@ const MovieCard = (props)=>{
         }).catch((error)=>{
             console.log(error);
         });
+        getUserData(token);
     };
     const addFavHandler = ()=>{
         const username = localStorage.getItem("user");
         const token = localStorage.getItem("token");
         const movieId = movieData._id;
-        console.log(movieId);
-        // console.log(token)
         _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`, {
         }, {
             headers: {
@@ -41060,13 +41079,13 @@ const MovieCard = (props)=>{
         }).catch((error)=>{
             console.log(error);
         });
-        console.log("add");
+        getUserData(token);
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card.jsx",
-            lineNumber: 75,
+            lineNumber: 97,
             columnNumber: 5
         },
         __self: undefined,
@@ -41076,7 +41095,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
-                    lineNumber: 76,
+                    lineNumber: 98,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -41084,7 +41103,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
-                    lineNumber: 77,
+                    lineNumber: 99,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41093,7 +41112,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 78,
+                            lineNumber: 100,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41102,7 +41121,7 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 79,
+                            lineNumber: 101,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41114,7 +41133,7 @@ const MovieCard = (props)=>{
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 80,
+                            lineNumber: 102,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41124,7 +41143,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 86,
+                            lineNumber: 108,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -41134,7 +41153,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 87,
+                            lineNumber: 109,
                             columnNumber: 24
                         },
                         __self: undefined,
@@ -41151,7 +41170,10 @@ _s(MovieCard, "CzcTeTziyjMsSrAVmHuCCb6+Bfg=", false, function() {
     ];
 });
 _c = MovieCard;
-exports.default = MovieCard;
+exports.default = _reactRedux.connect(mapStateToProps, {
+    setMovies: _actions.setMovies,
+    setUserData: _actions.setUserData
+})(MovieCard);
 var _c;
 $RefreshReg$(_c, "MovieCard");
 
@@ -41160,7 +41182,44 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./movie-card.scss":"4oxxX","prop-types":"2bysO","react-bootstrap/Button":"64Pgd","react-bootstrap/Card":"jeXXJ","react-router-dom":"16kZP","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"4oxxX":[function() {},{}],"3qPb4":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./movie-card.scss":"4oxxX","prop-types":"2bysO","react-bootstrap/Button":"64Pgd","react-bootstrap/Card":"jeXXJ","react-router-dom":"16kZP","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../../actions/actions":"6dgbZ"}],"4oxxX":[function() {},{}],"6dgbZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
+);
+parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
+);
+parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
+);
+parcelHelpers.export(exports, "setMovies", ()=>setMovies
+);
+parcelHelpers.export(exports, "setFilter", ()=>setFilter
+);
+parcelHelpers.export(exports, "setUserData", ()=>setUserData
+);
+const SET_MOVIES = "SET_MOVIES";
+const SET_FILTER = "SET_FILTER";
+const SET_USER_DATA = "SET_USER_DATA";
+function setMovies(value) {
+    return {
+        type: SET_MOVIES,
+        value
+    };
+}
+function setFilter(value) {
+    return {
+        type: SET_FILTER,
+        value
+    };
+}
+function setUserData(value) {
+    return {
+        type: SET_USER_DATA,
+        value
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"3qPb4":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$c271 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41201,44 +41260,7 @@ $RefreshReg$(_c, "VisibilityFilter");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-redux":"lT3ms","react-bootstrap":"9qMdX","../../actions/actions":"6dgbZ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"6dgbZ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
-);
-parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
-);
-parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
-);
-parcelHelpers.export(exports, "setMovies", ()=>setMovies
-);
-parcelHelpers.export(exports, "setFilter", ()=>setFilter
-);
-parcelHelpers.export(exports, "setUserData", ()=>setUserData
-);
-const SET_MOVIES = "SET_MOVIES";
-const SET_FILTER = "SET_FILTER";
-const SET_USER_DATA = "SET_USER_DATA";
-function setMovies(value) {
-    return {
-        type: SET_MOVIES,
-        value
-    };
-}
-function setFilter(value) {
-    return {
-        type: SET_FILTER,
-        value
-    };
-}
-function setUserData(value) {
-    return {
-        type: SET_USER_DATA,
-        value
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"93iJL":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","react-redux":"lT3ms","react-bootstrap":"9qMdX","../../actions/actions":"6dgbZ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13"}],"93iJL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$cde8 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41611,7 +41633,7 @@ const DirectorView = (props)=>{
             className: "movie-column",
             __source: {
                 fileName: "src/components/DirectorView/director-view.jsx",
-                lineNumber: 28,
+                lineNumber: 25,
                 columnNumber: 5
             },
             __self: undefined,
@@ -41620,7 +41642,7 @@ const DirectorView = (props)=>{
                 userData: userData,
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 29,
+                    lineNumber: 26,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -41632,16 +41654,16 @@ const DirectorView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 35,
-                    columnNumber: 5
+                    lineNumber: 32,
+                    columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                     bsPrefix: "director-card",
                     __source: {
                         fileName: "src/components/DirectorView/director-view.jsx",
-                        lineNumber: 36,
-                        columnNumber: 7
+                        lineNumber: 33,
+                        columnNumber: 9
                     },
                     __self: undefined,
                     children: [
@@ -41649,8 +41671,8 @@ const DirectorView = (props)=>{
                             bsPrefix: "limelight",
                             __source: {
                                 fileName: "src/components/DirectorView/director-view.jsx",
-                                lineNumber: 37,
-                                columnNumber: 9
+                                lineNumber: 34,
+                                columnNumber: 11
                             },
                             __self: undefined,
                             children: director.Name
@@ -41658,8 +41680,8 @@ const DirectorView = (props)=>{
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                             __source: {
                                 fileName: "src/components/DirectorView/director-view.jsx",
-                                lineNumber: 38,
-                                columnNumber: 9
+                                lineNumber: 35,
+                                columnNumber: 11
                             },
                             __self: undefined,
                             children: director.Bio
@@ -41671,8 +41693,8 @@ const DirectorView = (props)=>{
                             className: "back-btn",
                             __source: {
                                 fileName: "src/components/DirectorView/director-view.jsx",
-                                lineNumber: 39,
-                                columnNumber: 9
+                                lineNumber: 36,
+                                columnNumber: 11
                             },
                             __self: undefined,
                             children: "Back"
@@ -41683,24 +41705,24 @@ const DirectorView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 49,
-                    columnNumber: 5
+                    lineNumber: 46,
+                    columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                     sm: 12,
                     __source: {
                         fileName: "src/components/DirectorView/director-view.jsx",
-                        lineNumber: 50,
-                        columnNumber: 7
+                        lineNumber: 47,
+                        columnNumber: 9
                     },
                     __self: undefined,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs("h1", {
                         className: "limelight other-films",
                         __source: {
                             fileName: "src/components/DirectorView/director-view.jsx",
-                            lineNumber: 51,
-                            columnNumber: 9
+                            lineNumber: 48,
+                            columnNumber: 11
                         },
                         __self: undefined,
                         children: [
@@ -41713,8 +41735,8 @@ const DirectorView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/DirectorView/director-view.jsx",
-                    lineNumber: 54,
-                    columnNumber: 5
+                    lineNumber: 53,
+                    columnNumber: 7
                 },
                 __self: undefined,
                 children: movieCards
@@ -41800,7 +41822,7 @@ const GenreView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/GenreView/genre-view.jsx",
-                    lineNumber: 31,
+                    lineNumber: 30,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41808,7 +41830,7 @@ const GenreView = (props)=>{
                     sm: 12,
                     __source: {
                         fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 32,
+                        lineNumber: 31,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -41816,8 +41838,8 @@ const GenreView = (props)=>{
                         bsPrefix: "genre-card",
                         __source: {
                             fileName: "src/components/GenreView/genre-view.jsx",
-                            lineNumber: 33,
-                            columnNumber: 9
+                            lineNumber: 32,
+                            columnNumber: 11
                         },
                         __self: undefined,
                         children: [
@@ -41825,8 +41847,8 @@ const GenreView = (props)=>{
                                 bsPrefix: "limelight",
                                 __source: {
                                     fileName: "src/components/GenreView/genre-view.jsx",
-                                    lineNumber: 34,
-                                    columnNumber: 11
+                                    lineNumber: 33,
+                                    columnNumber: 13
                                 },
                                 __self: undefined,
                                 children: genre.Name
@@ -41834,8 +41856,8 @@ const GenreView = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
                                 __source: {
                                     fileName: "src/components/GenreView/genre-view.jsx",
-                                    lineNumber: 35,
-                                    columnNumber: 11
+                                    lineNumber: 34,
+                                    columnNumber: 13
                                 },
                                 __self: undefined,
                                 children: genre.Description
@@ -41847,8 +41869,8 @@ const GenreView = (props)=>{
                                 className: "back-btn",
                                 __source: {
                                     fileName: "src/components/GenreView/genre-view.jsx",
-                                    lineNumber: 36,
-                                    columnNumber: 11
+                                    lineNumber: 35,
+                                    columnNumber: 13
                                 },
                                 __self: undefined,
                                 children: "Back"
@@ -41860,7 +41882,7 @@ const GenreView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                 __source: {
                     fileName: "src/components/GenreView/genre-view.jsx",
-                    lineNumber: 47,
+                    lineNumber: 46,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41868,7 +41890,7 @@ const GenreView = (props)=>{
                     sm: 12,
                     __source: {
                         fileName: "src/components/GenreView/genre-view.jsx",
-                        lineNumber: 48,
+                        lineNumber: 47,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -41876,8 +41898,8 @@ const GenreView = (props)=>{
                         className: "other-films limelight",
                         __source: {
                             fileName: "src/components/GenreView/genre-view.jsx",
-                            lineNumber: 49,
-                            columnNumber: 9
+                            lineNumber: 48,
+                            columnNumber: 11
                         },
                         __self: undefined,
                         children: [
@@ -41892,7 +41914,7 @@ const GenreView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/GenreView/genre-view.jsx",
-                    lineNumber: 52,
+                    lineNumber: 51,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41928,50 +41950,24 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
 var _favMovies = require("./fav-movies");
 var _favMoviesDefault = parcelHelpers.interopDefault(_favMovies);
 var _userInfo = require("./user-info");
 var _userInfoDefault = parcelHelpers.interopDefault(_userInfo);
 var _reactBootstrap = require("react-bootstrap");
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _reactRedux = require("react-redux");
-var _actions = require("../../actions/actions");
 const mapStateToProps = (state)=>{
     return {
-        movies: state.movies,
         userData: state.userData
     };
 };
 const ProfileView = (props)=>{
-    // const { moviesData } = props;
-    // const [userData, setUserData] = useState("");
     const { userData  } = props;
-    const moviesData = userData.FavMovies;
-    // const getUserData = (token) => {
-    //   const user = localStorage.getItem("user");
-    //   axios
-    //     .get(`http://pre-code-flix.herokuapp.com/users/${user}`
-    //     , {
-    //       headers: { Authorization: `Bearer ${token}` },
-    //     })
-    //     .then((response) => {
-    //       setUserData(response.data);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // };
-    //   useEffect(() => {
-    //     const accessToken = localStorage.getItem("token");
-    //     if (accessToken) {
-    //       getUserData(accessToken);
-    //     }
-    //   }, []);
     if (!userData) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
         __source: {
             fileName: "src/components/UserProfileView/user-profile-view.jsx",
-            lineNumber: 42,
+            lineNumber: 16,
             columnNumber: 25
         },
         __self: undefined,
@@ -41981,7 +41977,7 @@ const ProfileView = (props)=>{
         className: "justify-content-center row-eq-height",
         __source: {
             fileName: "src/components/UserProfileView/user-profile-view.jsx",
-            lineNumber: 45,
+            lineNumber: 19,
             columnNumber: 5
         },
         __self: undefined,
@@ -41990,7 +41986,7 @@ const ProfileView = (props)=>{
                 md: 10,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                    lineNumber: 46,
+                    lineNumber: 20,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41998,7 +41994,7 @@ const ProfileView = (props)=>{
                     userData: userData,
                     __source: {
                         fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                        lineNumber: 47,
+                        lineNumber: 21,
                         columnNumber: 9
                     },
                     __self: undefined
@@ -42008,7 +42004,7 @@ const ProfileView = (props)=>{
                 md: 10,
                 __source: {
                     fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                    lineNumber: 49,
+                    lineNumber: 23,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -42016,16 +42012,14 @@ const ProfileView = (props)=>{
                     className: "justify-content-md-center row-eq-height",
                     __source: {
                         fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                        lineNumber: 50,
+                        lineNumber: 24,
                         columnNumber: 9
                     },
                     __self: undefined,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_favMoviesDefault.default, {
-                        userData: userData,
-                        moviesData: moviesData,
                         __source: {
                             fileName: "src/components/UserProfileView/user-profile-view.jsx",
-                            lineNumber: 51,
+                            lineNumber: 25,
                             columnNumber: 9
                         },
                         __self: undefined
@@ -42045,7 +42039,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./fav-movies":"a4s08","./user-info":"jjzVZ","react-bootstrap":"9qMdX","axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms","../../actions/actions":"6dgbZ"}],"a4s08":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","./fav-movies":"a4s08","./user-info":"jjzVZ","react-bootstrap":"9qMdX","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-redux":"lT3ms"}],"a4s08":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$a3ee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -42064,22 +42058,28 @@ var _visibilityFilterInput = require("../VisibilityFilterInput/visibility-filter
 var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _reactBootstrap = require("react-bootstrap");
 const mapStateToProps = (state)=>{
-    const { visibilityFilter , userData  } = state;
+    const { visibilityFilter , userData , movies  } = state;
     return {
         visibilityFilter,
-        userData
+        userData,
+        movies
     };
 };
 const FavMovies = (props)=>{
-    const { userData , visibilityFilter  } = props;
-    let filteredMovies = userData.FavMovies;
-    if (visibilityFilter !== "") filteredMovies = movies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
+    const { userData , visibilityFilter , movies  } = props;
+    let favMovies = [];
+    movies.forEach((movie)=>{
+        if (userData.FavMovies.find((favMovie)=>favMovie._id === movie._id
+        )) favMovies.push(movie);
+    });
+    let filteredMovies = favMovies;
+    if (visibilityFilter !== "") filteredMovies = favMovies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
     if (!userData) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
         className: "main-view",
         __source: {
             fileName: "src/components/UserProfileView/fav-movies.jsx",
-            lineNumber: 22,
+            lineNumber: 29,
             columnNumber: 25
         },
         __self: undefined
@@ -42091,7 +42091,7 @@ const FavMovies = (props)=>{
             className: "movie-column",
             __source: {
                 fileName: "src/components/UserProfileView/fav-movies.jsx",
-                lineNumber: 25,
+                lineNumber: 32,
                 columnNumber: 5
             },
             __self: undefined,
@@ -42100,7 +42100,7 @@ const FavMovies = (props)=>{
                 userData: userData,
                 __source: {
                     fileName: "src/components/UserProfileView/fav-movies.jsx",
-                    lineNumber: 26,
+                    lineNumber: 33,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -42116,7 +42116,7 @@ const FavMovies = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/fav-movies.jsx",
-                    lineNumber: 32,
+                    lineNumber: 39,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -42124,7 +42124,7 @@ const FavMovies = (props)=>{
                     visibilityFilter: visibilityFilter,
                     __source: {
                         fileName: "src/components/UserProfileView/fav-movies.jsx",
-                        lineNumber: 33,
+                        lineNumber: 40,
                         columnNumber: 9
                     },
                     __self: undefined
