@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 };
 
 const Movies = (props) => {
-  const { movies, userData, visibilityFilter } = props;
+  const { movies, visibilityFilter } = props;
   let filteredMovies = movies;
 
   if (visibilityFilter !== "") {
@@ -23,7 +23,7 @@ const Movies = (props) => {
 
   const movieCards = filteredMovies.map((movie) => (
     <Col sm={6} md={4} lg={3} className="movie-column" key={movie._id}>
-      <MovieCard key={movie._id} movieData={movie} userData={userData} />
+      <MovieCard key={movie._id} movieData={movie}  />
     </Col>
   ));
 
