@@ -3,32 +3,41 @@ import FavMovies from "./fav-movies";
 import UserInfo from "./user-info";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
+import { connect } from 'react-redux';
+import { getUser } from '../../actions/actions';
+
+const mapStateToProps = state => {
+  return { movies: state.movies, userData: state.userData }
+};
+
+
 
 const ProfileView = (props) => {
   // const { moviesData } = props;
-  const [userData, setUserData] = useState("");
+  // const [userData, setUserData] = useState("");
+  const { userData } = props;  
   const moviesData = userData.FavMovies;
-  const getUserData = (token) => {
-    const user = localStorage.getItem("user");
-    axios
-      .get(`http://pre-code-flix.herokuapp.com/users/${user}`
-      , {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const getUserData = (token) => {
+  //   const user = localStorage.getItem("user");
+  //   axios
+  //     .get(`http://pre-code-flix.herokuapp.com/users/${user}`
+  //     , {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       setUserData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("token");
-    if (accessToken) {
-      getUserData(accessToken);
-    }
-  }, []);
+//   useEffect(() => {
+//     const accessToken = localStorage.getItem("token");
+//     if (accessToken) {
+//       getUserData(accessToken);
+//     }
+//   }, []);
 
   if (!userData) return <div>Loading data</div>;
 
@@ -46,4 +55,4 @@ const ProfileView = (props) => {
   );
 };
 
-export default ProfileView;
+export default connect(mapStateToProps)(ProfileView);
