@@ -3,6 +3,11 @@ import { Button, Card } from "react-bootstrap";
 import UpdateUserForm from "./update-user-form.jsx";
 import "./user-profile-view.css";
 import axios from "axios";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return { userData: state.userData }
+};
 
 const UserInfo = (props) => {
   const { userData } = props;
@@ -42,7 +47,6 @@ const UserInfo = (props) => {
       )}
       {showUpdateUserForm && (
         <UpdateUserForm
-          userData={userData}
           hideForm={() => {
             setShowUpdateUserForm(false);
           }}
@@ -53,4 +57,4 @@ const UserInfo = (props) => {
   );
 };
 
-export default UserInfo;
+export default connect(mapStateToProps)(UserInfo);
