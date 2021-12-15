@@ -12,14 +12,14 @@ import GenreView from "../GenreView/genre-view";
 import ProfileView from "../UserProfileView/user-profile-view";
 import TopNav from "../UI/TopNav/top-nav";
 import { Row } from "react-bootstrap";
-import { setMovies, setUserData } from "../../actions/actions";
+import { setMovies, setUserData, setFavMovies } from "../../actions/actions";
 
 const MainView = (props) => {
   [selectedMovie, setSelectedMovie] = useState("");
   [user, setUser] = useState("");
   [registerUser, setRegisterUser] = useState("");
   //
-  const { movies, userData } = props;
+  const { movies, userData, favMovies } = props;
 
   const getMovies = (token) => {
     axios
@@ -41,6 +41,7 @@ const MainView = (props) => {
       })
       .then((response) => {
         props.setUserData(response.data);
+        props.setFavMovies(response.data.FavMovies);
       })
       .catch((error) => {
         console.log(error);
@@ -96,7 +97,7 @@ const MainView = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { movies: state.movies, userData: state.userData };
+  return { movies: state.movies, userData: state.userData, favMovies: state.favMovies };
 };
 
-export default connect(mapStateToProps, { setMovies, setUserData })(MainView);
+export default connect(mapStateToProps, { setFavMovies, setMovies, setUserData })(MainView);
