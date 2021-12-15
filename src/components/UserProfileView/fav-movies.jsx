@@ -5,16 +5,23 @@ import VisibilityFilterInput from "../VisibilityFilterInput/visibility-filter-in
 import { Col } from "react-bootstrap";
 
 const mapStateToProps = (state) => {
-  const { visibilityFilter, userData} = state;
-  return { visibilityFilter, userData};
+  const { visibilityFilter, userData, movies} = state;
+  return { visibilityFilter, userData, movies};
 };
 
 const FavMovies = (props) => {
-  const { userData, visibilityFilter } = props;
-  let filteredMovies = userData.FavMovies;
+  const { userData, visibilityFilter, movies } = props;
+  let favMovies = []; 
+  movies.forEach((movie) => {
+    if (userData.FavMovies.find((favMovie) => favMovie._id === movie._id)) {
+      favMovies.push(movie)
+    }
+  })
+
+  let filteredMovies = favMovies; 
 
   if (visibilityFilter !== "") {
-    filteredMovies = movies.filter((movie) =>
+    filteredMovies = favMovies.filter((movie) =>
       movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
   }
