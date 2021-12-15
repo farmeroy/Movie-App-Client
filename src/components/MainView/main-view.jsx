@@ -2,7 +2,7 @@ import { useState, useEffect, React } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import LoginView from "../LoginView/login-view";
 import MovieView from "../MovieView/movie-view.jsx";
 import Movies from "../Movies/movies.jsx";
@@ -11,8 +11,8 @@ import DirectorView from "../DirectorView/director-view";
 import GenreView from "../GenreView/genre-view";
 import ProfileView from "../UserProfileView/user-profile-view";
 import TopNav from "../UI/TopNav/top-nav";
-import {  Row } from "react-bootstrap";
-import { setMovies, setUserData } from '../../actions/actions';
+import { Row } from "react-bootstrap";
+import { setMovies, setUserData } from "../../actions/actions";
 
 const MainView = (props) => {
   [selectedMovie, setSelectedMovie] = useState("");
@@ -29,14 +29,12 @@ const MainView = (props) => {
       .then((response) => {
         props.setMovies(response.data);
       })
-      .catch(function (error) {
-      });
+      .catch(function (error) {});
   };
-const getUserData = (token) => {
+  const getUserData = (token) => {
     const user = localStorage.getItem("user");
     axios
-      .get(`http://pre-code-flix.herokuapp.com/users/${user}`
-      , {
+      .get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -47,10 +45,8 @@ const getUserData = (token) => {
       });
   };
 
-
-
   const onLoggedIn = (authData) => {
-    setUser(authData.user.Username)
+    setUser(authData.user.Username);
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
   };
@@ -58,9 +54,8 @@ const getUserData = (token) => {
   const onLoggedOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser('');
+    setUser("");
   };
-
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token");
@@ -82,35 +77,15 @@ const getUserData = (token) => {
           {user && !dataIsLoaded && (
             <Route path="/" element={<div className="main-view"></div>} />
           )}
-          {user && (
-            <Route
-              path="/"
-              element={<Movies userData={userData} />}
-            />
-          )}
+          {user && <Route path="/" element={<Movies userData={userData} />} />}
           {!user && (
             <Route path="/" element={<LoginView onLoggedIn={onLoggedIn} />} />
           )}
           <Route path="/registration" element={<RegistrationView />} />
-          <Route
-            path="/movies/:movieId"
-            element={
-              <MovieView
-                movies={movies}
-                onBackClick={() => console.log("go back")}
-                userData={userData}
-              />
-            }
-          />
+          <Route path="/movies/:movieId" element={<MovieView />} />
 
-          <Route
-            path="/genres/:name"
-            element={<GenreView movies={movies} userData={userData} />}
-          />
-          <Route
-            path="/directors/:name"
-            element={<DirectorView movies={movies} userData={userData} />}
-          />
+          <Route path="/genres/:name" element={<GenreView />} />
+          <Route path="/directors/:name" element={<DirectorView />} />
           <Route path={`/users/${user}`} element={<ProfileView />} />
         </Routes>
       </Row>
@@ -118,8 +93,8 @@ const getUserData = (token) => {
   );
 };
 
-const mapStateToProps = state => {
-  return { movies: state.movies, userData: state.userData }
+const mapStateToProps = (state) => {
+  return { movies: state.movies, userData: state.userData };
 };
 
 export default connect(mapStateToProps, { setMovies, setUserData })(MainView);
