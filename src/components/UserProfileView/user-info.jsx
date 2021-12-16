@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Modal, Button, Card } from "react-bootstrap";
+import { Col, Modal, Button, Card } from "react-bootstrap";
 import UpdateUserForm from "./update-user-form.jsx";
 import "./user-profile-view.css";
 import axios from "axios";
@@ -55,12 +55,16 @@ const UserInfo = (props) => {
           }}
         />
       )}
+      {' '}
       <Button onClick={showDeleteUserHandler}>Delete Account</Button>
-      <Modal show={showDeleteUser} onHide={hideDeleteHandler}>
+      <Modal
+        show={showDeleteUser}
+        onHide={hideDeleteHandler}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Delete Account</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
           Are you sure you want to delete your account? This cannot be undone...
         </Modal.Body>
         <Modal.Footer>
