@@ -1,6 +1,7 @@
 import { React } from "react";
 import { connect } from "react-redux";
 import MovieCard from "../MovieCard/movie-card.jsx";
+import PropTypes from "prop-types";
 import { useParams, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Button } from "react-bootstrap";
 import "./director-view.scss";
@@ -53,6 +54,11 @@ const DirectorView = (props) => {
       <Row>{movieCards}</Row>
     </>
   );
+};
+
+DirectorView.propTypes = {
+  movies: PropTypes.array.isRequired,
+  userData: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(DirectorView);
