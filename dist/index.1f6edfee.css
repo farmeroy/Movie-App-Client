@@ -107,10 +107,17 @@ body {
   margin: 10px;
 
 }
-
+.update-user {
+  margin: 10px;
+  padding: 1rem;
+}
 .limelight {
   font-family: "Limelight", cursive;
   text-align: center;
+}
+
+.deleteUser-modal {
+  background-color: #577bc1;
 }
 
 .preCodeBrand {
