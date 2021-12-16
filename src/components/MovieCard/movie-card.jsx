@@ -31,7 +31,9 @@ const MovieCard = (props) => {
   const navigate = useNavigate();
   const movieId = movieData._id;
 
-  const isUserFav = favMovies.find((movie) => movie._id === movieId);
+  if (!favMovies) return <div>loading</div>
+
+  const isUserFav = favMovies.find((movie) => movie === movieId);
 
   const removeFavHandler = () => {
     const username = localStorage.getItem("user");
