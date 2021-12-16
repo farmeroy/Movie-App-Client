@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
 const FavMovies = (props) => {
   const {  visibilityFilter, favMovies, movies } = props;
 
+
   let filteredMovies = movies.filter(movie => favMovies.includes(movie._id)); 
 
   if (visibilityFilter !== "") {
