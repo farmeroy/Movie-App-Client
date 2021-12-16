@@ -31,9 +31,9 @@ const MovieCard = (props) => {
   const navigate = useNavigate();
   const movieId = movieData._id;
 
-  if (!favMovies) return <div>loading</div>
+  if (!favMovies) return <div>loading</div>;
 
-  const isUserFav = favMovies.find((movie) => movie === movieId);
+  const isUserFav = favMovies.includes(movieId);
 
   const removeFavHandler = () => {
     const username = localStorage.getItem("user");
@@ -72,7 +72,7 @@ const MovieCard = (props) => {
       )
       .then((response) => {
         console.log(response);
-        props.addFavMovie(movieData)
+        props.addFavMovie(movieId)
       })
       .catch((error) => {
         console.log(error);
