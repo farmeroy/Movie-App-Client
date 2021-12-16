@@ -6,7 +6,7 @@ import { setUserData } from "../../actions/actions";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  return { userData: state.userData }
+  return { userData: state.userData };
 };
 
 // validation logic to check input in text field
@@ -15,8 +15,8 @@ const textInputIsValid = (text) => {
 };
 
 const emailInputIsValid = (email) => {
-  return /\S+@\S+\.\S+/.test(email)
-}
+  return /\S+@\S+\.\S+/.test(email);
+};
 
 const UpdateUserForm = (props) => {
   const { userData, hideForm } = props;
@@ -67,32 +67,32 @@ const UpdateUserForm = (props) => {
     }
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
-    
+
     const updatedUser = {
       Username: enteredUsername,
       Password: enteredPassword,
       Email: enteredEmail,
-      Birthday: new Date(enteredBirthday)
-    }
+      Birthday: new Date(enteredBirthday),
+    };
     axios
       .put(
         `http://pre-code-flix.herokuapp.com/users/${user}/update`,
         updatedUser,
-        {headers: { Authorization: `Bearer ${token}` }},
+        { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
-        localStorage.setItem("user", enteredUsername)
+        localStorage.setItem("user", enteredUsername);
         props.setUserData(response.data);
         hideForm();
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
   return (
-    <Row className="main-view justify-content-md-center row-eq-height">
-      <Col md={8}>
+    <Row className="update-user main-view justify-content-md-center row-eq-height">
+      <Col md={12}>
         <Form>
           <Form.Group controlId="formUsername">
             <Form.Label>
@@ -107,7 +107,6 @@ const UpdateUserForm = (props) => {
             />
             {usernameHasError && <p>Please enter a Username</p>}
           </Form.Group>
-
           <Form.Group controlId="formPassword">
             <Form.Label>
               <span className="label">Password</span>
@@ -121,7 +120,6 @@ const UpdateUserForm = (props) => {
             />
             {passwordHasError && <p>Please enter a password</p>}
           </Form.Group>
-
           <Form.Group controlId="formEmail">
             <Form.Label>
               <span className="label">Email:</span>
@@ -135,7 +133,6 @@ const UpdateUserForm = (props) => {
             />
             {emailHasError && <p>Please enter a valid email</p>}
           </Form.Group>
-
           <Form.Group controlId="formBirthday">
             <Form.Label>
               <span className="label">Birthday:</span>
@@ -149,12 +146,11 @@ const UpdateUserForm = (props) => {
             />
             {birthdayHasError && <p>Please enter your birthday</p>}
           </Form.Group>
-
+          <Button type="button" variant="secondary" onClick={hideForm}>
+            Cancel
+          </Button>{" "}
           <Button type="submit" onClick={updateUserHandler}>
             Confirm
-          </Button>
-          <Button type="button" onClick={hideForm}>
-            Cancel
           </Button>
         </Form>
       </Col>
