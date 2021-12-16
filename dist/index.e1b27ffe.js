@@ -41048,8 +41048,7 @@ const MovieCard = (props)=>{
         __self: undefined,
         children: "loading"
     }));
-    const isUserFav = favMovies.find((movie)=>movie === movieId1
-    );
+    const isUserFav = favMovies.includes(movieId1);
     const removeFavHandler = ()=>{
         const username = localStorage.getItem("user");
         const movieId = movieData._id;
@@ -41078,7 +41077,7 @@ const MovieCard = (props)=>{
             }
         }).then((response)=>{
             console.log(response);
-            props.addFavMovie(movieData);
+            props.addFavMovie(movieId);
         }).catch((error)=>{
             console.log(error);
         });
@@ -42125,7 +42124,7 @@ const FavMovies = (props)=>{
             className: "movie-column",
             __source: {
                 fileName: "src/components/UserProfileView/fav-movies.jsx",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 5
             },
             __self: undefined,
@@ -42133,7 +42132,7 @@ const FavMovies = (props)=>{
                 movieData: movie,
                 __source: {
                     fileName: "src/components/UserProfileView/fav-movies.jsx",
-                    lineNumber: 27,
+                    lineNumber: 28,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -42149,7 +42148,7 @@ const FavMovies = (props)=>{
                 },
                 __source: {
                     fileName: "src/components/UserProfileView/fav-movies.jsx",
-                    lineNumber: 33,
+                    lineNumber: 34,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -42157,7 +42156,7 @@ const FavMovies = (props)=>{
                     visibilityFilter: visibilityFilter,
                     __source: {
                         fileName: "src/components/UserProfileView/fav-movies.jsx",
-                        lineNumber: 34,
+                        lineNumber: 35,
                         columnNumber: 9
                     },
                     __self: undefined
@@ -43408,7 +43407,7 @@ function favMovies(state = [], action) {
         case _actions.SET_FAV_MOVIES:
             return action.value;
         case _actions.REMOVE_FAV_MOVIE:
-            return state.filter((movie)=>movie._id !== action.movieID
+            return state.filter((movie)=>movie !== action.movieID
             );
         case _actions.ADD_FAV_MOVIE:
             return [
