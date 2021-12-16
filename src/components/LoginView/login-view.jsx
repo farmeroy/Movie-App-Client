@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
 import PropTypes from "prop-types";
 import axios from 'axios';
-import {Button, Col, Form} from "react-bootstrap";
+import {Button, Col, Form, Modal} from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import './login-view.scss';
 
@@ -14,6 +14,9 @@ const textInputIsValid = (text) => {
 function LoginView(props) {
 
   const navigate = useNavigate();
+  const [ isLoggingIn, setIsLoggingIn ] = useState(false);
+  const [ notUser, setNotUser ] = useState(false);
+  const { onLoggedIn } = props;
 
   const {
     enteredValue: enteredUsername,
@@ -40,16 +43,18 @@ function LoginView(props) {
       passwordTouchHandler();
       return;
     }
+    setIsLoggingIn(true);
     axios.post('https://pre-code-flix.herokuapp.com/login', {
       Username: enteredUsername,
       Password: enteredPassword
     })
       .then(response => { 
         const data = response.data;
-        props.onLoggedIn(data);
+        onLoggedIn(data);
       })
       .catch(error => {
         console.log('no such user')
+        setNotUser(true)
       })
   };
 
@@ -80,7 +85,7 @@ function LoginView(props) {
         />
         {passwordHasError && <p className="error">Please enter your Password</p>}
       </Form.Group>
-
+      
       <Button sizevariant="primary" type="submit" onClick={handleSubmit}>
         Login
       </Button>{' '}
@@ -88,13 +93,14 @@ function LoginView(props) {
         New Account
       </Button>
     </Form>
+      { isLoggingIn && <p className="error">Logging you in, one moment...</p>}
+      <Modal show={notUser} onHide={()=>{setIsLoggingIn(false); setNotUser(false)}} closebutton><Modal.Body>Please enter an existing username and correct password</Modal.Body></Modal> 
     </Col>
   );
 }
 
 LoginView.propTypes = {
-  onLoggedIn: PropTypes.func,
-  onRegisterUser: PropTypes.func,
+  onLoggedIn: PropTypes.func.isRequired,
 };
 
 export default LoginView;
