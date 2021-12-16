@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import useForm from '../../hooks/useForm';
-import { Col, Form, Button } from "react-bootstrap";
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import useForm from "../../hooks/useForm";
+import { Modal, Col, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // validation logic to check input in text field
 const textInputIsValid = (text) => {
   return text.trim() !== "";
-}
+};
 
 const emailInputIsValid = (email) => {
-  return /\S+@\S+\.\S+/.test(email)
-}
+  return /\S+@\S+\.\S+/.test(email);
+};
 
-function RegistrationView(props) {
-
+function RegistrationView() {
   const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const {
     enteredValue: enteredEmail,
@@ -31,7 +31,7 @@ function RegistrationView(props) {
     hasError: birthdayHasError,
     isValid: birthdayIsValid,
     inputChangeHandler: birthdayChangeHandler,
-    inputTouchHandler: birthdayTouchHandler
+    inputTouchHandler: birthdayTouchHandler,
   } = useForm(textInputIsValid);
 
   const {
@@ -39,7 +39,7 @@ function RegistrationView(props) {
     hasError: usernameHasError,
     isValid: usernameIsValid,
     inputChangeHandler: usernameChangeHandler,
-    inputTouchHandler: usernameTouchHandler
+    inputTouchHandler: usernameTouchHandler,
   } = useForm(textInputIsValid);
 
   const {
@@ -47,12 +47,11 @@ function RegistrationView(props) {
     hasError: passwordHasError,
     isValid: passwordIsValid,
     inputChangeHandler: passwordChangeHandler,
-    inputTouchHandler: passwordTouchHandler
+    inputTouchHandler: passwordTouchHandler,
   } = useForm(textInputIsValid);
 
-  const formIsValid = usernameIsValid && passwordIsValid && emailIsValid && birthdayIsValid;
-
-
+  const formIsValid =
+    usernameIsValid && passwordIsValid && emailIsValid && birthdayIsValid;
 
   const registerUserHandler = (event) => {
     event.preventDefault();
@@ -67,17 +66,22 @@ function RegistrationView(props) {
       Username: enteredUsername,
       Password: enteredPassword,
       Email: enteredEmail,
-      Birthday: new Date(enteredBirthday)
+      Birthday: new Date(enteredBirthday),
     };
 
-    axios.post('https://pre-code-flix.herokuapp.com/users', newUser )
-      .then(response => {
+    axios
+      .post("https://pre-code-flix.herokuapp.com/users", newUser)
+      .then((response) => {
         const data = response.data;
         console.log(data);
-        window.open('/', '_self');
+        setShowSuccessModal(true);
       })
-      .catch( error => {
-        console.log('error registering the user')
+      // .then(()=> {
+      //   window.open("/", "_self");
+      // })
+      .catch((error) => {
+        console.log("error registering the user", error);
+        setShowErrorModal(true);
       });
   };
 
@@ -107,7 +111,7 @@ function RegistrationView(props) {
             value={enteredPassword}
             onChange={passwordChangeHandler}
             onBlur={passwordTouchHandler}
-            placeholder='password'
+            placeholder="password"
           />
           {passwordHasError && <p className="error">Please enter a password</p>}
         </Form.Group>
@@ -132,19 +136,37 @@ function RegistrationView(props) {
           </Form.Label>
           <Form.Control
             type="date"
-            placeholder=''
+            placeholder=""
             value={enteredBirthday}
             onBlur={birthdayTouchHandler}
             onChange={birthdayChangeHandler}
           />
-          {birthdayHasError && <p className="error">Please enter your birthday</p>}
+          {birthdayHasError && (
+            <p className="error">Please enter your birthday</p>
+          )}
         </Form.Group>
 
         <Button type="submit" onClick={registerUserHandler}>
           Confirm
         </Button>
-        <Button type="button" variant="secondary" onClick={()=> navigate(-1)}>Cancel</Button>
+        <Button type="button" variant="secondary" onClick={() => navigate(-1)}>
+          Cancel
+        </Button>
       </Form>
+      <Modal
+        show={showSuccessModal}
+        onHide={() => setShowSuccessModal(false)}
+      >
+        <Modal.Body>Created new user {enteredUsername}</Modal.Body>
+        <Button onClick={() =>  window.open("/", "_self")}>Continue</Button>
+      </Modal>
+      <Modal
+        show={showErrorModal}
+        onHide={() => setShowErrorModal(false)}
+      >
+        <Modal.Body>{enteredUsername} already exists, please use another name</Modal.Body>
+        <Button onClick={() => setShowErrorModal(false)}>Continue</Button>
+      </Modal>
     </Col>
   );
 }
