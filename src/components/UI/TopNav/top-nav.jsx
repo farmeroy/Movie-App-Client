@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Navbar, Button, Container } from "react-bootstrap";
 import "./top-nav.scss";
@@ -17,12 +18,12 @@ const TopNav = (props) => {
             </Link>
           </Navbar.Brand>
           {user && (
-            <Button variant="dark" onClick={onLoggedOut.bind(this)}>
+            <Button variant="link" onClick={onLoggedOut.bind(this)}>
               <Link to={`/`}>Log Out</Link>
             </Button>
           )}
           {user && (
-            <Button variant="dark" className="preCodeBrand">
+            <Button variant="link" >
               <Link to={`/users/${user}`}>View Profile</Link>
             </Button>
           )}
@@ -31,5 +32,9 @@ const TopNav = (props) => {
     </>
   );
 };
+
+TopNav.propTypes = {
+  onLoggedOut: PropTypes.func.isRequired
+}
 
 export default TopNav;
