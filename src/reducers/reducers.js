@@ -41,7 +41,7 @@ function favMovies(state = [], action) {
     case SET_FAV_MOVIES:
       return action.value;
     case REMOVE_FAV_MOVIE:
-      return state.filter(movie => movie._id !== action.movieID);
+      return state.filter(movie => movie !== action.movieID);
     case ADD_FAV_MOVIE:
       return [
         ...state,
