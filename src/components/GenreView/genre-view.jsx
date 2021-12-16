@@ -1,6 +1,7 @@
 import { React } from "react";
 import { connect } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
 import MovieCard from "../MovieCard/movie-card.jsx";
 import { Row, Card, Col, Button } from "react-bootstrap";
 import "./genre-view.scss";
@@ -53,6 +54,11 @@ const GenreView = (props) => {
       </Row>
     </>
   );
+};
+
+GenreView.propTypes = {
+  movies: PropTypes.array.isRequired,
+  userData: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(GenreView);
