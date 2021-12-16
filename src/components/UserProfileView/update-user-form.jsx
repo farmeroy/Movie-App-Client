@@ -82,8 +82,7 @@ const UpdateUserForm = (props) => {
       )
       .then((response) => {
         localStorage.setItem("user", enteredUsername)
-        console.log(response);
-        props.setUserData(updatedUser);
+        props.setUserData(response.data);
         hideForm();
       })
       .catch((error) => {
