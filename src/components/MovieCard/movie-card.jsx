@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
 import "./movie-card.scss";
 import PropTypes from "prop-types";
@@ -28,6 +28,7 @@ const truncateText = (text) => {
 
 const MovieCard = (props) => {
   const { movieData, favMovies } = props;
+  const [ buttonLoading, setButtonLoading ] = useState(false);
   const navigate = useNavigate();
   const movieId = movieData._id;
 
@@ -39,7 +40,7 @@ const MovieCard = (props) => {
     const username = localStorage.getItem("user");
     const movieId = movieData._id;
     const token = localStorage.getItem("token");
-
+    setButtonLoading(true);
     axios
       .put(
         `http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`,
@@ -51,10 +52,12 @@ const MovieCard = (props) => {
       )
       .then((response) => {
         console.log(response);
+        setButtonLoading(false)
         props.removeFavMovie(movieId);
       })
       .catch((error) => {
         console.log(error);
+        setButtonLoading(false);
       });
   };
 
@@ -62,6 +65,7 @@ const MovieCard = (props) => {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     const movieId = movieData._id;
+    setButtonLoading(true);
     axios
       .put(
         `http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`,
@@ -76,6 +80,9 @@ const MovieCard = (props) => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(()=>{
+        setButtonLoading(false);
       });
   };
 
@@ -91,11 +98,15 @@ const MovieCard = (props) => {
         >
           Open
         </Button>
-        {isUserFav && <Button onClick={removeFavHandler}>Unlike</Button>}
-        {!isUserFav && <Button onClick={addFavHandler}>Like</Button>}
+        {isUserFav && <Button disabled={buttonLoading} onClick={removeFavHandler}>{buttonLoading ? 'Loading... ': 'Unlike'}</Button>}
+        {!isUserFav && <Button disabled={buttonLoading} onClick={addFavHandler}>{buttonLoading ? 'Loading... ': 'Like'}</Button>}
       </Card.Body>
     </Card>
   );
 };
+
+MovieCard.propTypes = {
+  favMovies: PropTypes.array.isRequired
+}
 
 export default connect(mapStateToProps, { addFavMovie, removeFavMovie })(MovieCard);
