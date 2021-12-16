@@ -54,4 +54,9 @@ const MovieView = (props) => {
   );
 };
 
+MovieView.propTypes = {
+  movies: PropTypes.array.isRequired,
+  userData: PropTypes.object.isRequired
+}
+
 export default connect(mapStateToProps)(MovieView);
