@@ -2,6 +2,7 @@ import { useState, useEffect, React } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./main-view.scss";
 import axios from "axios";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import LoginView from "../LoginView/login-view";
 import MovieView from "../MovieView/movie-view.jsx";
@@ -15,10 +16,9 @@ import { Row } from "react-bootstrap";
 import { setMovies, setUserData, setFavMovies } from "../../actions/actions";
 
 const MainView = (props) => {
-  // [selectedMovie, setSelectedMovie] = useState("");
+
   [user, setUser] = useState("");
-  // [registerUser, setRegisterUser] = useState("");
-  //
+
   const { movies, userData } = props;
 
   const getMovies = (token) => {
@@ -50,9 +50,11 @@ const MainView = (props) => {
 
   const onLoggedIn = (authData) => {
     setUser(authData.user.Username);
+    const token = authData.token;
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
-    console.log(authData.user)
+    getMovies(token);
+    getUserData(token);
   };
 
   const onLoggedOut = () => {
@@ -82,9 +84,9 @@ const MainView = (props) => {
         <Routes>
           {/* placeholder while the movies fetch*/}
           {user && !dataIsLoaded && (
-            <Route path="/" element={<div className="main-view"></div>} />
+            <Route path="/" element={<div className="main-view">Loading data please wait...</div>} />
           )}
-          {user && <Route path="/" element={<Movies userData={userData} />} />}
+          {user && <Route path="/" element={<Movies />} />}
           {!user && (
             <Route path="/" element={<LoginView onLoggedIn={onLoggedIn} />} />
           )}
@@ -103,5 +105,10 @@ const MainView = (props) => {
 const mapStateToProps = (state) => {
   return { movies: state.movies, userData: state.userData, favMovies: state.favMovies };
 };
+
+MainView.propTypes = {
+  movies: PropTypes.any,
+  userData: PropTypes.any
+}
 
 export default connect(mapStateToProps, { setFavMovies, setMovies, setUserData })(MainView);
