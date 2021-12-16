@@ -15,9 +15,9 @@ import { Row } from "react-bootstrap";
 import { setMovies, setUserData, setFavMovies } from "../../actions/actions";
 
 const MainView = (props) => {
-  [selectedMovie, setSelectedMovie] = useState("");
+  // [selectedMovie, setSelectedMovie] = useState("");
   [user, setUser] = useState("");
-  [registerUser, setRegisterUser] = useState("");
+  // [registerUser, setRegisterUser] = useState("");
   //
   const { movies, userData } = props;
 
@@ -57,8 +57,9 @@ const MainView = (props) => {
 
   const onLoggedOut = () => {
     setUser('');
-    setMovies('');
-    setFavMovies('');
+    props.setMovies('');
+    props.setFavMovies('');
+    props.setUserData('');
     localStorage.removeItem("token");
     localStorage.removeItem("user");
   };
