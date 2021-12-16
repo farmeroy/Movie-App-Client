@@ -52,6 +52,7 @@ const MainView = (props) => {
     setUser(authData.user.Username);
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
+    console.log(authData.user)
   };
 
   const onLoggedOut = () => {

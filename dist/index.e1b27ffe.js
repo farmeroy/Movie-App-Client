@@ -23133,6 +23133,7 @@ const MainView = (props)=>{
         setUser(authData.user.Username);
         localStorage.setItem("token", authData.token);
         localStorage.setItem("user", authData.user.Username);
+        console.log(authData.user);
     };
     const onLoggedOut = ()=>{
         setUser('');
@@ -23158,7 +23159,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 78,
+                    lineNumber: 79,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -23167,14 +23168,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 79,
+                    lineNumber: 80,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 80,
+                        lineNumber: 81,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23186,7 +23187,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 83,
+                                lineNumber: 84,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23198,7 +23199,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 85,
+                                lineNumber: 86,
                                 columnNumber: 20
                             },
                             __self: undefined
@@ -23210,7 +23211,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 87,
+                                lineNumber: 88,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23221,7 +23222,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 89,
+                                lineNumber: 90,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23232,7 +23233,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 90,
+                                lineNumber: 91,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23243,7 +23244,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 92,
+                                lineNumber: 93,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23254,7 +23255,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 93,
+                                lineNumber: 94,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23265,7 +23266,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 94,
+                                lineNumber: 95,
                                 columnNumber: 11
                             },
                             __self: undefined
