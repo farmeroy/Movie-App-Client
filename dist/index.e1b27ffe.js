@@ -23100,9 +23100,9 @@ var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
 const MainView = (props)=>{
     _s();
-    [selectedMovie, setSelectedMovie] = _react.useState("");
+    // [selectedMovie, setSelectedMovie] = useState("");
     [user, setUser] = _react.useState("");
-    [registerUser, setRegisterUser] = _react.useState("");
+    // [registerUser, setRegisterUser] = useState("");
     //
     const { movies , userData  } = props;
     const getMovies = (token)=>{
@@ -23137,8 +23137,9 @@ const MainView = (props)=>{
     };
     const onLoggedOut = ()=>{
         setUser('');
-        _actions.setMovies('');
-        _actions.setFavMovies('');
+        props.setMovies('');
+        props.setFavMovies('');
+        props.setUserData('');
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     };
@@ -23159,7 +23160,7 @@ const MainView = (props)=>{
                 onLoggedOut: onLoggedOut,
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 79,
+                    lineNumber: 80,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -23168,14 +23169,14 @@ const MainView = (props)=>{
                 className: "main-view justify-content-md-center row-eq-height",
                 __source: {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 80,
+                    lineNumber: 81,
                     columnNumber: 7
                 },
                 __self: undefined,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/MainView/main-view.jsx",
-                        lineNumber: 81,
+                        lineNumber: 82,
                         columnNumber: 9
                     },
                     __self: undefined,
@@ -23187,7 +23188,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 84,
+                                lineNumber: 85,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23199,7 +23200,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 86,
+                                lineNumber: 87,
                                 columnNumber: 20
                             },
                             __self: undefined
@@ -23211,7 +23212,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 88,
+                                lineNumber: 89,
                                 columnNumber: 13
                             },
                             __self: undefined
@@ -23222,7 +23223,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 90,
+                                lineNumber: 91,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23233,7 +23234,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 91,
+                                lineNumber: 92,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23244,7 +23245,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 93,
+                                lineNumber: 94,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23255,7 +23256,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 94,
+                                lineNumber: 95,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -23266,7 +23267,7 @@ const MainView = (props)=>{
                             }),
                             __source: {
                                 fileName: "src/components/MainView/main-view.jsx",
-                                lineNumber: 95,
+                                lineNumber: 96,
                                 columnNumber: 11
                             },
                             __self: undefined
@@ -41038,7 +41039,16 @@ const MovieCard = (props)=>{
     const { movieData , favMovies  } = props;
     const navigate = _reactRouterDom.useNavigate();
     const movieId1 = movieData._id;
-    const isUserFav = favMovies.find((movie)=>movie._id === movieId1
+    if (!favMovies) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+        __source: {
+            fileName: "src/components/MovieCard/movie-card.jsx",
+            lineNumber: 34,
+            columnNumber: 26
+        },
+        __self: undefined,
+        children: "loading"
+    }));
+    const isUserFav = favMovies.find((movie)=>movie === movieId1
     );
     const removeFavHandler = ()=>{
         const username = localStorage.getItem("user");
@@ -41077,7 +41087,7 @@ const MovieCard = (props)=>{
         bsPrefix: "movie-card",
         __source: {
             fileName: "src/components/MovieCard/movie-card.jsx",
-            lineNumber: 81,
+            lineNumber: 83,
             columnNumber: 5
         },
         __self: undefined,
@@ -41087,7 +41097,7 @@ const MovieCard = (props)=>{
                 src: movieData.ImagePath,
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
-                    lineNumber: 82,
+                    lineNumber: 84,
                     columnNumber: 7
                 },
                 __self: undefined
@@ -41095,7 +41105,7 @@ const MovieCard = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
-                    lineNumber: 83,
+                    lineNumber: 85,
                     columnNumber: 7
                 },
                 __self: undefined,
@@ -41104,7 +41114,7 @@ const MovieCard = (props)=>{
                         bsPrefix: "limelight",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 84,
+                            lineNumber: 86,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41113,7 +41123,7 @@ const MovieCard = (props)=>{
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 85,
+                            lineNumber: 87,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41125,7 +41135,7 @@ const MovieCard = (props)=>{
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 86,
+                            lineNumber: 88,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41135,7 +41145,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 92,
+                            lineNumber: 94,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -41145,7 +41155,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 93,
+                            lineNumber: 95,
                             columnNumber: 24
                         },
                         __self: undefined,
@@ -42094,15 +42104,17 @@ var _visibilityFilterInput = require("../VisibilityFilterInput/visibility-filter
 var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _reactBootstrap = require("react-bootstrap");
 const mapStateToProps = (state)=>{
-    const { visibilityFilter , favMovies  } = state;
+    const { visibilityFilter , favMovies , movies  } = state;
     return {
         visibilityFilter,
-        favMovies
+        favMovies,
+        movies
     };
 };
 const FavMovies = (props)=>{
-    const { visibilityFilter , favMovies  } = props;
-    let filteredMovies = favMovies;
+    const { visibilityFilter , favMovies , movies  } = props;
+    let filteredMovies = movies.filter((movie)=>favMovies.includes(movie._id)
+    );
     if (visibilityFilter !== "") filteredMovies = favMovies.filter((movie)=>movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
     // if (!userData) return <div className="main-view" />;
@@ -42421,8 +42433,7 @@ const UpdateUserForm = (props)=>{
             }
         }).then((response)=>{
             localStorage.setItem("user", enteredUsername);
-            console.log(response);
-            props.setUserData(updatedUser);
+            props.setUserData(response.data);
             hideForm();
         }).catch((error)=>{
             console.log(error);
@@ -42432,7 +42443,7 @@ const UpdateUserForm = (props)=>{
         className: "main-view justify-content-md-center row-eq-height",
         __source: {
             fileName: "src/components/UserProfileView/update-user-form.jsx",
-            lineNumber: 95,
+            lineNumber: 94,
             columnNumber: 5
         },
         __self: undefined,
@@ -42440,14 +42451,14 @@ const UpdateUserForm = (props)=>{
             md: 8,
             __source: {
                 fileName: "src/components/UserProfileView/update-user-form.jsx",
-                lineNumber: 96,
+                lineNumber: 95,
                 columnNumber: 7
             },
             __self: undefined,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
                 __source: {
                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                    lineNumber: 97,
+                    lineNumber: 96,
                     columnNumber: 9
                 },
                 __self: undefined,
@@ -42456,7 +42467,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formUsername",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 98,
+                            lineNumber: 97,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -42464,7 +42475,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 99,
+                                    lineNumber: 98,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -42472,7 +42483,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 100,
+                                        lineNumber: 99,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -42487,7 +42498,7 @@ const UpdateUserForm = (props)=>{
                                 placeholder: userData.Username,
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 102,
+                                    lineNumber: 101,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -42495,7 +42506,7 @@ const UpdateUserForm = (props)=>{
                             usernameHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 109,
+                                    lineNumber: 108,
                                     columnNumber: 34
                                 },
                                 __self: undefined,
@@ -42507,7 +42518,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formPassword",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 112,
+                            lineNumber: 111,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -42515,7 +42526,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 113,
+                                    lineNumber: 112,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -42523,7 +42534,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 114,
+                                        lineNumber: 113,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -42538,7 +42549,7 @@ const UpdateUserForm = (props)=>{
                                 placeholder: "enter a new password",
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 116,
+                                    lineNumber: 115,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -42546,7 +42557,7 @@ const UpdateUserForm = (props)=>{
                             passwordHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 123,
+                                    lineNumber: 122,
                                     columnNumber: 34
                                 },
                                 __self: undefined,
@@ -42558,7 +42569,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formEmail",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 126,
+                            lineNumber: 125,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -42566,7 +42577,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 127,
+                                    lineNumber: 126,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -42574,7 +42585,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 128,
+                                        lineNumber: 127,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -42589,7 +42600,7 @@ const UpdateUserForm = (props)=>{
                                 onBlur: emailTouchHandler,
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 130,
+                                    lineNumber: 129,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -42597,7 +42608,7 @@ const UpdateUserForm = (props)=>{
                             emailHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 137,
+                                    lineNumber: 136,
                                     columnNumber: 31
                                 },
                                 __self: undefined,
@@ -42609,7 +42620,7 @@ const UpdateUserForm = (props)=>{
                         controlId: "formBirthday",
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 140,
+                            lineNumber: 139,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -42617,7 +42628,7 @@ const UpdateUserForm = (props)=>{
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 141,
+                                    lineNumber: 140,
                                     columnNumber: 13
                                 },
                                 __self: undefined,
@@ -42625,7 +42636,7 @@ const UpdateUserForm = (props)=>{
                                     className: "label",
                                     __source: {
                                         fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                        lineNumber: 142,
+                                        lineNumber: 141,
                                         columnNumber: 15
                                     },
                                     __self: undefined,
@@ -42640,7 +42651,7 @@ const UpdateUserForm = (props)=>{
                                 onChange: birthdayChangeHandler,
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 144,
+                                    lineNumber: 143,
                                     columnNumber: 13
                                 },
                                 __self: undefined
@@ -42648,7 +42659,7 @@ const UpdateUserForm = (props)=>{
                             birthdayHasError && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                                 __source: {
                                     fileName: "src/components/UserProfileView/update-user-form.jsx",
-                                    lineNumber: 151,
+                                    lineNumber: 150,
                                     columnNumber: 34
                                 },
                                 __self: undefined,
@@ -42661,7 +42672,7 @@ const UpdateUserForm = (props)=>{
                         onClick: updateUserHandler,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 154,
+                            lineNumber: 153,
                             columnNumber: 11
                         },
                         __self: undefined,
@@ -42672,7 +42683,7 @@ const UpdateUserForm = (props)=>{
                         onClick: hideForm,
                         __source: {
                             fileName: "src/components/UserProfileView/update-user-form.jsx",
-                            lineNumber: 157,
+                            lineNumber: 156,
                             columnNumber: 11
                         },
                         __self: undefined,
