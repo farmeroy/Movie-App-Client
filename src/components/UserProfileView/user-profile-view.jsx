@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import FavMovies from "./fav-movies";
 import UserInfo from "./user-info";
 import { Col, Row } from "react-bootstrap";
@@ -28,5 +29,9 @@ const ProfileView = (props) => {
     </Row>
   );
 };
+
+ProfileView.propTypes = {
+  userData: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps)(ProfileView);

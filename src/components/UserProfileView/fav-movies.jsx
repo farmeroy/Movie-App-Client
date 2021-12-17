@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import MovieCard from "../MovieCard/movie-card.jsx";
 import VisibilityFilterInput from "../VisibilityFilterInput/visibility-filter-input";
@@ -37,6 +38,12 @@ const FavMovies = (props) => {
       {movieCards}
     </>
   );
+};
+
+FavMovies.propTypes = {
+  visibilityFilter: PropTypes.func,
+  movies: PropTypes.array.isRequired,
+  favMovies: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps)(FavMovies);

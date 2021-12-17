@@ -1,4 +1,5 @@
-import { React } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import { Row, Col, Button, Form } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import axios from "axios";
@@ -157,5 +158,10 @@ const UpdateUserForm = (props) => {
     </Row>
   );
 };
+
+UpdateUserForm.propTypes = {
+  hideForm: PropTypes.func.isRequired,
+  userData: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps, { setUserData })(UpdateUserForm);

@@ -1,5 +1,6 @@
-import { React, useState } from "react";
-import { Col, Modal, Button, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import { Modal, Button, Card } from "react-bootstrap";
 import UpdateUserForm from "./update-user-form.jsx";
 import "./user-profile-view.css";
 import axios from "axios";
@@ -77,5 +78,9 @@ const UserInfo = (props) => {
     </Card>
   );
 };
+
+UserInfo.propTypes = {
+  userData: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps)(UserInfo);

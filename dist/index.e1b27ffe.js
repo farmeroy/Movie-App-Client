@@ -28917,7 +28917,6 @@ function LoginView(props) {
                     setIsLoggingIn(false);
                     setNotUser(false);
                 },
-                closebutton: true,
                 __source: {
                     fileName: "src/components/LoginView/login-view.jsx",
                     lineNumber: 97,
@@ -28928,7 +28927,7 @@ function LoginView(props) {
                     __source: {
                         fileName: "src/components/LoginView/login-view.jsx",
                         lineNumber: 97,
-                        columnNumber: 97
+                        columnNumber: 86
                     },
                     __self: this,
                     children: "Please enter an existing username and correct password"
@@ -41235,7 +41234,7 @@ _s(MovieCard, "udeFdXkoVKRtehORCmqt40oNk8o=", false, function() {
 });
 _c = MovieCard;
 MovieCard.propTypes = {
-    favMovies: _propTypesDefault.default.array.isRequired
+    favMovies: _propTypesDefault.default.any.isRequired
 };
 exports.default = _reactRedux.connect(mapStateToProps, {
     addFavMovie: _actions.addFavMovie,
