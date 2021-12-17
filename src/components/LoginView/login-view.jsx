@@ -94,7 +94,7 @@ function LoginView(props) {
       </Button>
     </Form>
       { isLoggingIn && <p className="error">Logging you in, one moment...</p>}
-      <Modal show={notUser} onHide={()=>{setIsLoggingIn(false); setNotUser(false)}} closebutton><Modal.Body>Please enter an existing username and correct password</Modal.Body></Modal> 
+      <Modal show={notUser} onHide={()=>{setIsLoggingIn(false); setNotUser(false)}} ><Modal.Body>Please enter an existing username and correct password</Modal.Body></Modal> 
     </Col>
   );
 }
