@@ -106,7 +106,7 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  favMovies: PropTypes.array.isRequired
+  favMovies: PropTypes.any.isRequired
 }
 
 export default connect(mapStateToProps, { addFavMovie, removeFavMovie })(MovieCard);
