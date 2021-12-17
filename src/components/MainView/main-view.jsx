@@ -23,7 +23,7 @@ const MainView = (props) => {
 
   const getMovies = (token) => {
     axios
-      .get("http://pre-code-flix.herokuapp.com/movies", {
+      .get("https://pre-code-flix.herokuapp.com/movies", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -36,7 +36,7 @@ const MainView = (props) => {
   const getUserData = (token) => {
     const user = localStorage.getItem("user");
     axios
-      .get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
+      .get(`https://pre-code-flix.herokuapp.com/users/${user}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

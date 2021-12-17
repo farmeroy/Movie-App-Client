@@ -23106,7 +23106,7 @@ const MainView = (props)=>{
     const [user1, setUser] = _react.useState("");
     const { movies , userData  } = props;
     const getMovies = (token)=>{
-        _axiosDefault.default.get("http://pre-code-flix.herokuapp.com/movies", {
+        _axiosDefault.default.get("https://pre-code-flix.herokuapp.com/movies", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -23118,7 +23118,7 @@ const MainView = (props)=>{
     };
     const getUserData = (token)=>{
         const user = localStorage.getItem("user");
-        _axiosDefault.default.get(`http://pre-code-flix.herokuapp.com/users/${user}`, {
+        _axiosDefault.default.get(`https://pre-code-flix.herokuapp.com/users/${user}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -41109,7 +41109,7 @@ const MovieCard = (props)=>{
         const movieId = movieData._id;
         const token = localStorage.getItem("token");
         setButtonLoading(true);
-        _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`, {
+        _axiosDefault.default.put(`https://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`, {
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -41129,7 +41129,7 @@ const MovieCard = (props)=>{
         const token = localStorage.getItem("token");
         const movieId = movieData._id;
         setButtonLoading(true);
-        _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`, {
+        _axiosDefault.default.put(`https://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`, {
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -42379,7 +42379,7 @@ const UserInfo = (props)=>{
     const deleteUserHandler = ()=>{
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
-        _axiosDefault.default.delete(`http://pre-code-flix.herokuapp.com/users/${user}/delete`, {
+        _axiosDefault.default.delete(`https://pre-code-flix.herokuapp.com/users/${user}/delete`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -42604,7 +42604,7 @@ const UpdateUserForm = (props)=>{
             Email: enteredEmail,
             Birthday: new Date(enteredBirthday)
         };
-        _axiosDefault.default.put(`http://pre-code-flix.herokuapp.com/users/${user}/update`, updatedUser, {
+        _axiosDefault.default.put(`https://pre-code-flix.herokuapp.com/users/${user}/update`, updatedUser, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

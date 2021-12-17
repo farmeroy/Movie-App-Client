@@ -77,7 +77,7 @@ const UpdateUserForm = (props) => {
     };
     axios
       .put(
-        `http://pre-code-flix.herokuapp.com/users/${user}/update`,
+        `https://pre-code-flix.herokuapp.com/users/${user}/update`,
         updatedUser,
         { headers: { Authorization: `Bearer ${token}` } }
       )

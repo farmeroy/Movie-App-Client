@@ -43,7 +43,7 @@ const MovieCard = (props) => {
     setButtonLoading(true);
     axios
       .put(
-        `http://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`,
+        `https://pre-code-flix.herokuapp.com/users/${username}/movies/remove/${movieId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -68,7 +68,7 @@ const MovieCard = (props) => {
     setButtonLoading(true);
     axios
       .put(
-        `http://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`,
+        `https://pre-code-flix.herokuapp.com/users/${username}/movies/${movieId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -19,7 +19,7 @@ const UserInfo = (props) => {
     const user = localStorage.getItem("user");
 
     axios
-      .delete(`http://pre-code-flix.herokuapp.com/users/${user}/delete`, {
+      .delete(`https://pre-code-flix.herokuapp.com/users/${user}/delete`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
