@@ -17,7 +17,7 @@ import { setMovies, setUserData, setFavMovies } from "../../actions/actions";
 
 const MainView = (props) => {
 
-  [user, setUser] = useState("");
+  const [user, setUser] = useState("");
 
   const { movies, userData } = props;
 

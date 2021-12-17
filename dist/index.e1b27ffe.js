@@ -23103,7 +23103,7 @@ var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
 const MainView = (props)=>{
     _s();
-    [user, setUser] = _react.useState("");
+    const [user1, setUser] = _react.useState("");
     const { movies , userData  } = props;
     const getMovies = (token)=>{
         _axiosDefault.default.get("http://pre-code-flix.herokuapp.com/movies", {
@@ -23153,7 +23153,7 @@ const MainView = (props)=>{
             getUserData(accessToken);
         }
     }, [
-        user
+        user1
     ]);
     const dataIsLoaded = movies && userData;
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
@@ -23183,7 +23183,7 @@ const MainView = (props)=>{
                     },
                     __self: undefined,
                     children: [
-                        user && !dataIsLoaded && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                        user1 && !dataIsLoaded && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/",
                             element: /*#__PURE__*/ _jsxRuntime.jsx("div", {
                                 className: "main-view",
@@ -23196,7 +23196,7 @@ const MainView = (props)=>{
                             },
                             __self: undefined
                         }),
-                        user && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                        user1 && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_moviesJsxDefault.default, {
                             }),
@@ -23207,7 +23207,7 @@ const MainView = (props)=>{
                             },
                             __self: undefined
                         }),
-                        !user && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                        !user1 && /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                             path: "/",
                             element: /*#__PURE__*/ _jsxRuntime.jsx(_loginViewDefault.default, {
                                 onLoggedIn: onLoggedIn
@@ -23280,7 +23280,7 @@ const MainView = (props)=>{
         ]
     }));
 };
-_s(MainView, "OD7bBpZva5O2jO+Puf00hKivP7c=");
+_s(MainView, "1fGzjkuHsXOBknpXtE/CndQyig0=");
 _c = MainView;
 const mapStateToProps = (state)=>{
     return {
