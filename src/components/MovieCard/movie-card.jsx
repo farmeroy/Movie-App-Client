@@ -89,9 +89,11 @@ const MovieCard = (props) => {
   return (
     <Card bsPrefix="movie-card">
       <Card.Img variant="top" src={movieData.ImagePath} />
-      <Card.Body>
+      <Card.Body bsPrefix="card-body">
         <Card.Title bsPrefix="limelight">{movieData.Title}</Card.Title>
-        <Card.Text>{truncateText(movieData.Description)}</Card.Text>
+        <Card.Text bsPrefix="card-text">{truncateText(movieData.Description)}</Card.Text>
+              </Card.Body>
+<Card.Footer bsPrefix="card-footer" >
         <Button
           onClick={() => navigate(`/movies/${movieId}`)}
           variant="link-dark"
@@ -100,7 +102,8 @@ const MovieCard = (props) => {
         </Button>
         {isUserFav && <Button disabled={buttonLoading} onClick={removeFavHandler}>{buttonLoading ? 'Loading... ': 'Unlike'}</Button>}
         {!isUserFav && <Button disabled={buttonLoading} onClick={addFavHandler}>{buttonLoading ? 'Loading... ': 'Like'}</Button>}
-      </Card.Body>
+      </Card.Footer>
+
     </Card>
   );
 };
