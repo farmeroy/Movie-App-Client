@@ -41163,6 +41163,7 @@ const MovieCard = (props)=>{
                 __self: undefined
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
+                bsPrefix: "card-body",
                 __source: {
                     fileName: "src/components/MovieCard/movie-card.jsx",
                     lineNumber: 92,
@@ -41181,6 +41182,7 @@ const MovieCard = (props)=>{
                         children: movieData.Title
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
+                        bsPrefix: "card-text",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
                             lineNumber: 94,
@@ -41188,14 +41190,25 @@ const MovieCard = (props)=>{
                         },
                         __self: undefined,
                         children: truncateText(movieData.Description)
-                    }),
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Footer, {
+                bsPrefix: "card-footer",
+                __source: {
+                    fileName: "src/components/MovieCard/movie-card.jsx",
+                    lineNumber: 96,
+                    columnNumber: 1
+                },
+                __self: undefined,
+                children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                         onClick: ()=>navigate(`/movies/${movieId1}`)
                         ,
                         variant: "link-dark",
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 95,
+                            lineNumber: 97,
                             columnNumber: 9
                         },
                         __self: undefined,
@@ -41206,7 +41219,7 @@ const MovieCard = (props)=>{
                         onClick: removeFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 101,
+                            lineNumber: 103,
                             columnNumber: 23
                         },
                         __self: undefined,
@@ -41217,7 +41230,7 @@ const MovieCard = (props)=>{
                         onClick: addFavHandler,
                         __source: {
                             fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 102,
+                            lineNumber: 104,
                             columnNumber: 24
                         },
                         __self: undefined,
